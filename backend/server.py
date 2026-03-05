@@ -34,6 +34,8 @@ class Politician(BaseModel):
     suspicious_count: int = 0
     verified: bool = False
     image_url: Optional[str] = None
+    instagram: Optional[str] = None
+    twitter: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
