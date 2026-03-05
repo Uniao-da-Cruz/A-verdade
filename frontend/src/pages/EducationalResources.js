@@ -93,7 +93,7 @@ const EducationalResources = () => {
   const [selectedResource, setSelectedResource] = useState(null);
   const [filter, setFilter] = useState("all");
 
-  const categories = ["all", "Teoria Política", "Dados Eleitorais", "História Política", "Documentação"];
+  const categories = ["all", "Teoria Política", "Dados Eleitorais", "História Política", "Cultura Digital", "Documentação"];
 
   const filteredResources = filter === "all" 
     ? RESOURCES 
