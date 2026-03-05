@@ -412,7 +412,7 @@ const Dashboard = () => {
         </div>
 
         {/* YouTube Vigilance Section */}
-        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6">
+        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6 mb-6">
           <div className="flex items-start gap-4">
             <Youtube className="w-6 h-6 text-corruption-red flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -433,6 +433,61 @@ const Dashboard = () => {
                 </a>
                 <span className="text-zinc-600 text-xs">•</span>
                 <span className="text-zinc-500 text-xs font-mono">Transmissões ao vivo de sessões e debates</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Government Portal Section */}
+        <div className="bg-gradient-to-r from-neon-green/10 to-transparent border border-neon-green/20 p-6">
+          <div className="flex items-start gap-4">
+            <Activity className="w-6 h-6 text-neon-green flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Portal do Governo Federal</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Acesse serviços públicos, transparência governamental e informações oficiais do Governo Federal
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a 
+                  href="https://www.gov.br/pt-br" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-neon-green/10 hover:bg-neon-green/20 border border-neon-green/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="govbr-portal-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-neon-green" />
+                  <span className="text-xs font-mono uppercase text-neon-green">Portal Gov.br</span>
+                </a>
+                <a 
+                  href="https://falabr.cgu.gov.br/web/home" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="fala-br-link"
+                >
+                  <AlertTriangle className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">Fala.BR (Ouvidoria)</span>
+                </a>
+                <a 
+                  href="https://www.gov.br/acessoainformacao/pt-br" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="lai-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Acesso à Informação</span>
+                </a>
+                <a 
+                  href="https://www.portaltransparencia.gov.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="transparencia-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Portal da Transparência</span>
+                </a>
               </div>
             </div>
           </div>
