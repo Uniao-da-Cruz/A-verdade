@@ -316,6 +316,57 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* Official Sources Banner */}
+        <div className="mt-12 bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6">
+          <div className="flex items-start gap-4">
+            <Activity className="w-6 h-6 text-republic-blue flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Fontes Oficiais de Dados</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Todos os dados políticos podem ser verificados nos portais oficiais da Câmara dos Deputados:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a 
+                  href="https://www.camara.leg.br/tv" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono uppercase text-republic-blue hover:text-blue-300 transition-colors"
+                  data-testid="source-link-tv"
+                >
+                  TV Câmara →
+                </a>
+                <a 
+                  href="https://www.camara.leg.br/deputados/quem-sao" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono uppercase text-republic-blue hover:text-blue-300 transition-colors"
+                  data-testid="source-link-deputados"
+                >
+                  Deputados →
+                </a>
+                <a 
+                  href="https://dadosabertos.camara.leg.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono uppercase text-republic-blue hover:text-blue-300 transition-colors"
+                  data-testid="source-link-dados"
+                >
+                  Dados Abertos →
+                </a>
+                <a 
+                  href="https://www.camara.leg.br/transparencia/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono uppercase text-republic-blue hover:text-blue-300 transition-colors"
+                  data-testid="source-link-transparencia"
+                >
+                  Transparência →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
