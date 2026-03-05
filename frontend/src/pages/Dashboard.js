@@ -107,6 +107,13 @@ const Dashboard = () => {
                 className="pl-10 bg-black/50 border-white/20 focus:border-neon-green font-mono text-sm w-64"
               />
             </div>
+            <Button
+              onClick={() => navigate('/spectrum')}
+              className="bg-neon-green hover:bg-green-600 text-black font-mono text-xs uppercase px-4 py-2"
+              data-testid="spectrum-analysis-btn"
+            >
+              Espectro Político
+            </Button>
           </div>
         </div>
       </nav>
