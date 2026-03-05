@@ -361,7 +361,7 @@ const Dashboard = () => {
         </div>
 
         {/* Official Sources Banner */}
-        <div className="mt-12 bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6">
+        <div className="mt-12 bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6 mb-6">
           <div className="flex items-start gap-4">
             <Activity className="w-6 h-6 text-republic-blue flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -406,6 +406,33 @@ const Dashboard = () => {
                 >
                   Transparência →
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* YouTube Vigilance Section */}
+        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6">
+          <div className="flex items-start gap-4">
+            <Youtube className="w-6 h-6 text-corruption-red flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Vigilância no YouTube</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Monitore sessões ao vivo, discursos e atividades parlamentares no canal oficial da Câmara dos Deputados
+              </p>
+              <div className="flex flex-wrap gap-3 items-center">
+                <a 
+                  href="https://www.youtube.com/channel/UC-ZkSRh-7UEuwXJQ9UMCFJA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-corruption-red/10 hover:bg-corruption-red/20 border border-corruption-red/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="youtube-camara-link"
+                >
+                  <Youtube className="w-4 h-4 text-corruption-red" />
+                  <span className="text-xs font-mono uppercase text-corruption-red">Canal da Câmara</span>
+                </a>
+                <span className="text-zinc-600 text-xs">•</span>
+                <span className="text-zinc-500 text-xs font-mono">Transmissões ao vivo de sessões e debates</span>
               </div>
             </div>
           </div>
