@@ -191,7 +191,7 @@ const Dashboard = () => {
         </div>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
           {/* Politicians List */}
           <div className="space-y-4">
             <h2 className="font-chivo font-bold text-2xl mb-6">Monitored Politicians</h2>
