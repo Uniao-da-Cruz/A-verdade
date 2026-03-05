@@ -166,6 +166,17 @@ const LandingPage = () => {
                 </li>
                 <li>
                   <a 
+                    href="https://www.youtube.com/channel/UC-ZkSRh-7UEuwXJQ9UMCFJA" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-corruption-red transition-colors"
+                    data-testid="link-youtube"
+                  >
+                    YouTube Câmara
+                  </a>
+                </li>
+                <li>
+                  <a 
                     href="https://www.camara.leg.br/deputados/quem-sao" 
                     target="_blank" 
                     rel="noopener noreferrer"
