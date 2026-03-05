@@ -12,7 +12,8 @@ politicians_data = [
         "position": "Federal Deputy", 
         "wallets": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "0x8e5e9c6d4a3b2c1f0e9d8c7b6a5f4e3d2c1b0a"],
         "instagram": "gustavo.lima.de.amorim",
-        "twitter": "gustavolimabr"
+        "twitter": "gustavolimabr",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     },
     {
         "name": "Carlos Eduardo Silva", 
@@ -20,7 +21,8 @@ politicians_data = [
         "position": "Federal Deputy", 
         "wallets": ["0x1f4b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a", "0x9f8e7d6c5b4a3c2d1e0f9e8d7c6b5a4f3e2d1c"],
         "instagram": "carlossilvapt",
-        "twitter": "carlossilva"
+        "twitter": "carlossilva",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     },
     {
         "name": "Maria Santos Oliveira", 
@@ -28,7 +30,8 @@ politicians_data = [
         "position": "Senator", 
         "wallets": ["0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a"],
         "instagram": "mariasantos_oficial",
-        "twitter": "mariasantos"
+        "twitter": "mariasantos",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     },
     {
         "name": "João Pedro Costa", 
@@ -42,7 +45,8 @@ politicians_data = [
         "party": "PP", 
         "position": "Federal Deputy", 
         "wallets": ["0x5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3"],
-        "instagram": "anapaula_pp"
+        "instagram": "anapaula_pp",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     },
     {
         "name": "Roberto Almeida", 
@@ -56,7 +60,8 @@ politicians_data = [
         "party": "PDT", 
         "position": "Senator", 
         "wallets": ["0xb1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9"],
-        "instagram": "fernandarod_pdt"
+        "instagram": "fernandarod_pdt",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     },
     {
         "name": "Lucas Ferreira", 
@@ -71,7 +76,8 @@ politicians_data = [
         "party": "Novo", 
         "position": "Federal Deputy", 
         "wallets": ["0xf5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3", "0xa6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"],
-        "instagram": "patriciagomes.novo"
+        "instagram": "patriciagomes.novo",
+        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
     }
 ]
 
