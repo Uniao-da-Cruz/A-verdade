@@ -214,6 +214,37 @@ const Dashboard = () => {
                     <div className="flex-1">
                       <h3 className="font-chivo font-bold text-xl mb-1">{politician.name}</h3>
                       <p className="text-zinc-500 text-sm mb-3">{politician.party} • {politician.position}</p>
+                      
+                      {/* Social Media Links */}
+                      {(politician.instagram || politician.twitter) && (
+                        <div className="flex gap-2 mb-3">
+                          {politician.instagram && (
+                            <a
+                              href={`https://www.instagram.com/${politician.instagram}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-neon-green hover:text-green-400 transition-colors"
+                              data-testid={`politician-instagram-${idx}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Instagram className="w-4 h-4" />
+                            </a>
+                          )}
+                          {politician.twitter && (
+                            <a
+                              href={`https://twitter.com/${politician.twitter}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-alert-yellow hover:text-yellow-400 transition-colors"
+                              data-testid={`politician-twitter-${idx}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                        </div>
+                      )}
+                      
                       <div className="flex gap-2 mb-3">
                         {politician.verified && (
                           <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs font-mono uppercase">
