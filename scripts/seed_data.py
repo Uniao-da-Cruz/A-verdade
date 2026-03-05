@@ -6,14 +6,73 @@ BACKEND_URL = "https://crypto-politics-1.preview.emergentagent.com/api"
 
 # Brazilian politician names and parties
 politicians_data = [
-    {"name": "Carlos Eduardo Silva", "party": "PT", "position": "Federal Deputy", "wallets": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "0x8e5e9c6d4a3b2c1f0e9d8c7b6a5f4e3d2c1b0a"]},
-    {"name": "Maria Santos Oliveira", "party": "PSDB", "position": "Senator", "wallets": ["0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a"]},
-    {"name": "João Pedro Costa", "party": "MDB", "position": "State Deputy", "wallets": ["0x9f8e7d6c5b4a3c2d1e0f9e8d7c6b5a4f3e2d1c", "0x3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1"]},
-    {"name": "Ana Paula Lima", "party": "PP", "position": "Federal Deputy", "wallets": ["0x5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3"]},
-    {"name": "Roberto Almeida", "party": "PSB", "position": "Mayor", "wallets": ["0x7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5", "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7"]},
-    {"name": "Fernanda Rodrigues", "party": "PDT", "position": "Senator", "wallets": ["0xb1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9"]},
-    {"name": "Lucas Ferreira", "party": "PSOL", "position": "State Deputy", "wallets": ["0xd3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1"]},
-    {"name": "Patricia Gomes", "party": "Novo", "position": "Federal Deputy", "wallets": ["0xf5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3", "0xa6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"]}
+    {
+        "name": "Gustavo Lima de Amorim", 
+        "party": "União Brasil", 
+        "position": "Federal Deputy", 
+        "wallets": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "0x8e5e9c6d4a3b2c1f0e9d8c7b6a5f4e3d2c1b0a"],
+        "instagram": "gustavo.lima.de.amorim",
+        "twitter": "gustavolimabr"
+    },
+    {
+        "name": "Carlos Eduardo Silva", 
+        "party": "PT", 
+        "position": "Federal Deputy", 
+        "wallets": ["0x1f4b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a", "0x9f8e7d6c5b4a3c2d1e0f9e8d7c6b5a4f3e2d1c"],
+        "instagram": "carlossilvapt",
+        "twitter": "carlossilva"
+    },
+    {
+        "name": "Maria Santos Oliveira", 
+        "party": "PSDB", 
+        "position": "Senator", 
+        "wallets": ["0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a"],
+        "instagram": "mariasantos_oficial",
+        "twitter": "mariasantos"
+    },
+    {
+        "name": "João Pedro Costa", 
+        "party": "MDB", 
+        "position": "State Deputy", 
+        "wallets": ["0x9f8e7d6c5b4a3c2d1e0f9e8d7c6b5a4f3e2d1c", "0x3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1"],
+        "instagram": "joaopedro.mdb"
+    },
+    {
+        "name": "Ana Paula Lima", 
+        "party": "PP", 
+        "position": "Federal Deputy", 
+        "wallets": ["0x5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3"],
+        "instagram": "anapaula_pp"
+    },
+    {
+        "name": "Roberto Almeida", 
+        "party": "PSB", 
+        "position": "Mayor", 
+        "wallets": ["0x7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5", "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7"],
+        "twitter": "robertoalmeidapsb"
+    },
+    {
+        "name": "Fernanda Rodrigues", 
+        "party": "PDT", 
+        "position": "Senator", 
+        "wallets": ["0xb1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9"],
+        "instagram": "fernandarod_pdt"
+    },
+    {
+        "name": "Lucas Ferreira", 
+        "party": "PSOL", 
+        "position": "State Deputy", 
+        "wallets": ["0xd3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1"],
+        "instagram": "lucasferreirapsol",
+        "twitter": "lucaspsol"
+    },
+    {
+        "name": "Patricia Gomes", 
+        "party": "Novo", 
+        "position": "Federal Deputy", 
+        "wallets": ["0xf5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3", "0xa6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"],
+        "instagram": "patriciagomes.novo"
+    }
 ]
 
 def create_politicians():
