@@ -116,6 +116,32 @@ const PoliticianProfile = () => {
                   <ExternalLink className="w-3 h-3 mr-2" />
                   Verificar na Câmara
                 </Button>
+                
+                {politician.instagram && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(`https://www.instagram.com/${politician.instagram}`, '_blank')}
+                    className="bg-transparent border border-neon-green/50 text-neon-green hover:bg-neon-green/10 text-xs font-mono uppercase"
+                    data-testid="instagram-btn"
+                  >
+                    <Instagram className="w-3 h-3 mr-2" />
+                    Instagram
+                  </Button>
+                )}
+                
+                {politician.twitter && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(`https://twitter.com/${politician.twitter}`, '_blank')}
+                    className="bg-transparent border border-alert-yellow/50 text-alert-yellow hover:bg-alert-yellow/10 text-xs font-mono uppercase"
+                    data-testid="twitter-btn"
+                  >
+                    <ExternalLink className="w-3 h-3 mr-2" />
+                    Twitter
+                  </Button>
+                )}
               </div>
               
               <div className="flex gap-2 mb-6">
