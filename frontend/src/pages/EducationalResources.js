@@ -16,6 +16,30 @@ const RESOURCES = [
   },
   {
     id: 2,
+    title: "Composição da Câmara dos Deputados 2022",
+    description: "Análise da composição partidária da Câmara após eleições 2022, mostrando maiores bancadas e variações desde 2018. PL elegeu 99 deputados, maior número desde 1998.",
+    imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/eo06mq8w_composicao-camara-senado-out-2022_info-1-1.png",
+    category: "Dados Eleitorais",
+    type: "Infográfico"
+  },
+  {
+    id: 3,
+    title: "Conceitos Básicos de Política",
+    description: "Fundamentos essenciais para compreensão do sistema político brasileiro e terminologia política",
+    imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/y9altrhz_Conceitos_basicos.jpg",
+    category: "Teoria Política",
+    type: "Guia"
+  },
+  {
+    id: 4,
+    title: "Referência Visual Política",
+    description: "Material visual complementar sobre contexto político brasileiro",
+    imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/t38cjdwq_images.jpeg",
+    category: "Documentação",
+    type: "Imagem"
+  },
+  {
+    id: 5,
     title: "História da União Europeia (1940-2020)",
     description: "Linha do tempo histórica mostrando os principais marcos da formação e evolução da União Europeia",
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/ge1hql73_LINHA_DO_TEMPO_HISTORIA_DA_UE.png",
@@ -23,7 +47,7 @@ const RESOURCES = [
     type: "Linha do Tempo"
   },
   {
-    id: 3,
+    id: 6,
     title: "Referência Política 1",
     description: "Material de referência sobre contexto político brasileiro",
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/jggaig16_IMG-20260227-WA0262.jpg",
@@ -31,7 +55,7 @@ const RESOURCES = [
     type: "Imagem"
   },
   {
-    id: 4,
+    id: 7,
     title: "Referência Política 2",
     description: "Material adicional sobre análise política",
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/vbeugwcc_IMG-20260118-WA0236.jpg",
@@ -39,7 +63,7 @@ const RESOURCES = [
     type: "Imagem"
   },
   {
-    id: 5,
+    id: 8,
     title: "Referência Política 3",
     description: "Conteúdo complementar sobre vigilância política",
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/sbwly6sb_images%20%283%29.jpeg",
