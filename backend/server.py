@@ -45,6 +45,8 @@ class PoliticianCreate(BaseModel):
     position: str
     wallets: List[str] = Field(default_factory=list)
     image_url: Optional[str] = None
+    instagram: Optional[str] = None
+    twitter: Optional[str] = None
 
 
 class Transaction(BaseModel):
