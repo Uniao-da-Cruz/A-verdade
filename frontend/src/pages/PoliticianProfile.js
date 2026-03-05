@@ -130,6 +130,19 @@ const PoliticianProfile = () => {
                   </Button>
                 )}
                 
+                {politician.youtube && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(`https://www.youtube.com/channel/${politician.youtube}`, '_blank')}
+                    className="bg-transparent border border-corruption-red/50 text-corruption-red hover:bg-corruption-red/10 text-xs font-mono uppercase"
+                    data-testid="youtube-btn"
+                  >
+                    <Youtube className="w-3 h-3 mr-2" />
+                    YouTube
+                  </Button>
+                )}
+                
                 {politician.twitter && (
                   <Button
                     variant="outline"
