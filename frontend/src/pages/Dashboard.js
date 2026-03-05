@@ -569,7 +569,7 @@ const Dashboard = () => {
         </div>
 
         {/* Google Maps Integration - Political Locations */}
-        <div className="bg-gradient-to-r from-alert-yellow/10 to-transparent border border-alert-yellow/20 p-6">
+        <div className="bg-gradient-to-r from-alert-yellow/10 to-transparent border border-alert-yellow/20 p-6 mb-6">
           <div className="flex items-start gap-4 mb-4">
             <MapPin className="w-6 h-6 text-alert-yellow flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -637,6 +637,81 @@ const Dashboard = () => {
               <MapPin className="w-3 h-3 text-corruption-red" />
               <span className="text-xs font-mono uppercase text-corruption-red">Explorar</span>
             </a>
+          </div>
+        </div>
+
+        {/* TSE - Electoral Transparency */}
+        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-6 h-6 text-corruption-red flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">TSE - Transparência Eleitoral</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Monitore financiamento de campanhas, prestação de contas eleitorais e dados sobre eleições
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <a 
+                  href="https://www.tse.jus.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-corruption-red/10 hover:bg-corruption-red/20 border border-corruption-red/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-portal-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-corruption-red" />
+                  <span className="text-xs font-mono uppercase text-corruption-red">Portal TSE</span>
+                </a>
+                <a 
+                  href="https://divulgacandcontas.tse.jus.br/divulga/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-candidaturas-link"
+                >
+                  <Users className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">Candidaturas e Contas</span>
+                </a>
+                <a 
+                  href="https://www.tse.jus.br/eleicoes/estatisticas/estatisticas" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-estatisticas-link"
+                >
+                  <Activity className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Estatísticas Eleitorais</span>
+                </a>
+                <a 
+                  href="https://www.tse.jus.br/partidos/contas-partidarias/contas-partidarias" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-neon-green/10 hover:bg-neon-green/20 border border-neon-green/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-contas-partidarias-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-neon-green" />
+                  <span className="text-xs font-mono uppercase text-neon-green">Contas Partidárias</span>
+                </a>
+                <a 
+                  href="https://www.tse.jus.br/transparencia-e-prestacao-de-contas" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-transparencia-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Transparência TSE</span>
+                </a>
+                <a 
+                  href="https://www.tse.jus.br/servicos-eleitorais/servicos/ouvidoria-tse" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="tse-ouvidoria-link"
+                >
+                  <AlertTriangle className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">Ouvidoria TSE</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </main>
