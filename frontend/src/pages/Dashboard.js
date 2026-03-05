@@ -439,7 +439,7 @@ const Dashboard = () => {
         </div>
 
         {/* Government Portal Section */}
-        <div className="bg-gradient-to-r from-neon-green/10 to-transparent border border-neon-green/20 p-6">
+        <div className="bg-gradient-to-r from-neon-green/10 to-transparent border border-neon-green/20 p-6 mb-6">
           <div className="flex items-start gap-4">
             <Activity className="w-6 h-6 text-neon-green flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -487,6 +487,81 @@ const Dashboard = () => {
                 >
                   <ExternalLink className="w-4 h-4 text-republic-blue" />
                   <span className="text-xs font-mono uppercase text-republic-blue">Portal da Transparência</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* State Government Transparency - Rio de Janeiro */}
+        <div className="bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6">
+          <div className="flex items-start gap-4">
+            <Activity className="w-6 h-6 text-republic-blue flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Transparência Estadual - Rio de Janeiro</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Monitore orçamento, receitas, despesas, licitações e contratos do Governo do Estado do Rio de Janeiro
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <a 
+                  href="https://www.rj.gov.br/transparencia/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="rj-transparencia-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Portal Transparência RJ</span>
+                </a>
+                <a 
+                  href="https://www.rj.gov.br/transparencia/receitas" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-neon-green/10 hover:bg-neon-green/20 border border-neon-green/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="rj-receitas-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-neon-green" />
+                  <span className="text-xs font-mono uppercase text-neon-green">Receitas RJ</span>
+                </a>
+                <a 
+                  href="https://www.rj.gov.br/transparencia/despesas" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-corruption-red/10 hover:bg-corruption-red/20 border border-corruption-red/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="rj-despesas-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-corruption-red" />
+                  <span className="text-xs font-mono uppercase text-corruption-red">Despesas RJ</span>
+                </a>
+                <a 
+                  href="https://www.rj.gov.br/remuneracao/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="rj-remuneracao-link"
+                >
+                  <Users className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">Remunerações RJ</span>
+                </a>
+                <a 
+                  href="https://www.rj.gov.br/ouverj/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="ouverj-link"
+                >
+                  <AlertTriangle className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">OuvERJ (Ouvidoria)</span>
+                </a>
+                <a 
+                  href="https://dadosabertos.rj.gov.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="rj-dados-abertos-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">Dados Abertos RJ</span>
                 </a>
               </div>
             </div>
