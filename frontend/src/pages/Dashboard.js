@@ -108,6 +108,13 @@ const Dashboard = () => {
               />
             </div>
             <Button
+              onClick={() => navigate('/resources')}
+              className="bg-republic-blue hover:bg-blue-600 text-white font-mono text-xs uppercase px-4 py-2"
+              data-testid="resources-btn"
+            >
+              Recursos
+            </Button>
+            <Button
               onClick={() => navigate('/spectrum')}
               className="bg-neon-green hover:bg-green-600 text-black font-mono text-xs uppercase px-4 py-2"
               data-testid="spectrum-analysis-btn"
