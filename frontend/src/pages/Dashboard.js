@@ -216,7 +216,7 @@ const Dashboard = () => {
                       <p className="text-zinc-500 text-sm mb-3">{politician.party} • {politician.position}</p>
                       
                       {/* Social Media Links */}
-                      {(politician.instagram || politician.twitter) && (
+                      {(politician.instagram || politician.twitter || politician.youtube) && (
                         <div className="flex gap-2 mb-3">
                           {politician.instagram && (
                             <a
@@ -228,6 +228,18 @@ const Dashboard = () => {
                               onClick={(e) => e.stopPropagation()}
                             >
                               <Instagram className="w-4 h-4" />
+                            </a>
+                          )}
+                          {politician.youtube && (
+                            <a
+                              href={`https://www.youtube.com/channel/${politician.youtube}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-corruption-red hover:text-red-400 transition-colors"
+                              data-testid={`politician-youtube-${idx}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Youtube className="w-4 h-4" />
                             </a>
                           )}
                           {politician.twitter && (
