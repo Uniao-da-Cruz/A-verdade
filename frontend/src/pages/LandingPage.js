@@ -144,8 +144,79 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-white/10 bg-black">
-        <div className="container mx-auto text-center">
-          <p className="text-zinc-600 text-sm font-mono">Vigília © 2026 | Blockchain Politics Vigilance</p>
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+            <div>
+              <h3 className="font-chivo font-bold text-lg mb-3 text-neon-green">Vigília</h3>
+              <p className="text-zinc-500 text-sm">Blockchain Politics Vigilance para transparência política no Brasil</p>
+            </div>
+            <div>
+              <h4 className="font-chivo font-bold text-sm mb-3 text-zinc-400 uppercase">Fontes Oficiais</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a 
+                    href="https://www.camara.leg.br/tv" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                    data-testid="link-camara-tv"
+                  >
+                    TV Câmara dos Deputados
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.camara.leg.br/deputados/quem-sao" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                    data-testid="link-deputados"
+                  >
+                    Portal dos Deputados
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://dadosabertos.camara.leg.br/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                    data-testid="link-dados-abertos"
+                  >
+                    Dados Abertos
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-chivo font-bold text-sm mb-3 text-zinc-400 uppercase">Transparência</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a 
+                    href="https://www.camara.leg.br/transparencia/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                  >
+                    Portal Transparência
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.camara.leg.br/noticias" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                  >
+                    Agência Câmara
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-6 text-center">
+            <p className="text-zinc-600 text-sm font-mono">Vigília © 2026 | Blockchain Politics Vigilance</p>
+          </div>
         </div>
       </footer>
     </div>
