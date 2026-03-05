@@ -31,6 +31,12 @@ const VIDEOS = [
     title: "Análise Política - Vídeo 4",
     url: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/fh56ds1i_58d02b94cb23cbbd7f021204a3b75f53.mp4",
     description: "Análise de corrupção"
+  },
+  {
+    id: 5,
+    title: "Discussão Política - Vídeo 5",
+    url: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/vh8n23k7_RDT_20260115_234056.mp4",
+    description: "Material adicional de análise política"
   }
 ];
 
