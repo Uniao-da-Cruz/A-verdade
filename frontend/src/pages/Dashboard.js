@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Search, AlertTriangle, Activity, Users, TrendingUp, Menu, X } from "lucide-react";
+import { Search, AlertTriangle, Activity, Users, TrendingUp, Menu, X, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
