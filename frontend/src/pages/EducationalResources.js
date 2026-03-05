@@ -69,6 +69,22 @@ const RESOURCES = [
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/sbwly6sb_images%20%283%29.jpeg",
     category: "Documentação",
     type: "Imagem"
+  },
+  {
+    id: 9,
+    title: "Moralidade e Julgamento Estético",
+    description: "Reflexão filosófica sobre critérios morais e percepção de heroísmo vs vilania baseada em estética",
+    imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/2b7dh1tz_RDT_20260203_1929061402644466279578807.jpg",
+    category: "Cultura Digital",
+    type: "Meme"
+  },
+  {
+    id: 10,
+    title: "Discussão Legal - Pirataria no Brasil",
+    description: "Post do Reddit sobre interpretação legal da pirataria no Brasil (Art. 184 Código Penal) - uso pessoal sem lucro",
+    imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/4thj4mqz_RDT_20251112_0542022394334406172182477.jpg",
+    category: "Cultura Digital",
+    type: "Screenshot"
   }
 ];
 
