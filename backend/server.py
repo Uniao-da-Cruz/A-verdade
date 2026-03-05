@@ -48,6 +48,7 @@ class PoliticianCreate(BaseModel):
     image_url: Optional[str] = None
     instagram: Optional[str] = None
     twitter: Optional[str] = None
+    youtube: Optional[str] = None
 
 
 class Transaction(BaseModel):
