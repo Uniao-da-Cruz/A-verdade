@@ -204,22 +204,42 @@ const LandingPage = () => {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a 
-                    href="https://www.camara.leg.br/transparencia/" 
+                    href="https://www.gov.br/pt-br" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-zinc-500 hover:text-neon-green transition-colors"
                   >
-                    Portal Transparência
+                    Portal Gov.br
                   </a>
                 </li>
                 <li>
                   <a 
-                    href="https://www.camara.leg.br/noticias" 
+                    href="https://www.portaltransparencia.gov.br/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-zinc-500 hover:text-neon-green transition-colors"
                   >
-                    Agência Câmara
+                    Portal da Transparência
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://falabr.cgu.gov.br/web/home" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-alert-yellow transition-colors"
+                  >
+                    Fala.BR (Ouvidoria)
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.gov.br/acessoainformacao/pt-br" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-neon-green transition-colors"
+                  >
+                    Acesso à Informação
                   </a>
                 </li>
               </ul>
