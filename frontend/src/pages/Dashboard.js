@@ -494,7 +494,7 @@ const Dashboard = () => {
         </div>
 
         {/* State Government Transparency - Rio de Janeiro */}
-        <div className="bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6">
+        <div className="bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6 mb-6">
           <div className="flex items-start gap-4">
             <Activity className="w-6 h-6 text-republic-blue flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -554,7 +554,7 @@ const Dashboard = () => {
                   <span className="text-xs font-mono uppercase text-alert-yellow">OuvERJ (Ouvidoria)</span>
                 </a>
                 <a 
-                  href="https://dadosabertos.rj.gov.br/" 
+                  href="https://www.rj.gov.br/transparencia/obras" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
@@ -565,6 +565,78 @@ const Dashboard = () => {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Google Maps Integration - Political Locations */}
+        <div className="bg-gradient-to-r from-alert-yellow/10 to-transparent border border-alert-yellow/20 p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <MapPin className="w-6 h-6 text-alert-yellow flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Mapa de Vigilância Política</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Visualize localizações importantes: Câmara dos Deputados, Congresso Nacional, escritórios políticos e obras públicas monitoradas
+              </p>
+            </div>
+          </div>
+          
+          {/* Embedded Google Map */}
+          <div className="w-full h-96 bg-zinc-900/50 border border-white/10 rounded-none overflow-hidden" data-testid="google-maps-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.3427893766524!2d-47.88059492464395!3d-15.799681084760787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3b2d27a0c4b9%3A0xe69f8c0b9d7f5c5d!2sCongresso%20Nacional!5e0!3m2!1spt-BR!2sbr!4v1709667890123!5m2!1spt-BR!2sbr"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Mapa de Vigilância Política"
+              className="grayscale hover:grayscale-0 transition-all duration-300"
+            ></iframe>
+          </div>
+          
+          {/* Map Quick Links */}
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <a
+              href="https://www.google.com/maps/place/Congresso+Nacional/@-15.7996811,-47.8805949,17z/data=!3m1!4b1!4m6!3m5!1s0x935a3b2d27a0c4b9:0xe69f8c0b9d7f5c5d!8m2!3d-15.7996863!4d-47.87802!16zL20vMDJoejQ?entry=ttu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-3 py-2 rounded-none transition-colors"
+              data-testid="map-link-congresso"
+            >
+              <MapPin className="w-3 h-3 text-alert-yellow" />
+              <span className="text-xs font-mono uppercase text-alert-yellow">Congresso</span>
+            </a>
+            <a
+              href="https://www.google.com/maps/place/C%C3%A2mara+dos+Deputados/@-15.7999111,-47.8630094,17z/data=!3m1!4b1!4m6!3m5!1s0x935a3b3d84c5c5c5:0x5c5c5c5c5c5c5c5c!8m2!3d-15.7999163!4d-47.8604345!16s%2Fm%2F02j0zf?entry=ttu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-neon-green/10 hover:bg-neon-green/20 border border-neon-green/30 px-3 py-2 rounded-none transition-colors"
+              data-testid="map-link-camara"
+            >
+              <MapPin className="w-3 h-3 text-neon-green" />
+              <span className="text-xs font-mono uppercase text-neon-green">Câmara</span>
+            </a>
+            <a
+              href="https://www.google.com/maps/place/Pal%C3%A1cio+do+Planalto/@-15.7993611,-47.8611111,17z"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-3 py-2 rounded-none transition-colors"
+              data-testid="map-link-planalto"
+            >
+              <MapPin className="w-3 h-3 text-republic-blue" />
+              <span className="text-xs font-mono uppercase text-republic-blue">Planalto</span>
+            </a>
+            <a
+              href="https://www.google.com/maps"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-corruption-red/10 hover:bg-corruption-red/20 border border-corruption-red/30 px-3 py-2 rounded-none transition-colors"
+              data-testid="map-link-explore"
+            >
+              <MapPin className="w-3 h-3 text-corruption-red" />
+              <span className="text-xs font-mono uppercase text-corruption-red">Explorar</span>
+            </a>
           </div>
         </div>
       </main>
