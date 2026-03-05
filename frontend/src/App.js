@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import PoliticianProfile from "./pages/PoliticianProfile";
+import PoliticalSpectrum from "./pages/PoliticalSpectrum";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/politician/:id" element={<PoliticianProfile />} />
+          <Route path="/spectrum" element={<PoliticalSpectrum />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" />
