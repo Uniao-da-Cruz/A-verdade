@@ -36,6 +36,7 @@ class Politician(BaseModel):
     image_url: Optional[str] = None
     instagram: Optional[str] = None
     twitter: Optional[str] = None
+    youtube: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
