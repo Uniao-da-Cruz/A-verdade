@@ -2,7 +2,7 @@ import requests
 import random
 from datetime import datetime, timedelta
 
-BACKEND_URL = "https://crypto-politics-1.preview.emergentagent.com/api"
+BACKEND_URL = "https://vigilia-politics.preview.emergentagent.com/api"
 
 # Brazilian politician names and parties
 politicians_data = [
