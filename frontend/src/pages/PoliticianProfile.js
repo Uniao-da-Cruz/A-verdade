@@ -105,6 +105,19 @@ const PoliticianProfile = () => {
               </h1>
               <p className="text-zinc-400 text-lg mb-6">{politician.party} • {politician.position}</p>
               
+              <div className="flex gap-3 mb-6">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://www.camara.leg.br/deputados/quem-sao', '_blank')}
+                  className="bg-transparent border border-republic-blue/50 text-republic-blue hover:bg-republic-blue/10 text-xs font-mono uppercase"
+                  data-testid="verify-official-btn"
+                >
+                  <ExternalLink className="w-3 h-3 mr-2" />
+                  Verificar na Câmara
+                </Button>
+              </div>
+              
               <div className="flex gap-2 mb-6">
                 {politician.verified && (
                   <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs font-mono uppercase" data-testid="verified-badge">
