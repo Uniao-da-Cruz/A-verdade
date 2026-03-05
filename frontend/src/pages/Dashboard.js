@@ -641,7 +641,7 @@ const Dashboard = () => {
         </div>
 
         {/* TSE - Electoral Transparency */}
-        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6">
+        <div className="bg-gradient-to-r from-corruption-red/10 to-transparent border border-corruption-red/20 p-6 mb-6">
           <div className="flex items-start gap-4">
             <AlertTriangle className="w-6 h-6 text-corruption-red flex-shrink-0 mt-1" />
             <div className="flex-1">
@@ -710,6 +710,66 @@ const Dashboard = () => {
                   <AlertTriangle className="w-4 h-4 text-alert-yellow" />
                   <span className="text-xs font-mono uppercase text-alert-yellow">Ouvidoria TSE</span>
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reddit - Public Opinion Monitoring */}
+        <div className="bg-gradient-to-r from-neon-green/10 to-transparent border border-neon-green/20 p-6">
+          <div className="flex items-start gap-4">
+            <Users className="w-6 h-6 text-neon-green flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-chivo font-bold text-lg mb-2">Monitoramento de Opinião Pública - Reddit</h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Acompanhe discussões sobre transparência, corrupção e política brasileira em comunidades públicas do Reddit
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a 
+                  href="https://www.reddit.com/r/brasil/search/?q=corrup%C3%A7%C3%A3o%20transpar%C3%AAncia&restrict_sr=1&sort=new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-neon-green/10 hover:bg-neon-green/20 border border-neon-green/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="reddit-brasil-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-neon-green" />
+                  <span className="text-xs font-mono uppercase text-neon-green">r/brasil (1.2M+)</span>
+                </a>
+                <a 
+                  href="https://www.reddit.com/r/brasilivre/search/?q=transpar%C3%AAncia&restrict_sr=1&sort=new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-republic-blue/10 hover:bg-republic-blue/20 border border-republic-blue/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="reddit-brasilivre-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-republic-blue" />
+                  <span className="text-xs font-mono uppercase text-republic-blue">r/brasilivre (250K+)</span>
+                </a>
+                <a 
+                  href="https://www.reddit.com/r/politicabrasil/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-alert-yellow/10 hover:bg-alert-yellow/20 border border-alert-yellow/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="reddit-politica-link"
+                >
+                  <ExternalLink className="w-4 h-4 text-alert-yellow" />
+                  <span className="text-xs font-mono uppercase text-alert-yellow">r/politicabrasil (150K+)</span>
+                </a>
+                <a 
+                  href="https://www.reddit.com/search/?q=corrup%C3%A7%C3%A3o%20brasil%20pol%C3%ADtico&sort=new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-corruption-red/10 hover:bg-corruption-red/20 border border-corruption-red/30 px-4 py-2 rounded-none transition-colors"
+                  data-testid="reddit-search-link"
+                >
+                  <Search className="w-4 h-4 text-corruption-red" />
+                  <span className="text-xs font-mono uppercase text-corruption-red">Busca Global Reddit</span>
+                </a>
+              </div>
+              <div className="mt-4 p-3 bg-zinc-900/50 border border-white/10">
+                <p className="text-zinc-500 text-xs font-mono">
+                  💡 Tópicos Quentes: Eleições 2026, Transparência Digital, CPIs, Denúncias de Corrupção, Lava Jato, STF
+                </p>
               </div>
             </div>
           </div>
