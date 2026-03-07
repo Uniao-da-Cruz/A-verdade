@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import PoliticianProfile from "./pages/PoliticianProfile";
 import PoliticalSpectrum from "./pages/PoliticalSpectrum";
 import EducationalResources from "./pages/EducationalResources";
+import SocialPrograms from "./pages/SocialPrograms";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/politician/:id" element={<PoliticianProfile />} />
           <Route path="/spectrum" element={<PoliticalSpectrum />} />
           <Route path="/resources" element={<EducationalResources />} />
+          <Route path="/programas-sociais" element={<SocialPrograms />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" />

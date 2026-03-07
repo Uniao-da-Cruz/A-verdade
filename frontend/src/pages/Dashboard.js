@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Search, AlertTriangle, Activity, Users, TrendingUp, Menu, X, Instagram, ExternalLink, Youtube, MapPin } from "lucide-react";
+import { Search, AlertTriangle, Activity, Users, TrendingUp, Menu, X, Instagram, ExternalLink, Youtube, MapPin, FileSearch, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ExternalWatchSection } from "@/components/dashboard/ExternalWatchSection";
 import { toast } from "sonner";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -76,8 +77,8 @@ const Dashboard = () => {
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
       {/* Top Navigation */}
       <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div className="px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
+          <div className="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-4">
             <Button
               variant="ghost"
               size="icon"
@@ -107,6 +108,13 @@ const Dashboard = () => {
                 className="pl-10 bg-black/50 border-white/20 focus:border-neon-green font-mono text-sm w-64"
               />
             </div>
+            <Button
+              onClick={() => navigate('/programas-sociais')}
+              className="border border-white/20 bg-transparent px-4 py-2 font-mono text-xs uppercase text-zinc-100 hover:bg-white/5"
+              data-testid="social-programs-btn"
+            >
+              Programas Sociais
+            </Button>
             <Button
               onClick={() => navigate('/resources')}
               className="bg-republic-blue hover:bg-blue-600 text-white font-mono text-xs uppercase px-4 py-2"
@@ -373,6 +381,58 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        <ExternalWatchSection
+          icon={Landmark}
+          title="CadÚnico + Programas Sociais"
+          description="Acompanhe o portal da Dataprev para cruzar trilhas de consulta social, programas disponíveis no Cadastro Único e referências oficiais úteis para vigilância cidadã."
+          iconClassName="text-neon-green"
+          wrapperClassName="mb-6 border border-neon-green/20 bg-gradient-to-r from-neon-green/10 to-transparent p-6"
+          sectionTestId="cadunico-watch-section"
+          actions={[
+            {
+              href: 'https://cadunico.dataprev.gov.br/#/programas-sociais',
+              label: 'Portal CadÚnico',
+              description: 'Acesso direto à vitrine de programas sociais do portal.',
+              icon: Landmark,
+              className: 'border-neon-green/30 bg-neon-green/10 hover:bg-neon-green/20',
+              iconClassName: 'text-neon-green',
+              labelClassName: 'text-neon-green',
+              testId: 'cadunico-portal-link',
+            },
+            {
+              onClick: () => navigate('/programas-sociais'),
+              label: 'Página dedicada',
+              description: 'Resumo curado com atalhos oficiais dentro da Vigília.',
+              icon: FileSearch,
+              className: 'border-republic-blue/30 bg-republic-blue/10 hover:bg-republic-blue/20',
+              iconClassName: 'text-republic-blue',
+              labelClassName: 'text-republic-blue',
+              testId: 'cadunico-internal-page-link',
+            },
+            {
+              href: 'https://www.gov.br/mds/pt-br/acoes-e-programas/cadastro-unico',
+              label: 'Sobre o CadÚnico',
+              description: 'Base institucional do Governo Federal para contexto e regras.',
+              icon: ExternalLink,
+              className: 'border-alert-yellow/30 bg-alert-yellow/10 hover:bg-alert-yellow/20',
+              iconClassName: 'text-alert-yellow',
+              labelClassName: 'text-alert-yellow',
+              testId: 'cadunico-about-link',
+            },
+            {
+              href: 'https://www.gov.br/mds/pt-br/acoes-e-programas/cadastro-unico/perguntas-frequentes-cadastro-unico',
+              label: 'Perguntas frequentes',
+              description: 'Atalho oficial para dúvidas e conferência rápida.',
+              icon: AlertTriangle,
+              className: 'border-corruption-red/30 bg-corruption-red/10 hover:bg-corruption-red/20',
+              iconClassName: 'text-corruption-red',
+              labelClassName: 'text-corruption-red',
+              testId: 'cadunico-faq-link',
+            },
+          ]}
+          footer="Fonte observada: portal Cadastro Único da Dataprev, com acesso às áreas de consulta por CPF, postos de atendimento, programas sociais e validação de comprovante."
+        />
 
         {/* Official Sources Banner */}
         <div className="mt-12 bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6 mb-6">
