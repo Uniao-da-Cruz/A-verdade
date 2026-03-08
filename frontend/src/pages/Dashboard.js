@@ -434,6 +434,58 @@ const Dashboard = () => {
           footer="Fonte observada: portal Cadastro Único da Dataprev, com acesso às áreas de consulta por CPF, postos de atendimento, programas sociais e validação de comprovante."
         />
 
+        <ExternalWatchSection
+          icon={AlertTriangle}
+          title="Perigos da Bomba Atômica"
+          description="Integração educativa a partir do documentário do canal Ciência Todo Dia para mostrar como a bomba atômica une destruição em massa, radiação, corrida armamentista e risco político global."
+          iconClassName="text-corruption-red"
+          wrapperClassName="mb-6 border border-corruption-red/20 bg-gradient-to-r from-corruption-red/10 to-transparent p-6"
+          sectionTestId="nuclear-risks-watch-section"
+          actions={[
+            {
+              href: 'https://www.youtube.com/watch?v=6fsuiVHtEfc',
+              label: 'Vídeo original',
+              description: 'Documentário completo sobre a história e os riscos da bomba atômica.',
+              icon: Youtube,
+              className: 'border-corruption-red/30 bg-corruption-red/10 hover:bg-corruption-red/20',
+              iconClassName: 'text-corruption-red',
+              labelClassName: 'text-corruption-red',
+              testId: 'nuclear-risks-video-link',
+            },
+            {
+              onClick: () => navigate('/riscos-nucleares'),
+              label: 'Página dedicada',
+              description: 'Resumo visual com perigos centrais, linha do tempo e referências.',
+              icon: FileSearch,
+              className: 'border-republic-blue/30 bg-republic-blue/10 hover:bg-republic-blue/20',
+              iconClassName: 'text-republic-blue',
+              labelClassName: 'text-republic-blue',
+              testId: 'nuclear-risks-internal-page-link',
+            },
+            {
+              href: 'https://www.youtube.com/@CienciaTodoDia',
+              label: 'Canal fonte',
+              description: 'Acesso ao canal Ciência Todo Dia no YouTube.',
+              icon: ExternalLink,
+              className: 'border-alert-yellow/30 bg-alert-yellow/10 hover:bg-alert-yellow/20',
+              iconClassName: 'text-alert-yellow',
+              labelClassName: 'text-alert-yellow',
+              testId: 'nuclear-risks-channel-source-link',
+            },
+            {
+              href: 'https://www.youtube.com/watch?v=DiGqjYkRQ6o',
+              label: 'Chernobyl',
+              description: 'Vídeo relacionado para aprofundar riscos e consequências humanas.',
+              icon: AlertTriangle,
+              className: 'border-neon-green/30 bg-neon-green/10 hover:bg-neon-green/20',
+              iconClassName: 'text-neon-green',
+              labelClassName: 'text-neon-green',
+              testId: 'nuclear-risks-chernobyl-link',
+            },
+          ]}
+          footer="Fonte observada: vídeo ‘REAÇÃO em CADEIA: a HISTÓRIA da BOMBA ATÔMICA’, publicado pelo canal Ciência Todo Dia, com foco em Projeto Manhattan, Teste Trinity, dissuasão nuclear e risco civilizatório."
+        />
+
         {/* Official Sources Banner */}
         <div className="mt-12 bg-gradient-to-r from-republic-blue/10 to-transparent border border-republic-blue/20 p-6 mb-6">
           <div className="flex items-start gap-4">
