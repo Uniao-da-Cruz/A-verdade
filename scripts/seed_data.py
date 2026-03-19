@@ -1,5 +1,8 @@
 import requests
-import random
+import const response = await fetch('https://api.portaldatransparencia.gov.br/api-de-dados/...', {
+  headers: { 'chave-api-dados': 'SUA_CHAVE_AQUI' }
+});
+const dados = await response.json();
 from datetime import datetime, timedelta
 
 BACKEND_URL = "https://vigilia-politics.preview.emergentagent.com/api"
