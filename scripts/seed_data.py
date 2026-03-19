@@ -7,15 +7,6 @@ BACKEND_URL = "https://vigilia-politics.preview.emergentagent.com/api"
 # Brazilian politician names and parties
 politicians_data = [
     {
-        "name": "Gustavo Lima de Amorim", 
-        "party": "União Brasil", 
-        "position": "Federal Deputy", 
-        "wallets": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "0x8e5e9c6d4a3b2c1f0e9d8c7b6a5f4e3d2c1b0a"],
-        "instagram": "gustavo.lima.de.amorim",
-        "twitter": "gustavolimabr",
-        "youtube": "UC-ZkSRh-7UEuwXJQ9UMCFJA"
-    },
-    {
         "name": "Carlos Eduardo Silva", 
         "party": "PT", 
         "position": "Federal Deputy", 
