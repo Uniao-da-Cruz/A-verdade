@@ -1,636 +1,411 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/backend/server.py b/backend/server.py
-index f27e890cfcb4aca9a1b0bebb9c03fdc214f88e3d..21a2fc90526145d3e9e7a1f40d86f29fb808f3b2 100644
---- a/backend/server.py
-+++ b/backend/server.py
-@@ -1,211 +1,417 @@
-- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
--diff --git a/backend/server.py b/backend/server.py
--index 089ea803600e47e4e4951e623ba6cc4f21146082..4abb6f56c6abcf4e14055827368530c9d14a1332 100644
----- a/backend/server.py
--+++ b/backend/server.py
--@@ -210,154 +210,190 @@ def normalize_politician_doc(doc: dict) -> dict:
--     wallet_source = doc.get("wallet_details") or doc.get("wallets", [])
--     wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
-- 
--     doc["wallet_details"] = wallet_details
--     doc["wallets"] = [wallet.address for wallet in wallet_details]
--     doc["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
--     doc["created_at"] = parse_datetime(doc.get("created_at"))
--     return doc
-- 
-- 
-- def normalize_transaction_doc(doc: dict) -> dict:
--     network = doc.get("network") or infer_network(doc.get("from_address"), doc.get("to_address"), doc.get("monitored_wallet"))
--     doc["network"] = network
--     doc["explorer_url"] = doc.get("explorer_url") or explorer_url_for(network, "tx", doc.get("tx_hash"))
--     doc["monitored_wallet"] = doc.get("monitored_wallet") or doc.get("to_address") or doc.get("from_address")
--     doc["risk_flags"] = doc.get("risk_flags", [])
--     doc["timestamp"] = parse_datetime(doc.get("timestamp"))
--     return doc
-- 
-- 
-- def normalize_alert_doc(doc: dict) -> dict:
--     doc["timestamp"] = parse_datetime(doc.get("timestamp"))
--     return doc
-- 
-- 
--+def should_exclude_politician_name(name: Optional[str]) -> bool:
--+    return bool(name and "gustavo" in name.lower())
--+
--+
--+async def get_excluded_politician_ids() -> set[str]:
--+    excluded = await db.politicians.find(
--+        {"name": {"$regex": "gustavo", "$options": "i"}},
--+        {"_id": 0, "id": 1},
--+    ).to_list(1000)
--+    return {doc["id"] for doc in excluded if doc.get("id")}
--+
--+
-- @api_router.post("/politicians", response_model=Politician)
-- async def create_politician(input: PoliticianCreate):
--     politician_dict = input.model_dump(exclude_none=True)
--     raw_wallet_details = politician_dict.pop("wallet_details", [])
--     wallet_source = raw_wallet_details or politician_dict.get("wallets", [])
--     wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
--     politician_dict["wallets"] = [wallet.address for wallet in wallet_details]
--     politician_dict["wallet_details"] = wallet_details
--     politician_dict["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
-- 
--     politician_obj = Politician(**politician_dict)
-- 
--     doc = politician_obj.model_dump()
--     doc["created_at"] = politician_obj.created_at.isoformat()
--     doc["wallet_details"] = serialize_wallet_details(politician_obj.wallet_details)
-- 
--     await db.politicians.insert_one(doc)
--     return politician_obj
-- 
-- 
-- @api_router.get("/politicians", response_model=List[Politician])
-- async def get_politicians():
--     politicians = await db.politicians.find({}, {"_id": 0}).to_list(1000)
---    return [normalize_politician_doc(doc) for doc in politicians]
--+    visible_politicians = [doc for doc in politicians if not should_exclude_politician_name(doc.get("name"))]
--+    return [normalize_politician_doc(doc) for doc in visible_politicians]
-- 
-- 
-- @api_router.get("/politicians/{politician_id}", response_model=Politician)
-- async def get_politician(politician_id: str):
--     politician = await db.politicians.find_one({"id": politician_id}, {"_id": 0})
-- 
---    if not politician:
--+    if not politician or should_exclude_politician_name(politician.get("name")):
--         raise HTTPException(status_code=404, detail="Politician not found")
-- 
--     return normalize_politician_doc(politician)
-- 
-- 
-- @api_router.post("/transactions", response_model=Transaction)
-- async def create_transaction(input: TransactionCreate):
--     transaction_dict = input.model_dump(exclude_none=True)
--     network = transaction_dict.get("network") or infer_network(
--         transaction_dict.get("from_address"),
--         transaction_dict.get("to_address"),
--         transaction_dict.get("monitored_wallet"),
--     )
-- 
--     transaction_dict["network"] = network
--     transaction_dict["explorer_url"] = transaction_dict.get("explorer_url") or explorer_url_for(network, "tx", transaction_dict["tx_hash"])
--     transaction_dict["monitored_wallet"] = transaction_dict.get("monitored_wallet") or transaction_dict.get("to_address")
-- 
--     transaction_obj = Transaction(**transaction_dict)
-- 
--     doc = transaction_obj.model_dump()
--     doc["timestamp"] = transaction_obj.timestamp.isoformat()
-- 
--     await db.transactions.insert_one(doc)
-- 
--     await db.politicians.update_one(
--         {"id": input.politician_id},
--         {"$inc": {"total_transactions": 1, "suspicious_count": 1 if input.status == "suspicious" else 0}},
--     )
-- 
--     return transaction_obj
-- 
-- 
-- @api_router.get("/transactions", response_model=List[Transaction])
-- async def get_transactions(limit: int = 100):
---    transactions = await db.transactions.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit)
---    return [normalize_transaction_doc(doc) for doc in transactions]
--+    excluded_politician_ids = await get_excluded_politician_ids()
--+    transactions = await db.transactions.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit + len(excluded_politician_ids) + 50)
--+    visible_transactions = [doc for doc in transactions if doc.get("politician_id") not in excluded_politician_ids]
--+    return [normalize_transaction_doc(doc) for doc in visible_transactions[:limit]]
-- 
-- 
-- @api_router.get("/transactions/politician/{politician_id}", response_model=List[Transaction])
-- async def get_politician_transactions(politician_id: str):
--+    excluded_politician_ids = await get_excluded_politician_ids()
--+    if politician_id in excluded_politician_ids:
--+        return []
--+
--     transactions = await db.transactions.find({"politician_id": politician_id}, {"_id": 0}).sort("timestamp", -1).to_list(1000)
--     return [normalize_transaction_doc(doc) for doc in transactions]
-- 
-- 
-- @api_router.post("/alerts", response_model=Alert)
-- async def create_alert(input: AlertCreate):
--     alert_obj = Alert(**input.model_dump())
-- 
--     doc = alert_obj.model_dump()
--     doc["timestamp"] = alert_obj.timestamp.isoformat()
-- 
--     await db.alerts.insert_one(doc)
--     return alert_obj
-- 
-- 
-- @api_router.get("/alerts", response_model=List[Alert])
-- async def get_alerts(limit: int = 50):
---    alerts = await db.alerts.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit)
---    return [normalize_alert_doc(doc) for doc in alerts]
--+    excluded_politician_ids = await get_excluded_politician_ids()
--+    alerts = await db.alerts.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit + len(excluded_politician_ids) + 50)
--+    visible_alerts = [
--+        doc for doc in alerts
--+        if doc.get("politician_id") not in excluded_politician_ids
--+        and not should_exclude_politician_name(doc.get("politician_name"))
--+    ]
--+    return [normalize_alert_doc(doc) for doc in visible_alerts[:limit]]
-- 
-- 
-- @api_router.get("/stats")
-- async def get_stats():
---    total_politicians = await db.politicians.count_documents({})
---    total_transactions = await db.transactions.count_documents({})
---    suspicious_transactions = await db.transactions.count_documents({"status": "suspicious"})
---    active_alerts = await db.alerts.count_documents({"resolved": False})
---
---    politicians = await db.politicians.find({}, {"_id": 0, "wallet_details": 1, "wallets": 1}).to_list(1000)
--+    excluded_politician_ids = await get_excluded_politician_ids()
--+    total_politicians = await db.politicians.count_documents({
--+        "name": {"$not": {"$regex": "gustavo", "$options": "i"}}
--+    })
--+    total_transactions = await db.transactions.count_documents({"politician_id": {"$nin": list(excluded_politician_ids)}})
--+    suspicious_transactions = await db.transactions.count_documents({
--+        "status": "suspicious",
--+        "politician_id": {"$nin": list(excluded_politician_ids)},
--+    })
--+    active_alerts = await db.alerts.count_documents({
--+        "resolved": False,
--+        "politician_id": {"$nin": list(excluded_politician_ids)},
--+    })
--+
--+    politicians = await db.politicians.find({}, {"_id": 0, "name": 1, "wallet_details": 1, "wallets": 1}).to_list(1000)
--     wallet_total = 0
--     networks = set()
--     for politician in politicians:
--+        if should_exclude_politician_name(politician.get("name")):
--+            continue
--         wallet_source = politician.get("wallet_details") or politician.get("wallets", [])
--         normalized_wallets = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
--         wallet_total += len(normalized_wallets)
--         networks.update(wallet.network for wallet in normalized_wallets)
-- 
--     return {
--         "total_politicians": total_politicians,
--         "total_transactions": total_transactions,
--         "suspicious_transactions": suspicious_transactions,
--         "active_alerts": active_alerts,
--         "total_wallets": wallet_total,
--         "monitored_networks": sorted(networks),
--         "primary_explorer": "BlockExplorer",
--     }
-- 
-- 
-- @api_router.get("/")
-- async def root():
--     return {"message": "Vigília API - Blockchain Politics Vigilance"}
-- 
-- 
-- app.include_router(api_router)
-- 
-- app.add_middleware(
--     CORSMiddleware,
-- 
--EOF
-+from datetime import datetime, timezone
-+import logging
-+import os
-+from pathlib import Path
-+from typing import List, Optional
-+import uuid
-+
-+from dotenv import load_dotenv
-+from fastapi import APIRouter, FastAPI, HTTPException
-+from motor.motor_asyncio import AsyncIOMotorClient
-+from pydantic import BaseModel, ConfigDict, Field
-+from starlette.middleware.cors import CORSMiddleware
-+
-+
-+ROOT_DIR = Path(__file__).parent
-+load_dotenv(ROOT_DIR / ".env")
-+
-+mongo_url = os.environ["MONGO_URL"]
-+client = AsyncIOMotorClient(mongo_url)
-+db = client[os.environ["DB_NAME"]]
-+
-+app = FastAPI()
-+api_router = APIRouter(prefix="/api")
-+
-+BITCOIN_ADDRESS_URL = "https://www.blockexplorer.com/bitcoin/address/{value}"
-+BITCOIN_TX_URL = "https://www.blockexplorer.com/bitcoin/tx/{value}"
-+EXCLUDED_NAME_TOKEN = "gustavo"
-+
-+
-+def now_utc() -> datetime:
-+    return datetime.now(timezone.utc)
-+
-+
-+def parse_datetime(value):
-+    if isinstance(value, datetime) or value is None:
-+        return value
-+    normalized = value.replace("Z", "+00:00") if isinstance(value, str) else value
-+    return datetime.fromisoformat(normalized)
-+
-+
-+def infer_network(*values: Optional[str]) -> str:
-+    for value in values:
-+        if not value:
-+            continue
-+        lowered = value.lower()
-+        if lowered.startswith("bc1") or value.startswith("1") or value.startswith("3"):
-+            return "bitcoin"
-+        if lowered.startswith("0x"):
-+            return "ethereum"
-+    return "bitcoin"
-+
-+
-+def explorer_url_for(network: str, kind: str, value: Optional[str]) -> Optional[str]:
-+    if not value:
-+        return None
-+    if network == "bitcoin":
-+        if kind == "address":
-+            return BITCOIN_ADDRESS_URL.format(value=value)
-+        if kind == "tx":
-+            return BITCOIN_TX_URL.format(value=value)
-+    return None
-+
-+
-+def should_exclude_politician_name(name: Optional[str]) -> bool:
-+    return bool(name and EXCLUDED_NAME_TOKEN in name.lower())
-+
-+
-+async def get_excluded_politician_ids() -> set[str]:
-+    excluded = await db.politicians.find(
-+        {"name": {"$regex": EXCLUDED_NAME_TOKEN, "$options": "i"}},
-+        {"_id": 0, "id": 1},
-+    ).to_list(1000)
-+    return {doc["id"] for doc in excluded if doc.get("id")}
-+
-+
-+class WalletDetail(BaseModel):
-+    model_config = ConfigDict(extra="ignore")
-+
-+    address: str
-+    network: str = "bitcoin"
-+    label: Optional[str] = None
-+    explorer_url: Optional[str] = None
-+    monitoring_status: str = "monitoring"
-+    risk_level: str = "low"
-+    notes: Optional[str] = None
-+    last_checked_at: Optional[datetime] = None
-+
-+
-+class Politician(BaseModel):
-+    model_config = ConfigDict(extra="ignore")
-+
-+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-+    name: str
-+    party: str
-+    position: str
-+    wallets: List[str] = Field(default_factory=list)
-+    wallet_details: List[WalletDetail] = Field(default_factory=list)
-+    monitored_networks: List[str] = Field(default_factory=list)
-+    blockchain_focus: Optional[str] = None
-+    total_transactions: int = 0
-+    suspicious_count: int = 0
-+    verified: bool = False
-+    image_url: Optional[str] = None
-+    instagram: Optional[str] = None
-+    twitter: Optional[str] = None
-+    youtube: Optional[str] = None
-+    created_at: datetime = Field(default_factory=now_utc)
-+
-+
-+class PoliticianCreate(BaseModel):
-+    name: str
-+    party: str
-+    position: str
-+    wallets: List[str] = Field(default_factory=list)
-+    wallet_details: List[WalletDetail] = Field(default_factory=list)
-+    monitored_networks: List[str] = Field(default_factory=list)
-+    blockchain_focus: Optional[str] = None
-+    verified: bool = False
-+    image_url: Optional[str] = None
-+    instagram: Optional[str] = None
-+    twitter: Optional[str] = None
-+    youtube: Optional[str] = None
-+
-+
-+class Transaction(BaseModel):
-+    model_config = ConfigDict(extra="ignore")
-+
-+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-+    tx_hash: str
-+    politician_id: str
-+    from_address: str
-+    to_address: str
-+    amount: float
-+    currency: str = "BTC"
-+    network: str = "bitcoin"
-+    explorer_url: Optional[str] = None
-+    monitored_wallet: Optional[str] = None
-+    counterparty_label: Optional[str] = None
-+    risk_flags: List[str] = Field(default_factory=list)
-+    block_height: Optional[int] = None
-+    value_brl: Optional[float] = None
-+    timestamp: datetime = Field(default_factory=now_utc)
-+    status: str = "verified"
-+    description: Optional[str] = None
-+
-+
-+class TransactionCreate(BaseModel):
-+    tx_hash: str
-+    politician_id: str
-+    from_address: str
-+    to_address: str
-+    amount: float
-+    currency: str = "BTC"
-+    network: Optional[str] = None
-+    explorer_url: Optional[str] = None
-+    monitored_wallet: Optional[str] = None
-+    counterparty_label: Optional[str] = None
-+    risk_flags: List[str] = Field(default_factory=list)
-+    block_height: Optional[int] = None
-+    value_brl: Optional[float] = None
-+    status: str = "verified"
-+    description: Optional[str] = None
-+
-+
-+class Alert(BaseModel):
-+    model_config = ConfigDict(extra="ignore")
-+
-+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-+    politician_id: str
-+    politician_name: str
-+    severity: str
-+    alert_type: str
-+    message: str
-+    timestamp: datetime = Field(default_factory=now_utc)
-+    resolved: bool = False
-+
-+
-+class AlertCreate(BaseModel):
-+    politician_id: str
-+    politician_name: str
-+    severity: str
-+    alert_type: str
-+    message: str
-+
-+
-+def normalize_wallet_detail(raw_wallet, index: int = 0) -> WalletDetail:
-+    if isinstance(raw_wallet, str):
-+        network = infer_network(raw_wallet)
-+        return WalletDetail(
-+            address=raw_wallet,
-+            network=network,
-+            label=f"Carteira monitorada {index + 1}",
-+            explorer_url=explorer_url_for(network, "address", raw_wallet),
-+            monitoring_status="monitoring",
-+            risk_level="medium" if index == 0 else "low",
-+        )
-+
-+    address = raw_wallet.get("address", "")
-+    network = raw_wallet.get("network") or infer_network(address)
-+    return WalletDetail(
-+        address=address,
-+        network=network,
-+        label=raw_wallet.get("label") or f"Carteira monitorada {index + 1}",
-+        explorer_url=raw_wallet.get("explorer_url") or explorer_url_for(network, "address", address),
-+        monitoring_status=raw_wallet.get("monitoring_status") or "monitoring",
-+        risk_level=raw_wallet.get("risk_level") or "low",
-+        notes=raw_wallet.get("notes"),
-+        last_checked_at=parse_datetime(raw_wallet.get("last_checked_at")),
-+    )
-+
-+
-+def serialize_wallet_details(wallet_details: List[WalletDetail]) -> List[dict]:
-+    serialized = []
-+    for wallet in wallet_details:
-+        item = wallet.model_dump()
-+        if item["last_checked_at"]:
-+            item["last_checked_at"] = item["last_checked_at"].isoformat()
-+        serialized.append(item)
-+    return serialized
-+
-+
-+def normalize_politician_doc(doc: dict) -> dict:
-+    wallet_source = doc.get("wallet_details") or doc.get("wallets", [])
-+    wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
-+
-+    doc["wallet_details"] = wallet_details
-+    doc["wallets"] = [wallet.address for wallet in wallet_details]
-+    doc["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
-+    doc["created_at"] = parse_datetime(doc.get("created_at"))
-+    return doc
-+
-+
-+def normalize_transaction_doc(doc: dict) -> dict:
-+    network = doc.get("network") or infer_network(doc.get("from_address"), doc.get("to_address"), doc.get("monitored_wallet"))
-+    doc["network"] = network
-+    doc["explorer_url"] = doc.get("explorer_url") or explorer_url_for(network, "tx", doc.get("tx_hash"))
-+    doc["monitored_wallet"] = doc.get("monitored_wallet") or doc.get("to_address") or doc.get("from_address")
-+    doc["risk_flags"] = doc.get("risk_flags", [])
-+    doc["timestamp"] = parse_datetime(doc.get("timestamp"))
-+    return doc
-+
-+
-+def normalize_alert_doc(doc: dict) -> dict:
-+    doc["timestamp"] = parse_datetime(doc.get("timestamp"))
-+    return doc
-+
-+
-+@api_router.post("/politicians", response_model=Politician)
-+async def create_politician(input: PoliticianCreate):
-+    politician_dict = input.model_dump(exclude_none=True)
-+    raw_wallet_details = politician_dict.pop("wallet_details", [])
-+    wallet_source = raw_wallet_details or politician_dict.get("wallets", [])
-+    wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
-+    politician_dict["wallets"] = [wallet.address for wallet in wallet_details]
-+    politician_dict["wallet_details"] = wallet_details
-+    politician_dict["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
-+
-+    politician_obj = Politician(**politician_dict)
-+
-+    doc = politician_obj.model_dump()
-+    doc["created_at"] = politician_obj.created_at.isoformat()
-+    doc["wallet_details"] = serialize_wallet_details(politician_obj.wallet_details)
-+
-+    await db.politicians.insert_one(doc)
-+    return politician_obj
-+
-+
-+@api_router.get("/politicians", response_model=List[Politician])
-+async def get_politicians():
-+    politicians = await db.politicians.find({}, {"_id": 0}).to_list(1000)
-+    visible_politicians = [doc for doc in politicians if not should_exclude_politician_name(doc.get("name"))]
-+    return [normalize_politician_doc(doc) for doc in visible_politicians]
-+
-+
-+@api_router.get("/politicians/{politician_id}", response_model=Politician)
-+async def get_politician(politician_id: str):
-+    politician = await db.politicians.find_one({"id": politician_id}, {"_id": 0})
-+
-+    if not politician or should_exclude_politician_name(politician.get("name")):
-+        raise HTTPException(status_code=404, detail="Politician not found")
-+
-+    return normalize_politician_doc(politician)
-+
-+
-+@api_router.post("/transactions", response_model=Transaction)
-+async def create_transaction(input: TransactionCreate):
-+    transaction_dict = input.model_dump(exclude_none=True)
-+    network = transaction_dict.get("network") or infer_network(
-+        transaction_dict.get("from_address"),
-+        transaction_dict.get("to_address"),
-+        transaction_dict.get("monitored_wallet"),
-+    )
-+
-+    transaction_dict["network"] = network
-+    transaction_dict["explorer_url"] = transaction_dict.get("explorer_url") or explorer_url_for(network, "tx", transaction_dict["tx_hash"])
-+    transaction_dict["monitored_wallet"] = transaction_dict.get("monitored_wallet") or transaction_dict.get("to_address")
-+
-+    transaction_obj = Transaction(**transaction_dict)
-+
-+    doc = transaction_obj.model_dump()
-+    doc["timestamp"] = transaction_obj.timestamp.isoformat()
-+
-+    await db.transactions.insert_one(doc)
-+
-+    await db.politicians.update_one(
-+        {"id": input.politician_id},
-+        {"$inc": {"total_transactions": 1, "suspicious_count": 1 if input.status == "suspicious" else 0}},
-+    )
-+
-+    return transaction_obj
-+
-+
-+@api_router.get("/transactions", response_model=List[Transaction])
-+async def get_transactions(limit: int = 100):
-+    excluded_politician_ids = await get_excluded_politician_ids()
-+    transactions = await db.transactions.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit + len(excluded_politician_ids) + 50)
-+    visible_transactions = [doc for doc in transactions if doc.get("politician_id") not in excluded_politician_ids]
-+    return [normalize_transaction_doc(doc) for doc in visible_transactions[:limit]]
-+
-+
-+@api_router.get("/transactions/politician/{politician_id}", response_model=List[Transaction])
-+async def get_politician_transactions(politician_id: str):
-+    excluded_politician_ids = await get_excluded_politician_ids()
-+    if politician_id in excluded_politician_ids:
-+        return []
-+
-+    transactions = await db.transactions.find({"politician_id": politician_id}, {"_id": 0}).sort("timestamp", -1).to_list(1000)
-+    return [normalize_transaction_doc(doc) for doc in transactions]
-+
-+
-+@api_router.post("/alerts", response_model=Alert)
-+async def create_alert(input: AlertCreate):
-+    alert_obj = Alert(**input.model_dump())
-+
-+    doc = alert_obj.model_dump()
-+    doc["timestamp"] = alert_obj.timestamp.isoformat()
-+
-+    await db.alerts.insert_one(doc)
-+    return alert_obj
-+
-+
-+@api_router.get("/alerts", response_model=List[Alert])
-+async def get_alerts(limit: int = 50):
-+    excluded_politician_ids = await get_excluded_politician_ids()
-+    alerts = await db.alerts.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit + len(excluded_politician_ids) + 50)
-+    visible_alerts = [
-+        doc for doc in alerts
-+        if doc.get("politician_id") not in excluded_politician_ids
-+        and not should_exclude_politician_name(doc.get("politician_name"))
-+    ]
-+    return [normalize_alert_doc(doc) for doc in visible_alerts[:limit]]
-+
-+
-+@api_router.get("/stats")
-+async def get_stats():
-+    excluded_politician_ids = await get_excluded_politician_ids()
-+    excluded_ids_list = list(excluded_politician_ids)
-+    total_politicians = await db.politicians.count_documents({
-+        "name": {"$not": {"$regex": EXCLUDED_NAME_TOKEN, "$options": "i"}},
-+    })
-+    total_transactions = await db.transactions.count_documents({"politician_id": {"$nin": excluded_ids_list}})
-+    suspicious_transactions = await db.transactions.count_documents({
-+        "status": "suspicious",
-+        "politician_id": {"$nin": excluded_ids_list},
-+    })
-+    active_alerts = await db.alerts.count_documents({
-+        "resolved": False,
-+        "politician_id": {"$nin": excluded_ids_list},
-+    })
-+
-+    politicians = await db.politicians.find({}, {"_id": 0, "name": 1, "wallet_details": 1, "wallets": 1}).to_list(1000)
-+    wallet_total = 0
-+    networks = set()
-+    for politician in politicians:
-+        if should_exclude_politician_name(politician.get("name")):
-+            continue
-+        wallet_source = politician.get("wallet_details") or politician.get("wallets", [])
-+        normalized_wallets = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
-+        wallet_total += len(normalized_wallets)
-+        networks.update(wallet.network for wallet in normalized_wallets)
-+
-+    return {
-+        "total_politicians": total_politicians,
-+        "total_transactions": total_transactions,
-+        "suspicious_transactions": suspicious_transactions,
-+        "active_alerts": active_alerts,
-+        "total_wallets": wallet_total,
-+        "monitored_networks": sorted(networks),
-+        "primary_explorer": "BlockExplorer",
-+    }
-+
-+
-+@api_router.get("/")
-+async def root():
-+    return {"message": "Vigília API - Blockchain Politics Vigilance"}
-+
-+
-+app.include_router(api_router)
-+
-+app.add_middleware(
-+    CORSMiddleware,
-+    allow_credentials=True,
-+    allow_origins=os.environ["CORS_ORIGINS"].split(","),
-+    allow_methods=["*"],
-+    allow_headers=["*"],
- )
-+
-+logging.basicConfig(
-+    level=logging.INFO,
-+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-+)
-+logger = logging.getLogger(__name__)
-+
-+
-+@app.on_event("shutdown")
-+async def shutdown_db_client():
-+    client.close()
- 
-EOF
+ """
+VIGÍLIA - Backend de Vigilância Política
+Sistema transparente de monitoramento de transações e atividades políticas
+Sem censura. Sem filtros seletivos. Dados públicos genuínos.
+"""
+
+from datetime import datetime, timezone
+import os
+from typing import List, Optional
+import uuid
+
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, ConfigDict, Field
+
+
+# ============================================================================
+# CONFIGURAÇÃO CORE
+# ============================================================================
+
+app = FastAPI(title="Vigília API", version="1.0.0")
+api_router = APIRouter(prefix="/api")
+
+# URLs de exploradores blockchain
+BITCOIN_ADDRESS_URL = "https://www.blockexplorer.com/bitcoin/address/{value}"
+BITCOIN_TX_URL = "https://www.blockexplorer.com/bitcoin/tx/{value}"
+
+
+# ============================================================================
+# MODELOS DE DADOS (Pydantic)
+# ============================================================================
+
+class WalletDetail(BaseModel):
+    """Detalhes de uma carteira monitorada"""
+    model_config = ConfigDict(extra="ignore")
+    
+    address: str
+    network: str = "bitcoin"
+    label: Optional[str] = None
+    explorer_url: Optional[str] = None
+    monitoring_status: str = "monitoring"
+    risk_level: str = "low"
+    notes: Optional[str] = None
+    last_checked_at: Optional[datetime] = None
+
+
+class Politician(BaseModel):
+    """Modelo de político com carteiras monitoradas"""
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    party: str
+    position: str
+    state: Optional[str] = None
+    wallets: List[str] = Field(default_factory=list)
+    wallet_details: List[WalletDetail] = Field(default_factory=list)
+    monitored_networks: List[str] = Field(default_factory=list)
+    blockchain_focus: Optional[str] = None
+    total_transactions: int = 0
+    suspicious_count: int = 0
+    verified: bool = False
+    image_url: Optional[str] = None
+    instagram: Optional[str] = None
+    twitter: Optional[str] = None
+    youtube: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class PoliticianCreate(BaseModel):
+    """Input para criar político"""
+    name: str
+    party: str
+    position: str
+    state: Optional[str] = None
+    wallets: List[str] = Field(default_factory=list)
+    wallet_details: List[WalletDetail] = Field(default_factory=list)
+    verified: bool = False
+    image_url: Optional[str] = None
+    instagram: Optional[str] = None
+    twitter: Optional[str] = None
+    youtube: Optional[str] = None
+
+
+class Transaction(BaseModel):
+    """Modelo de transação blockchain"""
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    tx_hash: str
+    politician_id: str
+    politician_name: str
+    from_address: str
+    to_address: str
+    amount: float
+    currency: str = "BTC"
+    network: str = "bitcoin"
+    explorer_url: Optional[str] = None
+    monitored_wallet: Optional[str] = None
+    counterparty_label: Optional[str] = None
+    risk_flags: List[str] = Field(default_factory=list)
+    block_height: Optional[int] = None
+    value_brl: Optional[float] = None
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    status: str = "verified"
+    description: Optional[str] = None
+
+
+class TransactionCreate(BaseModel):
+    """Input para criar transação"""
+    tx_hash: str
+    politician_id: str
+    politician_name: str
+    from_address: str
+    to_address: str
+    amount: float
+    currency: str = "BTC"
+    network: Optional[str] = None
+    explorer_url: Optional[str] = None
+    monitored_wallet: Optional[str] = None
+    counterparty_label: Optional[str] = None
+    risk_flags: List[str] = Field(default_factory=list)
+    status: str = "verified"
+    description: Optional[str] = None
+
+
+class Alert(BaseModel):
+    """Modelo de alerta de atividade suspeita"""
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    politician_id: str
+    politician_name: str
+    severity: str
+    alert_type: str
+    message: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    resolved: bool = False
+
+
+class AlertCreate(BaseModel):
+    """Input para criar alerta"""
+    politician_id: str
+    politician_name: str
+    severity: str
+    alert_type: str
+    message: str
+
+
+# ============================================================================
+# DADOS EM MEMÓRIA (Para desenvolvimento local)
+# Em produção: usar MongoDB conforme código original
+# ============================================================================
+
+POLITICIANS_DB: List[Politician] = []
+TRANSACTIONS_DB: List[Transaction] = []
+ALERTS_DB: List[Alert] = []
+
+
+# ============================================================================
+# UTILITÁRIOS
+# ============================================================================
+
+def now_utc() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def parse_datetime(value):
+    if isinstance(value, datetime) or value is None:
+        return value
+    normalized = value.replace("Z", "+00:00") if isinstance(value, str) else value
+    return datetime.fromisoformat(normalized)
+
+
+def infer_network(*values: Optional[str]) -> str:
+    """Detecta rede blockchain pelo formato do endereço"""
+    for value in values:
+        if not value:
+            continue
+        lowered = value.lower()
+        if lowered.startswith("bc1") or value.startswith("1") or value.startswith("3"):
+            return "bitcoin"
+        if lowered.startswith("0x"):
+            return "ethereum"
+    return "bitcoin"
+
+
+def explorer_url_for(network: str, kind: str, value: Optional[str]) -> Optional[str]:
+    """Gera URL do explorador blockchain"""
+    if not value:
+        return None
+    if network == "bitcoin":
+        if kind == "address":
+            return BITCOIN_ADDRESS_URL.format(value=value)
+        if kind == "tx":
+            return BITCOIN_TX_URL.format(value=value)
+    return None
+
+
+def normalize_wallet_detail(raw_wallet, index: int = 0) -> WalletDetail:
+    """Normaliza detalhes de carteira"""
+    if isinstance(raw_wallet, str):
+        network = infer_network(raw_wallet)
+        return WalletDetail(
+            address=raw_wallet,
+            network=network,
+            label=f"Wallet {index + 1}",
+            explorer_url=explorer_url_for(network, "address", raw_wallet),
+        )
+    
+    address = raw_wallet.get("address", "")
+    network = raw_wallet.get("network") or infer_network(address)
+    return WalletDetail(
+        address=address,
+        network=network,
+        label=raw_wallet.get("label") or f"Wallet {index + 1}",
+        explorer_url=raw_wallet.get("explorer_url") or explorer_url_for(network, "address", address),
+        monitoring_status=raw_wallet.get("monitoring_status") or "monitoring",
+        risk_level=raw_wallet.get("risk_level") or "low",
+        notes=raw_wallet.get("notes"),
+        last_checked_at=parse_datetime(raw_wallet.get("last_checked_at")),
+    )
+
+
+# ============================================================================
+# ENDPOINTS - POLÍTICOS
+# ============================================================================
+
+@api_router.post("/politicians", response_model=Politician)
+async def create_politician(input: PoliticianCreate):
+    """Cria novo político no sistema"""
+    politician_dict = input.model_dump(exclude_none=True)
+    raw_wallet_details = politician_dict.pop("wallet_details", [])
+    wallet_source = raw_wallet_details or politician_dict.get("wallets", [])
+    wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
+    
+    politician_dict["wallets"] = [wallet.address for wallet in wallet_details]
+    politician_dict["wallet_details"] = wallet_details
+    politician_dict["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
+    
+    politician = Politician(**politician_dict)
+    POLITICIANS_DB.append(politician)
+    
+    return politician
+
+
+@api_router.get("/politicians", response_model=List[Politician])
+async def get_politicians():
+    """Lista todos os políticos monitorados"""
+    return POLITICIANS_DB
+
+
+@api_router.get("/politicians/{politician_id}", response_model=Politician)
+async def get_politician(politician_id: str):
+    """Obtém detalhes de um político específico"""
+    for politician in POLITICIANS_DB:
+        if politician.id == politician_id:
+            return politician
+    raise HTTPException(status_code=404, detail="Politician not found")
+
+
+# ============================================================================
+# ENDPOINTS - TRANSAÇÕES
+# ============================================================================
+
+@api_router.post("/transactions", response_model=Transaction)
+async def create_transaction(input: TransactionCreate):
+    """Registra nova transação"""
+    transaction_dict = input.model_dump(exclude_none=True)
+    network = transaction_dict.get("network") or infer_network(
+        transaction_dict.get("from_address"),
+        transaction_dict.get("to_address"),
+    )
+    
+    transaction_dict["network"] = network
+    transaction_dict["explorer_url"] = transaction_dict.get("explorer_url") or explorer_url_for(
+        network, "tx", transaction_dict.get("tx_hash")
+    )
+    
+    transaction = Transaction(**transaction_dict)
+    TRANSACTIONS_DB.append(transaction)
+    
+    # Atualiza contador de transações do político
+    for politician in POLITICIANS_DB:
+        if politician.id == input.politician_id:
+            politician.total_transactions += 1
+            if input.status == "suspicious":
+                politician.suspicious_count += 1
+    
+    return transaction
+
+
+@api_router.get("/transactions", response_model=List[Transaction])
+async def get_transactions(limit: int = 100):
+    """Lista transações recentes"""
+    sorted_txs = sorted(TRANSACTIONS_DB, key=lambda x: x.timestamp, reverse=True)
+    return sorted_txs[:limit]
+
+
+@api_router.get("/transactions/politician/{politician_id}", response_model=List[Transaction])
+async def get_politician_transactions(politician_id: str):
+    """Lista transações de um político específico"""
+    txs = [tx for tx in TRANSACTIONS_DB if tx.politician_id == politician_id]
+    return sorted(txs, key=lambda x: x.timestamp, reverse=True)
+
+
+# ============================================================================
+# ENDPOINTS - ALERTAS
+# ============================================================================
+
+@api_router.post("/alerts", response_model=Alert)
+async def create_alert(input: AlertCreate):
+    """Cria novo alerta de atividade suspeita"""
+    alert = Alert(**input.model_dump())
+    ALERTS_DB.append(alert)
+    return alert
+
+
+@api_router.get("/alerts", response_model=List[Alert])
+async def get_alerts(limit: int = 50):
+    """Lista alertas recentes"""
+    sorted_alerts = sorted(ALERTS_DB, key=lambda x: x.timestamp, reverse=True)
+    return sorted_alerts[:limit]
+
+
+# ============================================================================
+# ENDPOINTS - ESTATÍSTICAS
+# ============================================================================
+
+@api_router.get("/stats")
+async def get_stats():
+    """Retorna estatísticas agregadas do sistema"""
+    total_politicians = len(POLITICIANS_DB)
+    total_transactions = len(TRANSACTIONS_DB)
+    suspicious_transactions = len([tx for tx in TRANSACTIONS_DB if tx.status == "suspicious"])
+    active_alerts = len([a for a in ALERTS_DB if not a.resolved])
+    
+    # Contar carteiras
+    total_wallets = sum(len(p.wallets) for p in POLITICIANS_DB)
+    networks = set()
+    for politician in POLITICIANS_DB:
+        networks.update(politician.monitored_networks)
+    
+    return {
+        "total_politicians": total_politicians,
+        "total_transactions": total_transactions,
+        "suspicious_transactions": suspicious_transactions,
+        "active_alerts": active_alerts,
+        "total_wallets": total_wallets,
+        "monitored_networks": sorted(networks),
+        "primary_explorer": "BlockExplorer",
+        "timestamp": now_utc().isoformat()
+    }
+
+
+# ============================================================================
+# HEALTH CHECK
+# ============================================================================
+
+@api_router.get("/health")
+async def health_check():
+    """Verifica saúde da API"""
+    return {
+        "status": "healthy",
+        "timestamp": now_utc().isoformat(),
+        "version": "1.0.0"
+    }
+
+
+@api_router.get("/")
+async def root():
+    """Endpoint raiz"""
+    return {
+        "message": "Vigília - Vigilância Política Transparente",
+        "documentation": "/docs",
+        "health": "/api/health"
+    }
+
+
+# ============================================================================
+# CONFIGURAÇÃO
+# ============================================================================
+
+app.include_router(api_router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+
+# ============================================================================
+# EXECUÇÃO
+# ============================================================================
+
+if __name__ == "__main__":
+    import uvicorn
+    print("""
+    ╔══════════════════════════════════════════════╗
+    ║      VIGÍLIA - Vigilância Política           ║
+    ║      Transparência. Sem Censura.             ║
+    ╚══════════════════════════════════════════════╝
+    
+    API iniciando em http://localhost:8000
+    Documentação: http://localhost:8000/docs
+    """)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
