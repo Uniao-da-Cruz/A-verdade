@@ -7,6 +7,7 @@ import PoliticalSpectrum from "./pages/PoliticalSpectrum";
 import EducationalResources from "./pages/EducationalResources";
 import SocialPrograms from "./pages/SocialPrograms";
 import NuclearRisks from "./pages/NuclearRisks";
+import OccultInfluence from "./pages/OccultInfluence";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/resources" element={<EducationalResources />} />
           <Route path="/programas-sociais" element={<SocialPrograms />} />
           <Route path="/riscos-nucleares" element={<NuclearRisks />} />
+          <Route path="/ocultismo" element={<OccultInfluence />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-right" />
