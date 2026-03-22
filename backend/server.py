@@ -1,4 +1,4 @@
- """
+"""
 VIGÍLIA - Backend de Vigilância Política
 Sistema transparente de monitoramento de transações e atividades políticas
 Sem censura. Sem filtros seletivos. Dados públicos genuínos.
@@ -10,7 +10,7 @@ from typing import List, Optional
 import uuid
 
 from dotenv import load_dotenv
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -23,8 +23,8 @@ app = FastAPI(title="Vigília API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 
 # URLs de exploradores blockchain
-BITCOIN_ADDRESS_URL = "https://www.blockexplorer.com/bitcoin/address/{value}"
-BITCOIN_TX_URL = "https://www.blockexplorer.com/bitcoin/tx/{value}"
+BITCOIN_ADDRESS_URL = "https://mempool.space/address/{value}"
+BITCOIN_TX_URL = "https://mempool.space/tx/{value}"
 
 
 # ============================================================================
@@ -34,7 +34,7 @@ BITCOIN_TX_URL = "https://www.blockexplorer.com/bitcoin/tx/{value}"
 class WalletDetail(BaseModel):
     """Detalhes de uma carteira monitorada"""
     model_config = ConfigDict(extra="ignore")
-    
+
     address: str
     network: str = "bitcoin"
     label: Optional[str] = None
@@ -48,7 +48,7 @@ class WalletDetail(BaseModel):
 class Politician(BaseModel):
     """Modelo de político com carteiras monitoradas"""
     model_config = ConfigDict(extra="ignore")
-    
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
     party: str
@@ -86,7 +86,7 @@ class PoliticianCreate(BaseModel):
 class Transaction(BaseModel):
     """Modelo de transação blockchain"""
     model_config = ConfigDict(extra="ignore")
-    
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     tx_hash: str
     politician_id: str
@@ -128,7 +128,7 @@ class TransactionCreate(BaseModel):
 class Alert(BaseModel):
     """Modelo de alerta de atividade suspeita"""
     model_config = ConfigDict(extra="ignore")
-    
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     politician_id: str
     politician_name: str
@@ -146,6 +146,24 @@ class AlertCreate(BaseModel):
     severity: str
     alert_type: str
     message: str
+
+
+class PaginatedTransactions(BaseModel):
+    """Resposta paginada de transações"""
+    items: List[Transaction]
+    total: int
+    limit: int
+    offset: int
+    has_more: bool
+
+
+class PaginatedAlerts(BaseModel):
+    """Resposta paginada de alertas"""
+    items: List[Alert]
+    total: int
+    limit: int
+    offset: int
+    has_more: bool
 
 
 # ============================================================================
@@ -208,7 +226,7 @@ def normalize_wallet_detail(raw_wallet, index: int = 0) -> WalletDetail:
             label=f"Wallet {index + 1}",
             explorer_url=explorer_url_for(network, "address", raw_wallet),
         )
-    
+
     address = raw_wallet.get("address", "")
     network = raw_wallet.get("network") or infer_network(address)
     return WalletDetail(
@@ -223,6 +241,20 @@ def normalize_wallet_detail(raw_wallet, index: int = 0) -> WalletDetail:
     )
 
 
+def validate_pagination(limit: int, offset: int) -> None:
+    """Valida parâmetros de paginação e lança HTTPException se inválidos"""
+    if limit < 1 or limit > 500:
+        raise HTTPException(
+            status_code=422,
+            detail="O parâmetro 'limit' deve estar entre 1 e 500."
+        )
+    if offset < 0:
+        raise HTTPException(
+            status_code=422,
+            detail="O parâmetro 'offset' não pode ser negativo."
+        )
+
+
 # ============================================================================
 # ENDPOINTS - POLÍTICOS
 # ============================================================================
@@ -234,14 +266,14 @@ async def create_politician(input: PoliticianCreate):
     raw_wallet_details = politician_dict.pop("wallet_details", [])
     wallet_source = raw_wallet_details or politician_dict.get("wallets", [])
     wallet_details = [normalize_wallet_detail(wallet, idx) for idx, wallet in enumerate(wallet_source)]
-    
+
     politician_dict["wallets"] = [wallet.address for wallet in wallet_details]
     politician_dict["wallet_details"] = wallet_details
     politician_dict["monitored_networks"] = sorted({wallet.network for wallet in wallet_details})
-    
+
     politician = Politician(**politician_dict)
     POLITICIANS_DB.append(politician)
-    
+
     return politician
 
 
@@ -272,37 +304,91 @@ async def create_transaction(input: TransactionCreate):
         transaction_dict.get("from_address"),
         transaction_dict.get("to_address"),
     )
-    
+
     transaction_dict["network"] = network
     transaction_dict["explorer_url"] = transaction_dict.get("explorer_url") or explorer_url_for(
         network, "tx", transaction_dict.get("tx_hash")
     )
-    
+
     transaction = Transaction(**transaction_dict)
     TRANSACTIONS_DB.append(transaction)
-    
+
     # Atualiza contador de transações do político
     for politician in POLITICIANS_DB:
         if politician.id == input.politician_id:
             politician.total_transactions += 1
             if input.status == "suspicious":
                 politician.suspicious_count += 1
-    
+
     return transaction
 
 
-@api_router.get("/transactions", response_model=List[Transaction])
-async def get_transactions(limit: int = 100):
-    """Lista transações recentes"""
+@api_router.get("/transactions", response_model=PaginatedTransactions)
+async def get_transactions(
+    limit: int = Query(default=20, ge=1, le=500, description="Itens por página (1–500)"),
+    offset: int = Query(default=0, ge=0, description="Índice inicial (começa em 0)"),
+    politician_id: Optional[str] = Query(default=None, description="Filtrar por ID do político"),
+    status: Optional[str] = Query(default=None, description="Filtrar por status: verified, suspicious, pending"),
+):
+    """
+    Lista transações com paginação por offset.
+
+    - **limit**: quantidade de itens retornados (padrão 20, máximo 500)
+    - **offset**: posição inicial na lista ordenada por data decrescente
+    - **politician_id**: filtra transações de um político específico
+    - **status**: filtra por status da transação
+    """
     sorted_txs = sorted(TRANSACTIONS_DB, key=lambda x: x.timestamp, reverse=True)
-    return sorted_txs[:limit]
+
+    # Filtros opcionais
+    if politician_id:
+        sorted_txs = [tx for tx in sorted_txs if tx.politician_id == politician_id]
+    if status:
+        valid_statuses = {"verified", "suspicious", "pending"}
+        if status not in valid_statuses:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Status inválido. Use um de: {', '.join(sorted(valid_statuses))}"
+            )
+        sorted_txs = [tx for tx in sorted_txs if tx.status == status]
+
+    total = len(sorted_txs)
+    page = sorted_txs[offset: offset + limit]
+
+    return PaginatedTransactions(
+        items=page,
+        total=total,
+        limit=limit,
+        offset=offset,
+        has_more=(offset + limit) < total,
+    )
 
 
-@api_router.get("/transactions/politician/{politician_id}", response_model=List[Transaction])
-async def get_politician_transactions(politician_id: str):
-    """Lista transações de um político específico"""
+@api_router.get("/transactions/politician/{politician_id}", response_model=PaginatedTransactions)
+async def get_politician_transactions(
+    politician_id: str,
+    limit: int = Query(default=20, ge=1, le=500, description="Itens por página (1–500)"),
+    offset: int = Query(default=0, ge=0, description="Índice inicial (começa em 0)"),
+):
+    """
+    Lista transações de um político específico com paginação por offset.
+
+    - **limit**: quantidade de itens retornados (padrão 20, máximo 500)
+    - **offset**: posição inicial na lista ordenada por data decrescente
+    """
     txs = [tx for tx in TRANSACTIONS_DB if tx.politician_id == politician_id]
-    return sorted(txs, key=lambda x: x.timestamp, reverse=True)
+    sorted_txs = sorted(txs, key=lambda x: x.timestamp, reverse=True)
+
+    total = len(sorted_txs)
+    page = sorted_txs[offset: offset + limit]
+
+    return PaginatedTransactions(
+        items=page,
+        total=total,
+        limit=limit,
+        offset=offset,
+        has_more=(offset + limit) < total,
+    )
 
 
 # ============================================================================
@@ -317,11 +403,49 @@ async def create_alert(input: AlertCreate):
     return alert
 
 
-@api_router.get("/alerts", response_model=List[Alert])
-async def get_alerts(limit: int = 50):
-    """Lista alertas recentes"""
+@api_router.get("/alerts", response_model=PaginatedAlerts)
+async def get_alerts(
+    limit: int = Query(default=20, ge=1, le=500, description="Itens por página (1–500)"),
+    offset: int = Query(default=0, ge=0, description="Índice inicial (começa em 0)"),
+    resolved: Optional[bool] = Query(default=None, description="Filtrar por status de resolução"),
+    severity: Optional[str] = Query(default=None, description="Filtrar por severidade: low, medium, high, critical"),
+    politician_id: Optional[str] = Query(default=None, description="Filtrar por ID do político"),
+):
+    """
+    Lista alertas com paginação por offset.
+
+    - **limit**: quantidade de itens retornados (padrão 20, máximo 500)
+    - **offset**: posição inicial na lista ordenada por data decrescente
+    - **resolved**: true para resolvidos, false para ativos, omitir para todos
+    - **severity**: filtra por nível de severidade
+    - **politician_id**: filtra alertas de um político específico
+    """
     sorted_alerts = sorted(ALERTS_DB, key=lambda x: x.timestamp, reverse=True)
-    return sorted_alerts[:limit]
+
+    # Filtros opcionais
+    if resolved is not None:
+        sorted_alerts = [a for a in sorted_alerts if a.resolved == resolved]
+    if severity:
+        valid_severities = {"low", "medium", "high", "critical"}
+        if severity not in valid_severities:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Severidade inválida. Use um de: {', '.join(sorted(valid_severities))}"
+            )
+        sorted_alerts = [a for a in sorted_alerts if a.severity == severity]
+    if politician_id:
+        sorted_alerts = [a for a in sorted_alerts if a.politician_id == politician_id]
+
+    total = len(sorted_alerts)
+    page = sorted_alerts[offset: offset + limit]
+
+    return PaginatedAlerts(
+        items=page,
+        total=total,
+        limit=limit,
+        offset=offset,
+        has_more=(offset + limit) < total,
+    )
 
 
 # ============================================================================
@@ -335,13 +459,12 @@ async def get_stats():
     total_transactions = len(TRANSACTIONS_DB)
     suspicious_transactions = len([tx for tx in TRANSACTIONS_DB if tx.status == "suspicious"])
     active_alerts = len([a for a in ALERTS_DB if not a.resolved])
-    
-    # Contar carteiras
+
     total_wallets = sum(len(p.wallets) for p in POLITICIANS_DB)
     networks = set()
     for politician in POLITICIANS_DB:
         networks.update(politician.monitored_networks)
-    
+
     return {
         "total_politicians": total_politicians,
         "total_transactions": total_transactions,
@@ -349,8 +472,8 @@ async def get_stats():
         "active_alerts": active_alerts,
         "total_wallets": total_wallets,
         "monitored_networks": sorted(networks),
-        "primary_explorer": "BlockExplorer",
-        "timestamp": now_utc().isoformat()
+        "primary_explorer": "mempool.space",
+        "timestamp": now_utc().isoformat(),
     }
 
 
@@ -364,7 +487,7 @@ async def health_check():
     return {
         "status": "healthy",
         "timestamp": now_utc().isoformat(),
-        "version": "1.0.0"
+        "version": "1.0.0",
     }
 
 
@@ -374,7 +497,7 @@ async def root():
     return {
         "message": "Vigília - Vigilância Política Transparente",
         "documentation": "/docs",
-        "health": "/api/health"
+        "health": "/api/health",
     }
 
 
@@ -404,7 +527,7 @@ if __name__ == "__main__":
     ║      VIGÍLIA - Vigilância Política           ║
     ║      Transparência. Sem Censura.             ║
     ╚══════════════════════════════════════════════╝
-    
+
     API iniciando em http://localhost:8000
     Documentação: http://localhost:8000/docs
     """)
