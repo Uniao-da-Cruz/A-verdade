@@ -1,9 +1,4 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/README.md b/README.md
-index ae9b2a8b46dccf5f99b2eb17ffc0f80c9c79b9ff..5f45005ef21747d6f19edb5cfd19ba0c38b96dc0 100644
---- a/README.md
-+++ b/README.md
-@@ -1,358 +1,96 @@
+
 -# VIGÍLIA - Vigilância Política Transparente
 +# Vigília SaaS
  
