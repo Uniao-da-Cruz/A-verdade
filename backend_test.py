@@ -1,4 +1,3 @@
-import requests
 import sys
 from datetime import datetime
 
@@ -21,6 +20,8 @@ class VigiliaBEAPITester:
         print(f"URL: {url}")
 
         try:
+            import requests
+
             if method == 'GET':
                 response = requests.get(url, headers=headers, timeout=10)
             elif method == 'POST':
