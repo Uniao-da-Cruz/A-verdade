@@ -473,6 +473,40 @@ const Dashboard = () => {
           footer="Conteúdo educativo. Fonte: Canal Ciência Todo Dia — YouTube."
         />
 
+        {/* AI Assistants Section */}
+        <ExternalWatchSection
+          icon={Search}
+          title="Assistentes de IA"
+          description="Use ferramentas de IA para aprofundar pesquisas, resumir documentos públicos e comparar argumentos."
+          iconClassName="text-republic-blue"
+          wrapperClassName="mb-6 bg-zinc-900/50 border border-republic-blue/20 p-6"
+          sectionTestId="ai-assistants-section"
+          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-3"
+          actions={[
+            {
+              testId: "ai-claude-link",
+              icon: ExternalLink,
+              label: "Claude",
+              description: "Abrir claude.ai",
+              className: "border-republic-blue/20 bg-republic-blue/5 hover:bg-republic-blue/10",
+              iconClassName: "text-republic-blue",
+              labelClassName: "text-republic-blue",
+              href: "https://claude.ai",
+            },
+            {
+              testId: "ai-gemini-link",
+              icon: ExternalLink,
+              label: "Gemini",
+              description: "Abrir gemini.google.com",
+              className: "border-white/10 hover:border-republic-blue/20 hover:bg-republic-blue/5",
+              iconClassName: "text-zinc-400",
+              labelClassName: "text-zinc-300",
+              href: "https://gemini.google.com/app?hl=pt-BR",
+            },
+          ]}
+          footer="Sempre valide respostas de IA com fontes oficiais e dados públicos auditáveis."
+        />
+
         {/* Quick Navigation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
