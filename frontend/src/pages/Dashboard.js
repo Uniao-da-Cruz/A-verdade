@@ -473,6 +473,40 @@ const Dashboard = () => {
           footer="Conteúdo educativo. Fonte: Canal Ciência Todo Dia — YouTube."
         />
 
+        {/* ChatGPT Integration Section */}
+        <ExternalWatchSection
+          icon={FileSearch}
+          title="Assistente IA — ChatGPT"
+          description="Abra o ChatGPT para aprofundar pesquisas, resumir temas e acelerar análises do monitoramento."
+          iconClassName="text-republic-blue"
+          wrapperClassName="mb-6 bg-zinc-900/50 border border-republic-blue/20 p-6"
+          sectionTestId="chatgpt-integration-section"
+          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-3"
+          actions={[
+            {
+              testId: "chatgpt-open-link",
+              icon: ExternalLink,
+              label: "Abrir ChatGPT",
+              description: "chatgpt.com",
+              className: "border-republic-blue/20 bg-republic-blue/5 hover:bg-republic-blue/10",
+              iconClassName: "text-republic-blue",
+              labelClassName: "text-republic-blue",
+              href: "https://chatgpt.com/",
+            },
+            {
+              testId: "chatgpt-resources-link",
+              icon: FileSearch,
+              label: "Ver recursos internos",
+              description: "Página de recursos educacionais",
+              className: "border-white/10 hover:border-republic-blue/20 hover:bg-republic-blue/5",
+              iconClassName: "text-zinc-400",
+              labelClassName: "text-zinc-300",
+              onClick: () => navigate("/resources"),
+            },
+          ]}
+          footer="Integração rápida para ampliar investigações com assistência de IA."
+        />
+
         {/* Quick Navigation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
