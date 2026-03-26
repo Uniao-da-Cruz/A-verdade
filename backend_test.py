@@ -1,206 +1,223 @@
-import sys
+
 from datetime import datetime
+import sys
 
 
-class VigiliaBEAPITester:
-
-    def __init__(self, base_url="https://vigilia-politics.preview.emergentagent.com/api"):
-        self.base_url = base_url
-        self.tests_run = 0
-        self.tests_passed = 0
-        self.failed_tests = []
-
-    def run_test(self, name, method, endpoint, expected_status, data=None):
-        """Run a single API test"""
-        url = f"{self.base_url}/{endpoint}"
-        headers = {'Content-Type': 'application/json'}
-
-        self.tests_run += 1
-        print(f"\n🔍 Testing {name}...")
-        print(f"URL: {url}")
-
-        try:
-            import requests
-
-            if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=10)
-            elif method == 'POST':
-                response = requests.post(url, json=data, headers=headers, timeout=10)
             else:
-                raise ValueError(f"Unsupported HTTP method: {method}")
-
-            success = response.status_code == expected_status
-            if success:
-                self.tests_passed += 1
-                print(f"✅ Passed - Status: {response.status_code}")
-                try:
-                    return True, response.json()
-                except ValueError:
-                    return True, response.text
-
-            print(f"❌ Failed - Expected {expected_status}, got {response.status_code}")
-            print(f"Response: {response.text}")
-            self.failed_tests.append(f"{name}: Expected {expected_status}, got {response.status_code}")
-            return False, {}
-
-        except Exception as error:
-            print(f"❌ Failed - Error: {str(error)}")
-            self.failed_tests.append(f"{name}: {str(error)}")
-            return False, {}
-
-    def test_root_endpoint(self):
-        """Test root API endpoint"""
-        success, response = self.run_test(
-            "Root API Endpoint",
-            "GET",
-            "",
-            200
-        )
-        if success:
-            print(f"Root response: {response}")
-        return success
-
-    def test_get_politicians(self):
-        """Test getting all politicians"""
-        success, response = self.run_test(
-            "Get All Politicians",
-            "GET",
-            "politicians",
-            200
-        )
-
-        if success and isinstance(response, list):
-            print(f"Found {len(response)} politicians")
-
-            politicians_with_instagram = 0
-            politicians_with_twitter = 0
-
-            for politician in response:
-                print(f"- {politician.get('name', 'Unknown')} ({politician.get('party', 'Unknown')})")
-                if politician.get('instagram'):
-                    politicians_with_instagram += 1
-                    print(f"  Instagram: {politician['instagram']}")
-                if politician.get('twitter'):
-                    politicians_with_twitter += 1
-                    print(f"  Twitter: {politician['twitter']}")
-
-            print("\nSocial Media Summary:")
-            print(f"Politicians with Instagram: {politicians_with_instagram}")
-            print(f"Politicians with Twitter: {politicians_with_twitter}")
-
-            return success, response
-
-        return success, None
-
-    def test_get_politician_by_id(self, politician_id):
-        """Test getting specific politician by ID"""
-        if not politician_id:
-            print("❌ No politician ID provided")
+                print(f"   ❌ Health check FAILED - expected status 'healthy', got '{data.get('status')}'")
+                return False
+        else:
+            print(f"   ❌ Health check FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
             return False
+            
+    except Exception as e:
+        print(f"   ❌ Health check FAILED - Exception: {str(e)}")
+        return False
 
-        success, response = self.run_test(
-            f"Get Politician by ID ({politician_id})",
-            "GET",
-            f"politicians/{politician_id}",
-            200
-        )
+def test_stats():
+    """Test GET /api/stats - should return statistics with fields like total_politicians, total_transactions etc"""
+    print("\n🔍 Testing Stats...")
+    try:
+        response = requests.get(f"{BASE_URL}/stats", timeout=10)
+        print(f"   Status Code: {response.status_code}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"   Response: {json.dumps(data, indent=2)}")
+            
+            # Check for expected fields
+            expected_fields = ["total_politicians", "total_transactions", "suspicious_transactions", 
+                             "active_alerts", "total_wallets", "monitored_networks", "timestamp"]
+            
+            missing_fields = [field for field in expected_fields if field not in data]
+            
+            if not missing_fields:
+                print("   ✅ Stats PASSED - all expected fields present")
+                return True
+            else:
+                print(f"   ❌ Stats FAILED - missing fields: {missing_fields}")
+                return False
+        else:
+            print(f"   ❌ Stats FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"   ❌ Stats FAILED - Exception: {str(e)}")
+        return False
 
-        if success:
-            print("Politician details:")
-            print(f"- Name: {response.get('name')}")
-            print(f"- Party: {response.get('party')}")
-            print(f"- Position: {response.get('position')}")
-            print(f"- Instagram: {response.get('instagram')}")
-            print(f"- Twitter: {response.get('twitter')}")
-            print(f"- Verified: {response.get('verified')}")
+def test_politicians():
+    """Test GET /api/politicians - should return an array (may be empty)"""
+    print("\n🔍 Testing Politicians...")
+    try:
+        response = requests.get(f"{BASE_URL}/politicians", timeout=10)
+        print(f"   Status Code: {response.status_code}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"   Response: {json.dumps(data, indent=2)}")
+            
+            if isinstance(data, list):
+                print(f"   ✅ Politicians PASSED - returned array with {len(data)} items")
+                return True
+            else:
+                print(f"   ❌ Politicians FAILED - expected array, got {type(data)}")
+                return False
+        else:
+            print(f"   ❌ Politicians FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"   ❌ Politicians FAILED - Exception: {str(e)}")
+        return False
 
-        return success
+def test_transactions():
+    """Test GET /api/transactions - should return paginated response with items, total, limit, offset, has_more"""
+    print("\n🔍 Testing Transactions...")
+    try:
+        response = requests.get(f"{BASE_URL}/transactions", timeout=10)
+        print(f"   Status Code: {response.status_code}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"   Response: {json.dumps(data, indent=2)}")
+            
+            # Check for expected pagination fields
+            expected_fields = ["items", "total", "limit", "offset", "has_more"]
+            missing_fields = [field for field in expected_fields if field not in data]
+            
+            if not missing_fields:
+                # Verify items is a list
+                if isinstance(data.get("items"), list):
+                    print(f"   ✅ Transactions PASSED - paginated response with {len(data['items'])} items")
+                    return True
+                else:
+                    print(f"   ❌ Transactions FAILED - 'items' should be a list, got {type(data.get('items'))}")
+                    return False
+            else:
+                print(f"   ❌ Transactions FAILED - missing pagination fields: {missing_fields}")
+                return False
+        else:
+            print(f"   ❌ Transactions FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"   ❌ Transactions FAILED - Exception: {str(e)}")
+        return False
 
-    def test_get_stats(self):
-        """Test stats endpoint"""
-        success, response = self.run_test(
-            "Get Stats",
-            "GET",
-            "stats",
-            200
-        )
+def test_alerts():
+    """Test GET /api/alerts - should return paginated response with items, total, limit, offset, has_more"""
+    print("\n🔍 Testing Alerts...")
+    try:
+        response = requests.get(f"{BASE_URL}/alerts", timeout=10)
+        print(f"   Status Code: {response.status_code}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"   Response: {json.dumps(data, indent=2)}")
+            
+            # Check for expected pagination fields
+            expected_fields = ["items", "total", "limit", "offset", "has_more"]
+            missing_fields = [field for field in expected_fields if field not in data]
+            
+            if not missing_fields:
+                # Verify items is a list
+                if isinstance(data.get("items"), list):
+                    print(f"   ✅ Alerts PASSED - paginated response with {len(data['items'])} items")
+                    return True
+                else:
+                    print(f"   ❌ Alerts FAILED - 'items' should be a list, got {type(data.get('items'))}")
+                    return False
+            else:
+                print(f"   ❌ Alerts FAILED - missing pagination fields: {missing_fields}")
+                return False
+        else:
+            print(f"   ❌ Alerts FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"   ❌ Alerts FAILED - Exception: {str(e)}")
+        return False
 
-        if success:
-            print("Current stats:")
-            for key, value in response.items():
-                print(f"- {key}: {value}")
-
-        return success
-
-    def test_get_transactions(self):
-        """Test getting transactions"""
-        success, response = self.run_test(
-            "Get Transactions",
-            "GET",
-            "transactions",
-            200
-        )
-
-        if success and isinstance(response, list):
-            print(f"Found {len(response)} transactions")
-            if len(response) > 0:
-                print(f"Latest transaction: {response[0].get('tx_hash', 'Unknown')}")
-
-        return success
-
-    def test_get_alerts(self):
-        """Test getting alerts"""
-        success, response = self.run_test(
-            "Get Alerts",
-            "GET",
-            "alerts",
-            200
-        )
-
-        if success and isinstance(response, list):
-            print(f"Found {len(response)} alerts")
-            if len(response) > 0:
-                print(f"Latest alert: {response[0].get('message', 'Unknown')}")
-
-        return success
-
+def test_root():
+    """Test GET /api/ - should return a message with 'Vigília'"""
+    print("\n🔍 Testing Root...")
+    try:
+        response = requests.get(f"{BASE_URL}/", timeout=10)
+        print(f"   Status Code: {response.status_code}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"   Response: {json.dumps(data, indent=2)}")
+            
+            message = data.get("message", "")
+            if "Vigília" in message:
+                print("   ✅ Root PASSED - message contains 'Vigília'")
+                return True
+            else:
+                print(f"   ❌ Root FAILED - message should contain 'Vigília', got: '{message}'")
+                return False
+        else:
+            print(f"   ❌ Root FAILED - HTTP {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"   ❌ Root FAILED - Exception: {str(e)}")
+        return False
 
 def main():
-    print("🚀 Starting Vigília Backend API Tests")
-    print("=" * 50)
-
-    tester = VigiliaBEAPITester()
-
-    if not tester.test_root_endpoint():
-        print("❌ Root endpoint failed, stopping tests")
-        return 1
-
-    politicians_success, politicians = tester.test_get_politicians()
-    if not politicians_success:
-        print("❌ Politicians endpoint failed")
-        return 1
-
-    if politicians and len(politicians) > 0:
-        first_id = politicians[0].get('id')
-        if first_id:
-            tester.test_get_politician_by_id(first_id)
-
-    tester.test_get_stats()
-    tester.test_get_transactions()
-    tester.test_get_alerts()
-
-    print("\n" + "=" * 50)
-    print(f"📊 Final Results: {tester.tests_passed}/{tester.tests_run} tests passed")
-
-    if tester.failed_tests:
-        print("\n❌ Failed Tests:")
-        for failure in tester.failed_tests:
-            print(f"  - {failure}")
+    """Run all backend API tests"""
+    print("=" * 60)
+    print("🚀 VIGÍLIA BACKEND API TESTING")
+    print(f"🌐 Testing API at: {BASE_URL}")
+    print("=" * 60)
+    
+    tests = [
+        ("Health Check", test_health_check),
+        ("Stats", test_stats),
+        ("Politicians", test_politicians),
+        ("Transactions", test_transactions),
+        ("Alerts", test_alerts),
+        ("Root", test_root),
+    ]
+    
+    results = []
+    
+    for test_name, test_func in tests:
+        result = test_func()
+        results.append((test_name, result))
+    
+    print("\n" + "=" * 60)
+    print("📊 TEST RESULTS SUMMARY")
+    print("=" * 60)
+    
+    passed = 0
+    failed = 0
+    
+    for test_name, result in results:
+        status = "✅ PASSED" if result else "❌ FAILED"
+        print(f"{test_name:20} {status}")
+        if result:
+            passed += 1
+        else:
+            failed += 1
+    
+    print(f"\nTotal: {len(results)} tests")
+    print(f"Passed: {passed}")
+    print(f"Failed: {failed}")
+    
+    if failed == 0:
+        print("\n🎉 ALL TESTS PASSED! Backend API is working correctly.")
+        return True
     else:
-        print("\n✅ All tests passed!")
-
-    return 0 if len(tester.failed_tests) == 0 else 1
-
+        print(f"\n⚠️  {failed} test(s) failed. Backend API has issues.")
+        return False
 
 if __name__ == "__main__":
-    sys.exit(main())
+    success = main()
+    sys.exit(0 if success else 1)
