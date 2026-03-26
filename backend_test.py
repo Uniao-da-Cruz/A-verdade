@@ -1,31 +1,8 @@
-#!/usr/bin/env python3
-"""
-Backend API Testing for Vigília
-Tests all API endpoints at https://site-generator-173.preview.emergentagent.com/api
-"""
 
-import requests
-import json
 from datetime import datetime
 import sys
 
-# Base URL from frontend/.env
-BASE_URL = "https://site-generator-173.preview.emergentagent.com/api"
 
-def test_health_check():
-    """Test GET /api/health - should return status 'healthy'"""
-    print("🔍 Testing Health Check...")
-    try:
-        response = requests.get(f"{BASE_URL}/health", timeout=10)
-        print(f"   Status Code: {response.status_code}")
-        
-        if response.status_code == 200:
-            data = response.json()
-            print(f"   Response: {json.dumps(data, indent=2)}")
-            
-            if data.get("status") == "healthy":
-                print("   ✅ Health check PASSED - status is 'healthy'")
-                return True
             else:
                 print(f"   ❌ Health check FAILED - expected status 'healthy', got '{data.get('status')}'")
                 return False
