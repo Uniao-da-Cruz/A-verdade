@@ -1,539 +1,339 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import {
-  Search, AlertTriangle, Activity, Users, TrendingUp,
-  Menu, X, Instagram, ExternalLink, Youtube, MapPin,
-  FileSearch, Landmark
-} from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ExternalWatchSection } from "@/components/dashboard/ExternalWatchSection";
+import { Label } from "@/components/ui/label";
+import { api } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const initialPoliticianForm = {
+  name: "",
+  party: "",
+  position: "",
+  state: "",
+  wallets: "",
+  instagram: "",
+  twitter: "",
+};
 
-const Dashboard = () => {
-  const navigate = useNavigate();
-  const [stats, setStats] = useState({
-    total_politicians: 0,
-    total_transactions: 0,
-    suspicious_transactions: 0,
-    active_alerts: 0
-  });
-  const [politicians, setPoliticians] = useState([]);
-  const [transactions, setTransactions] = useState([]);
-  const [alerts, setAlerts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+const planOptions = ["starter", "growth", "enterprise"];
+
+function statusClasses(status) {
+  return {
+    verified: "bg-green-500/10 text-green-400 border-green-500/20",
+    suspicious: "bg-red-500/10 text-red-400 border-red-500/20",
+    pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+  }[status] || "bg-zinc-500/10 text-zinc-300 border-zinc-500/20";
+}
+
+function severityClasses(status) {
+  return {
+    critical: "bg-red-500/10 text-red-400 border-red-500/20",
+    high: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+    medium: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+    low: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  }[status] || "bg-zinc-500/10 text-zinc-300 border-zinc-500/20";
+}
+
+export default function Dashboard() {
+  const { user, workspace, logout } = useAuth();
+  const [snapshot, setSnapshot] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [planSaving, setPlanSaving] = useState(false);
+  const [politicianForm, setPoliticianForm] = useState(initialPoliticianForm);
 
-  useEffect(() => {
-    loadDashboardData();
-  }, []);
-
-  const loadDashboardData = async () => {
+  const loadDashboard = async () => {
     try {
       setLoading(true);
-      const [statsRes, politiciansRes, transactionsRes, alertsRes] = await Promise.all([
-        axios.get(`${API}/stats`),
-        axios.get(`${API}/politicians`),
-        axios.get(`${API}/transactions?limit=20`),
-        axios.get(`${API}/alerts?limit=10`)
-      ]);
 
-      setStats(statsRes.data);
-      setPoliticians(politiciansRes.data);
-      setTransactions(transactionsRes.data);
-      setAlerts(alertsRes.data);
     } catch (error) {
-      console.error("Error loading dashboard data:", error);
-      toast.error("Failed to load dashboard data");
+      toast.error(error.response?.data?.detail || "Erro ao carregar dashboard");
     } finally {
       setLoading(false);
     }
   };
 
-  const getStatusBadge = (status) => {
-    const variants = {
-      verified: "bg-green-500/10 text-green-400 border-green-500/20",
-      suspicious: "bg-red-500/10 text-red-400 border-red-500/20",
-      pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20"
-    };
-    return variants[status] || variants.verified;
+  useEffect(() => {
+    loadDashboard();
+  }, []);
+
+  const statsCards = useMemo(() => {
+    if (!snapshot) {
+      return [];
+    }
+
+    return [
+      { title: "Políticos", value: snapshot.stats.total_politicians, icon: ShieldCheck, color: "text-neon-green" },
+      { title: "Transações", value: snapshot.stats.total_transactions, icon: Wallet, color: "text-republic-blue" },
+      { title: "Alertas ativos", value: snapshot.stats.active_alerts, icon: Bell, color: "text-alert-yellow" },
+      { title: "Carteiras", value: snapshot.stats.total_wallets, icon: Database, color: "text-corruption-red" },
+    ];
+  }, [snapshot]);
+
+  const handleCreatePolitician = async (event) => {
+    event.preventDefault();
+    try {
+      setSaving(true);
+      await api.post("/politicians", {
+        name: politicianForm.name,
+        party: politicianForm.party,
+        position: politicianForm.position,
+        state: politicianForm.state || null,
+        instagram: politicianForm.instagram || null,
+        twitter: politicianForm.twitter || null,
+        wallets: politicianForm.wallets
+          .split(",")
+          .map((wallet) => wallet.trim())
+          .filter(Boolean),
+      });
+      toast.success("Político criado no workspace");
+      setPoliticianForm(initialPoliticianForm);
+      await loadDashboard();
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Não foi possível salvar o político");
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const getSeverityBadge = (severity) => {
-    const variants = {
-      critical: "bg-red-500/10 text-red-400 border-red-500/20",
-      high: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-      medium: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-      low: "bg-blue-500/10 text-blue-400 border-blue-500/20"
-    };
-    return variants[severity] || variants.low;
+  const handlePlanChange = async (plan) => {
+    try {
+      setPlanSaving(true);
+      await api.patch("/workspace/plan", { plan });
+      toast.success(`Plano alterado para ${plan}`);
+      await loadDashboard();
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Falha ao alterar plano");
+    } finally {
+      setPlanSaving(false);
+    }
   };
-
-  const filteredPoliticians = politicians.filter(p =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.party.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="text-zinc-400 font-mono text-sm">Loading dashboard...</div>
+      <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-400 font-mono text-sm">
+        Carregando workspace...
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
-      {/* Sidebar overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/60"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-black border-r border-white/10 transform transition-transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-chivo font-black text-xl">
-              VIG<span className="text-neon-green">Í</span>LIA
-            </h2>
-            <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
-              <X className="w-5 h-5" />
+      <header className="border-b border-white/10 sticky top-0 bg-zinc-950/90 backdrop-blur-xl z-30">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 py-5 flex flex-col lg:flex-row lg:items-center gap-4 justify-between">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500">Workspace</p>
+            <h1 className="font-chivo font-black text-3xl mt-1">{snapshot?.stats.workspace_name}</h1>
+            <p className="text-zinc-400 text-sm mt-1">{workspace?.slug} · {user?.email}</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="outline" className="rounded-none border-white/10 bg-transparent" onClick={loadDashboard}>
+              <RefreshCcw className="w-4 h-4 mr-2" />
+              Atualizar
+            </Button>
+            <Button variant="outline" className="rounded-none border-white/10 bg-transparent" onClick={logout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Sair
             </Button>
           </div>
-          <nav className="space-y-1">
-            {[
-              { label: "Dashboard", path: "/dashboard", testId: "sidebar-dashboard-link" },
-              { label: "Espectro Político", path: "/spectrum", testId: "sidebar-spectrum-link" },
-              { label: "Recursos Educacionais", path: "/resources", testId: "sidebar-resources-link" },
-              { label: "Programas Sociais", path: "/programas-sociais", testId: "sidebar-social-programs-link" },
-              { label: "Riscos Nucleares", path: "/riscos-nucleares", testId: "sidebar-nuclear-link" },
-            ].map((item) => (
-              <Button
-                key={item.path}
-                variant="ghost"
-                className="w-full justify-start text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-wider rounded-none"
-                onClick={() => { navigate(item.path); setSidebarOpen(false); }}
-                data-testid={item.testId}
-              >
-                {item.label}
-              </Button>
-            ))}
-          </nav>
         </div>
-      </aside>
+      </header>
 
-      {/* Top Navigation */}
-      <nav className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div className="px-6 py-4 flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setSidebarOpen(true)}
-            data-testid="sidebar-toggle"
-          >
-            <Menu className="w-5 h-5" />
-          </Button>
-          <h1 className="font-chivo font-black text-2xl">
-            VIG<span className="text-neon-green">Í</span>LIA
-          </h1>
-          <div className="flex-1 max-w-md relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-            <Input
-              className="bg-zinc-900/50 border-white/10 pl-9 font-mono text-sm placeholder:text-zinc-600 rounded-none"
-              placeholder="Search politicians..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              data-testid="search-input"
-            />
-          </div>
-          <Button
-            onClick={() => navigate("/programas-sociais")}
-            className="hidden md:flex bg-neon-green/10 border border-neon-green/30 text-neon-green hover:bg-neon-green/20 font-mono text-xs uppercase rounded-none"
-            data-testid="social-programs-btn"
-          >
-            <MapPin className="w-4 h-4 mr-2" />
-            Prog. Sociais
-          </Button>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="p-6 md:p-8 max-w-7xl mx-auto">
-
-        {/* Stats Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-        >
-          {[
-            { label: "Politicians", value: stats.total_politicians, icon: Users, color: "text-neon-green" },
-            { label: "Transactions", value: stats.total_transactions, icon: Activity, color: "text-republic-blue" },
-            { label: "Suspicious", value: stats.suspicious_transactions, icon: AlertTriangle, color: "text-corruption-red" },
-            { label: "Active Alerts", value: stats.active_alerts, icon: TrendingUp, color: "text-alert-yellow" },
-          ].map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              className="bg-zinc-900/50 border border-white/10 p-4"
-              data-testid={`stat-card-${idx}`}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <stat.icon className={`w-4 h-4 ${stat.color}`} />
-                <p className="text-zinc-500 text-xs uppercase tracking-wider">{stat.label}</p>
+      <main className="max-w-7xl mx-auto px-6 md:px-10 py-8 space-y-8">
+        <section className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          {statsCards.map((card) => (
+            <Card key={card.title} className="bg-zinc-900/70 border-white/10 rounded-none p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <card.icon className={`w-5 h-5 ${card.color}`} />
+                <span className="text-zinc-400 text-sm uppercase tracking-wider">{card.title}</span>
               </div>
-              <p className={`font-chivo font-black text-3xl ${stat.color}`}>{stat.value}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Politicians Grid */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
-          data-testid="politicians-section"
-        >
-          <h2 className="font-chivo font-bold text-xl mb-4">Monitored Politicians</h2>
-          {filteredPoliticians.length === 0 ? (
-            <Card className="p-8 bg-zinc-900/50 border-white/10 text-center">
-              <p className="text-zinc-500">
-                {searchQuery
-                  ? `No politicians matching "${searchQuery}"`
-                  : "No politicians registered yet"}
-              </p>
+              <p className={`font-chivo font-black text-4xl ${card.color}`}>{card.value}</p>
             </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredPoliticians.map((politician, idx) => (
-                <motion.div
-                  key={politician.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + idx * 0.03 }}
-                  className="bg-zinc-900/50 border border-white/10 p-5 card-hover cursor-pointer"
-                  onClick={() => navigate(`/politician/${politician.id}`)}
-                  data-testid={`politician-card-${idx}`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-chivo font-bold text-base leading-tight truncate">
-                        {politician.name}
-                      </h3>
-                      <p className="text-zinc-400 text-sm mt-1">
-                        {politician.party} · {politician.position}
-                      </p>
+          ))}
+        </section>
+
+        <section className="grid xl:grid-cols-[1.2fr_0.8fr] gap-6">
+          <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-[0.3em] font-mono">SaaS snapshot</p>
+                <h2 className="font-chivo font-bold text-2xl mt-2">Resumo operacional</h2>
+              </div>
+              <Badge className="rounded-none uppercase tracking-wider bg-neon-green/10 text-neon-green border-neon-green/20">
+                {snapshot?.stats.plan}
+              </Badge>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 text-sm">
+              <div className="border border-white/10 p-4 bg-black/20">
+                <p className="text-zinc-500 mb-2">Redes monitoradas</p>
+                <div className="flex flex-wrap gap-2">
+                  {snapshot?.stats.monitored_networks.length ? snapshot.stats.monitored_networks.map((network) => (
+                    <Badge key={network} variant="outline" className="rounded-none border-white/10 text-zinc-200">
+                      {network}
+                    </Badge>
+                  )) : <span className="text-zinc-400">Nenhuma ainda</span>}
+                </div>
+              </div>
+              <div className="border border-white/10 p-4 bg-black/20">
+                <p className="text-zinc-500 mb-2">Explorer padrão</p>
+                <p className="text-zinc-100">{snapshot?.stats.primary_explorer}</p>
+              </div>
+              <div className="border border-white/10 p-4 bg-black/20">
+                <p className="text-zinc-500 mb-2">Owner</p>
+                <p className="text-zinc-100">{user?.full_name}</p>
+              </div>
+              <div className="border border-white/10 p-4 bg-black/20">
+                <p className="text-zinc-500 mb-2">Momento do snapshot</p>
+                <p className="text-zinc-100">{new Date(snapshot?.stats.timestamp).toLocaleString("pt-BR")}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 border border-white/10 p-4 bg-black/20">
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500 mb-3">Upgrade de plano</p>
+              <div className="flex flex-wrap gap-3">
+                {planOptions.map((plan) => (
+                  <Button
+                    key={plan}
+                    type="button"
+                    variant="outline"
+                    className={`rounded-none border-white/10 ${snapshot?.stats.plan === plan ? "bg-neon-green/10 text-neon-green" : "bg-transparent"}`}
+                    disabled={planSaving}
+                    onClick={() => handlePlanChange(plan)}
+                  >
+                    <CreditCard className="w-4 h-4 mr-2" />
+                    {plan}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </Card>
+
+          <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
+            <div className="mb-6">
+              <p className="text-zinc-500 text-xs uppercase tracking-[0.3em] font-mono">Onboarding</p>
+              <h2 className="font-chivo font-bold text-2xl mt-2">Adicionar novo político</h2>
+            </div>
+
+            <form className="space-y-4" onSubmit={handleCreatePolitician}>
+              <div className="space-y-2">
+                <Label htmlFor="name">Nome</Label>
+                <Input id="name" value={politicianForm.name} onChange={(e) => setPoliticianForm((current) => ({ ...current, name: e.target.value }))} className="rounded-none bg-black/20 border-white/10" required />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="party">Partido</Label>
+                  <Input id="party" value={politicianForm.party} onChange={(e) => setPoliticianForm((current) => ({ ...current, party: e.target.value }))} className="rounded-none bg-black/20 border-white/10" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="state">UF</Label>
+                  <Input id="state" value={politicianForm.state} onChange={(e) => setPoliticianForm((current) => ({ ...current, state: e.target.value }))} className="rounded-none bg-black/20 border-white/10" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="position">Cargo</Label>
+                <Input id="position" value={politicianForm.position} onChange={(e) => setPoliticianForm((current) => ({ ...current, position: e.target.value }))} className="rounded-none bg-black/20 border-white/10" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="wallets">Carteiras monitoradas</Label>
+                <Input id="wallets" value={politicianForm.wallets} onChange={(e) => setPoliticianForm((current) => ({ ...current, wallets: e.target.value }))} className="rounded-none bg-black/20 border-white/10" placeholder="Separe por vírgula" required />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="instagram">Instagram</Label>
+                  <Input id="instagram" value={politicianForm.instagram} onChange={(e) => setPoliticianForm((current) => ({ ...current, instagram: e.target.value }))} className="rounded-none bg-black/20 border-white/10" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twitter">X / Twitter</Label>
+                  <Input id="twitter" value={politicianForm.twitter} onChange={(e) => setPoliticianForm((current) => ({ ...current, twitter: e.target.value }))} className="rounded-none bg-black/20 border-white/10" />
+                </div>
+              </div>
+              <Button type="submit" className="w-full rounded-none bg-neon-green text-black hover:bg-green-500 font-bold uppercase tracking-wider" disabled={saving}>
+                <Plus className="w-4 h-4 mr-2" />
+                {saving ? "Salvando..." : "Adicionar ao workspace"}
+              </Button>
+            </form>
+          </Card>
+        </section>
+
+        <section className="grid xl:grid-cols-[1.1fr_0.9fr] gap-6">
+          <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-chivo font-bold text-2xl">Políticos monitorados</h2>
+              <Badge variant="outline" className="rounded-none border-white/10 text-zinc-300">
+                {snapshot?.politicians.length} itens recentes
+              </Badge>
+            </div>
+            <div className="space-y-4">
+              {snapshot?.politicians.map((politician) => (
+                <div key={politician.id} className="border border-white/10 bg-black/20 p-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                    <div>
+                      <h3 className="font-chivo font-bold text-xl">{politician.name}</h3>
+                      <p className="text-zinc-400 text-sm">{politician.party} · {politician.position}{politician.state ? ` · ${politician.state}` : ""}</p>
                     </div>
-                    {politician.verified && (
-                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs font-mono uppercase ml-2 flex-shrink-0">
-                        ✓
-                      </Badge>
-                    )}
+                    {politician.verified && <Badge className="rounded-none bg-neon-green/10 text-neon-green border-neon-green/20">Verificado</Badge>}
                   </div>
-                  <div className="flex gap-4 text-sm mb-3">
-                    <span className="text-zinc-500">{politician.total_transactions} txs</span>
-                    {politician.suspicious_count > 0 && (
-                      <span className="text-corruption-red">
-                        {politician.suspicious_count} suspicious
-                      </span>
-                    )}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {politician.monitored_networks.map((network) => (
+                      <Badge key={network} variant="outline" className="rounded-none border-white/10 text-zinc-300">{network}</Badge>
+                    ))}
                   </div>
-                  {(politician.instagram || politician.twitter || politician.youtube) && (
-                    <div className="flex gap-3">
-                      {politician.instagram && (
-                        <a
-                          href={`https://www.instagram.com/${politician.instagram}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-zinc-600 hover:text-neon-green transition-colors"
-                          data-testid={`politician-instagram-${idx}`}
-                        >
-                          <Instagram className="w-4 h-4" />
-                        </a>
-                      )}
-                      {politician.youtube && (
-                        <a
-                          href={`https://www.youtube.com/channel/${politician.youtube}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-zinc-600 hover:text-corruption-red transition-colors"
-                          data-testid={`politician-youtube-${idx}`}
-                        >
-                          <Youtube className="w-4 h-4" />
-                        </a>
-                      )}
-                      {politician.twitter && (
-                        <a
-                          href={`https://twitter.com/${politician.twitter}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-zinc-600 hover:text-republic-blue transition-colors"
-                          data-testid={`politician-twitter-${idx}`}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
+                  <div className="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                    <div>
+                      <p className="text-zinc-500 mb-1">Carteiras</p>
+                      <ul className="space-y-1">
+                        {politician.wallet_details.map((wallet) => (
+                          <li key={wallet.address} className="truncate">{wallet.label}: {wallet.address}</li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
-                </motion.div>
+                    <div>
+                      <p className="text-zinc-500 mb-1">Indicadores</p>
+                      <p>{politician.total_transactions} transações · {politician.suspicious_count} suspeitas</p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
-          )}
-        </motion.section>
+          </Card>
 
-        {/* Transactions & Alerts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Recent Transactions */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            data-testid="transactions-section"
-          >
-            <h2 className="font-chivo font-bold text-xl mb-4">Recent Transactions</h2>
-            <div className="space-y-2">
-              {transactions.length === 0 ? (
-                <Card className="p-6 bg-zinc-900/50 border-white/10 text-center">
-                  <p className="text-zinc-500">No transactions recorded</p>
-                </Card>
-              ) : (
-                transactions.slice(0, 8).map((tx, idx) => (
-                  <div
-                    key={tx.id}
-                    className="bg-zinc-900/50 border border-white/10 p-4 hover:border-white/20 transition-colors"
-                    data-testid={`transaction-row-${idx}`}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <Badge className={`${getStatusBadge(tx.status)} text-xs font-mono uppercase flex-shrink-0`}>
-                          {tx.status}
-                        </Badge>
-                        <span className="text-zinc-400 text-sm truncate">
-                          {tx.politician_name}
-                        </span>
+          <div className="space-y-6">
+            <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
+              <h2 className="font-chivo font-bold text-2xl mb-5">Transações recentes</h2>
+              <div className="space-y-3">
+                {snapshot?.recent_transactions.map((transaction) => (
+                  <div key={transaction.id} className="border border-white/10 bg-black/20 p-4">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div>
+                        <p className="font-medium">{transaction.politician_name}</p>
+                        <p className="text-zinc-500 text-xs break-all">{transaction.tx_hash}</p>
                       </div>
-                      <span className="font-chivo font-bold text-neon-green ml-2 flex-shrink-0">
-                        {tx.amount} {tx.currency}
-                      </span>
+                      <Badge className={`rounded-none border ${statusClasses(transaction.status)}`}>{transaction.status}</Badge>
                     </div>
-                    <p className="font-mono text-xs text-zinc-600 truncate">{tx.tx_hash}</p>
+                    <p className="text-zinc-300 text-sm">{transaction.amount} {transaction.currency} · {transaction.network}</p>
                   </div>
-                ))
-              )}
-            </div>
-          </motion.section>
+                ))}
+              </div>
+            </Card>
 
-          {/* Active Alerts */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            data-testid="alerts-section"
-          >
-            <h2 className="font-chivo font-bold text-xl mb-4">Active Alerts</h2>
-            <div className="space-y-2">
-              {alerts.length === 0 ? (
-                <Card className="p-6 bg-zinc-900/50 border-white/10 text-center">
-                  <p className="text-zinc-500">No active alerts</p>
-                </Card>
-              ) : (
-                alerts.slice(0, 8).map((alert, idx) => (
-                  <div
-                    key={alert.id}
-                    className="bg-zinc-900/50 border border-white/10 p-4 hover:border-white/20 transition-colors"
-                    data-testid={`alert-row-${idx}`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Badge className={`${getSeverityBadge(alert.severity)} text-xs font-mono uppercase flex-shrink-0`}>
-                            {alert.severity}
-                          </Badge>
-                          <span className="text-zinc-400 text-sm truncate">
-                            {alert.politician_name}
-                          </span>
-                        </div>
-                        <p className="text-zinc-300 text-sm truncate">{alert.message}</p>
-                      </div>
-                      <AlertTriangle className="w-4 h-4 text-alert-yellow flex-shrink-0 mt-0.5" />
+            <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
+              <h2 className="font-chivo font-bold text-2xl mb-5">Alertas recentes</h2>
+              <div className="space-y-3">
+                {snapshot?.recent_alerts.map((alert) => (
+                  <div key={alert.id} className="border border-white/10 bg-black/20 p-4">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <p className="font-medium">{alert.politician_name}</p>
+                      <Badge className={`rounded-none border ${severityClasses(alert.severity)}`}>{alert.severity}</Badge>
                     </div>
+                    <p className="text-zinc-300 text-sm">{alert.message}</p>
                   </div>
-                ))
-              )}
-            </div>
-          </motion.section>
-        </div>
 
-        {/* CadÚnico Watch Section */}
-        <ExternalWatchSection
-          icon={Landmark}
-          title="CadÚnico + Dataprev"
-          description="Consulte programas sociais, cadastro e serviços integrados ao Cadastro Único via portal oficial da Dataprev."
-          iconClassName="text-neon-green"
-          wrapperClassName="mb-6 bg-zinc-900/50 border border-neon-green/20 p-6"
-          sectionTestId="cadunico-watch-section"
-          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-3"
-          actions={[
-            {
-              testId: "cadunico-internal-page-link",
-              icon: FileSearch,
-              label: "Ver página interna",
-              description: "Programas sociais no Vigília",
-              className: "border-neon-green/20 bg-neon-green/5 hover:bg-neon-green/10",
-              iconClassName: "text-neon-green",
-              labelClassName: "text-neon-green",
-              onClick: () => navigate("/programas-sociais"),
-            },
-            {
-              testId: "cadunico-dataprev-link",
-              icon: ExternalLink,
-              label: "Portal oficial Dataprev",
-              description: "cadunico.dataprev.gov.br",
-              className: "border-white/10 hover:border-neon-green/20 hover:bg-neon-green/5",
-              iconClassName: "text-zinc-400",
-              labelClassName: "text-zinc-300",
-              href: "https://cadunico.dataprev.gov.br/#/programas-sociais",
-            },
-          ]}
-          footer="Dados integrados ao portal oficial do Governo Federal — Dataprev."
-        />
-
-        {/* Nuclear Risks Watch Section */}
-        <ExternalWatchSection
-          icon={AlertTriangle}
-          title="Riscos Nucleares — Bomba Atômica"
-          description="Documentário educativo sobre a história da bomba atômica e os riscos nucleares. Fonte: Ciência Todo Dia (4.5M+ visualizações)."
-          iconClassName="text-corruption-red"
-          wrapperClassName="mb-6 bg-zinc-900/50 border border-corruption-red/20 p-6"
-          sectionTestId="nuclear-risks-watch-section"
-          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-3"
-          actions={[
-            {
-              testId: "nuclear-risks-video-link",
-              icon: Youtube,
-              label: "Assistir no YouTube",
-              description: "REAÇÃO em CADEIA: a HISTÓRIA da BOMBA ATÔMICA",
-              className: "border-corruption-red/20 bg-corruption-red/5 hover:bg-corruption-red/10",
-              iconClassName: "text-corruption-red",
-              labelClassName: "text-corruption-red",
-              href: "https://www.youtube.com/watch?v=6fsuiVHtEfc",
-            },
-            {
-              testId: "nuclear-risks-internal-page-link",
-              icon: FileSearch,
-              label: "Ver página de riscos",
-              description: "Análise detalhada no Vigília",
-              className: "border-white/10 hover:border-corruption-red/20 hover:bg-corruption-red/5",
-              iconClassName: "text-zinc-400",
-              labelClassName: "text-zinc-300",
-              onClick: () => navigate("/riscos-nucleares"),
-            },
-            {
-              testId: "nuclear-risks-channel-source-link",
-              icon: ExternalLink,
-              label: "Canal Ciência Todo Dia",
-              description: "Fonte original do conteúdo",
-              className: "border-white/10 hover:border-republic-blue/20 hover:bg-republic-blue/5",
-              iconClassName: "text-zinc-400",
-              labelClassName: "text-zinc-300",
-              href: "https://www.youtube.com/@CienciaTodoDia",
-            },
-            {
-              testId: "nuclear-risks-chernobyl-link",
-              icon: AlertTriangle,
-              label: "Chernobyl: A História Completa",
-              description: "Conteúdo relacionado",
-              className: "border-white/10 hover:border-alert-yellow/20 hover:bg-alert-yellow/5",
-              iconClassName: "text-zinc-400",
-              labelClassName: "text-zinc-300",
-              href: "https://www.youtube.com/watch?v=DiGqjYkRQ6o",
-            },
-          ]}
-          footer="Conteúdo educativo. Fonte: Canal Ciência Todo Dia — YouTube."
-        />
-
-        {/* AI Assistants Section */}
-        <ExternalWatchSection
-          icon={Search}
-          title="Assistentes de IA"
-          description="Use ferramentas de IA para aprofundar pesquisas, resumir documentos públicos e comparar argumentos."
-          iconClassName="text-republic-blue"
-          wrapperClassName="mb-6 bg-zinc-900/50 border border-republic-blue/20 p-6"
-          sectionTestId="ai-assistants-section"
-          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-3"
-          actions={[
-            {
-              testId: "ai-claude-link",
-              icon: ExternalLink,
-              label: "Claude",
-              description: "Abrir claude.ai",
-              className: "border-republic-blue/20 bg-republic-blue/5 hover:bg-republic-blue/10",
-              iconClassName: "text-republic-blue",
-              labelClassName: "text-republic-blue",
-              href: "https://claude.ai",
-            },
-            {
-              testId: "ai-gemini-link",
-              icon: ExternalLink,
-              label: "Gemini",
-              description: "Abrir gemini.google.com",
-              className: "border-white/10 hover:border-republic-blue/20 hover:bg-republic-blue/5",
-              iconClassName: "text-zinc-400",
-              labelClassName: "text-zinc-300",
-              href: "https://gemini.google.com/app?hl=pt-BR",
-            },
-          ]}
-          footer="Sempre valide respostas de IA com fontes oficiais e dados públicos auditáveis."
-        />
-
-        {/* Quick Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3"
-        >
-          {[
-            { label: "Espectro Político", path: "/spectrum", color: "border-republic-blue/20 hover:bg-republic-blue/5 hover:border-republic-blue/40" },
-            { label: "Recursos Educacionais", path: "/resources", color: "border-neon-green/20 hover:bg-neon-green/5 hover:border-neon-green/40" },
-            { label: "Programas Sociais", path: "/programas-sociais", color: "border-alert-yellow/20 hover:bg-alert-yellow/5 hover:border-alert-yellow/40" },
-            { label: "Riscos Nucleares", path: "/riscos-nucleares", color: "border-corruption-red/20 hover:bg-corruption-red/5 hover:border-corruption-red/40" },
-          ].map((item) => (
-            <button
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              className={`p-4 border text-left font-mono text-xs uppercase tracking-wider text-zinc-400 hover:text-zinc-200 transition-colors ${item.color}`}
-              data-testid={`nav-${item.path.replace("/", "")}`}
-            >
-              {item.label} →
-            </button>
-          ))}
-        </motion.div>
 
       </main>
     </div>
   );
-};
-
-export default Dashboard;
+}

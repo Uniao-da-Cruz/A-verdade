@@ -43,7 +43,7 @@ const OccultInfluence = () => {
       id: 3,
       title: "Simbolismo Oculto na Política",
       description: "Símbolos esotéricos em instituições governamentais e moedas",
-      icon: <Network className="w-8 h-8 text="neon-green" />,
+      icon: <Network className="w-8 h-8 text-neon-green" />,
       details: [
         "Pirâmide e Olho que Tudo Vê (dólar americano)",
         "Arquitetura de Washington DC (pentagramas)",
