@@ -79,6 +79,9 @@ class PoliticianORM(Base):
     twitter: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
     youtube: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     blockchain_focus: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
+    declared_assets_brl: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    declaration_year: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    data_source_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     total_transactions: Mapped[int] = mapped_column(Integer, default=0)
     suspicious_count: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
@@ -191,6 +194,9 @@ class PoliticianBase(BaseModel):
     twitter: Optional[str] = None
     youtube: Optional[str] = None
     blockchain_focus: Optional[str] = None
+    declared_assets_brl: Optional[float] = None
+    declaration_year: Optional[int] = None
+    data_source_url: Optional[str] = None
 
 
 class PoliticianCreate(PoliticianBase):
@@ -449,6 +455,9 @@ def serialize_politician(politician: PoliticianORM) -> PoliticianResponse:
         twitter=politician.twitter,
         youtube=politician.youtube,
         blockchain_focus=politician.blockchain_focus,
+        declared_assets_brl=politician.declared_assets_brl,
+        declaration_year=politician.declaration_year,
+        data_source_url=politician.data_source_url,
         wallets=wallets,
         wallet_details=[serialize_wallet(wallet) for wallet in politician.wallet_details],
         monitored_networks=networks,
@@ -934,6 +943,9 @@ def create_politician(
         twitter=payload.twitter,
         youtube=payload.youtube,
         blockchain_focus=payload.blockchain_focus,
+        declared_assets_brl=payload.declared_assets_brl,
+        declaration_year=payload.declaration_year,
+        data_source_url=payload.data_source_url,
     )
     wallet_inputs: List[WalletDetail | str] = payload.wallet_details if payload.wallet_details else payload.wallets
     create_wallets_for_politician(politician, wallet_inputs)
