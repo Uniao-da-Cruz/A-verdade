@@ -97,6 +97,39 @@ const RESOURCES = [
   }
 ];
 
+const TRANSPARENCY_PORTALS = [
+  {
+    id: "rj-transparencia",
+    name: "Portal da Transparência — RJ",
+    url: "https://www.rj.gov.br/transparencia/"
+  },
+  {
+    id: "ba-transparencia",
+    name: "Portal da Transparência — BA",
+    url: "https://www.transparencia.ba.gov.br/"
+  },
+  {
+    id: "es-transparencia",
+    name: "Portal da Transparência — ES",
+    url: "https://www.es.gov.br/Noticia/novo-portal-da-transparencia-mais-completo-e-facil-de-usar"
+  },
+  {
+    id: "nordeste-transparente",
+    name: "Nordeste Transparente",
+    url: "https://www.nordestetransparente.com.br/"
+  },
+  {
+    id: "sp-transparencia",
+    name: "Portal da Transparência — SP",
+    url: "https://www.transparencia.sp.gov.br/"
+  },
+  {
+    id: "mg-transparencia",
+    name: "Portal da Transparência — MG",
+    url: "https://www.transparencia.mg.gov.br/"
+  }
+];
+
 const EducationalResources = () => {
   const navigate = useNavigate();
   const [selectedResource, setSelectedResource] = useState(null);
@@ -146,6 +179,34 @@ const EducationalResources = () => {
           <p className="text-zinc-400 text-lg max-w-3xl">
             Material de referência sobre teoria política, história e análise ideológica para melhor compreensão do cenário político brasileiro e internacional
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="mb-8"
+        >
+          <Card className="bg-zinc-900/50 border-white/10 p-6">
+            <h2 className="font-chivo font-bold text-2xl mb-2">Portais de Transparência monitorados</h2>
+            <p className="text-zinc-400 text-sm mb-5">
+              Links diretos para acompanhamento de despesas, contratos e dados públicos estaduais.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {TRANSPARENCY_PORTALS.map((portal) => (
+                <Button
+                  key={portal.id}
+                  onClick={() => window.open(portal.url, "_blank", "noopener,noreferrer")}
+                  variant="outline"
+                  className="justify-between rounded-none border-white/20 bg-transparent text-zinc-200 hover:bg-white/5"
+                  data-testid={`open-transparency-portal-${portal.id}`}
+                >
+                  <span className="text-left">{portal.name}</span>
+                  <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                </Button>
+              ))}
+            </div>
+          </Card>
         </motion.div>
 
         {/* Filters */}
