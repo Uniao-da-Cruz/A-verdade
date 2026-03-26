@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, BookOpen, Image as ImageIcon, Download } from "lucide-react";
+import { ArrowLeft, BookOpen, Image as ImageIcon, Download, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -85,6 +85,15 @@ const RESOURCES = [
     imageUrl: "https://customer-assets.emergentagent.com/job_c1f72d8f-8a2e-4747-83ce-9b5fc1370191/artifacts/4thj4mqz_RDT_20251112_0542022394334406172182477.jpg",
     category: "Cultura Digital",
     type: "Screenshot"
+  },
+  {
+    id: 11,
+    title: "Ativo Virtual — Educação Financeira",
+    description: "Canal com conteúdo de educação financeira sobre organização do orçamento, investimentos e tomada de decisão financeira.",
+    imageUrl: "https://img.youtube.com/vi/0/hqdefault.jpg",
+    category: "Educação Financeira",
+    type: "Canal",
+    externalUrl: "https://www.youtube.com/@AtivoVirtual"
   }
 ];
 
@@ -93,7 +102,7 @@ const EducationalResources = () => {
   const [selectedResource, setSelectedResource] = useState(null);
   const [filter, setFilter] = useState("all");
 
-  const categories = ["all", "Teoria Política", "Dados Eleitorais", "História Política", "Cultura Digital", "Documentação"];
+  const categories = ["all", "Teoria Política", "Dados Eleitorais", "História Política", "Cultura Digital", "Documentação", "Educação Financeira"];
 
   const filteredResources = filter === "all" 
     ? RESOURCES 
@@ -216,6 +225,18 @@ const EducationalResources = () => {
                     >
                       <Download className="w-4 h-4" />
                     </Button>
+                    {resource.externalUrl && (
+                      <Button
+                        onClick={() => window.open(resource.externalUrl, '_blank', 'noopener,noreferrer')}
+                        variant="outline"
+                        size="icon"
+                        className="border-white/20 hover:bg-white/10"
+                        data-testid={`open-resource-link-${idx}`}
+                        title="Abrir link externo"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Card>
