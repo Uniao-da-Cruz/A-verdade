@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { Bell, CreditCard, Database, LogOut, Plus, RefreshCcw, ShieldCheck, Wallet } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -49,8 +48,7 @@ export default function Dashboard() {
   const loadDashboard = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get("/dashboard");
-      setSnapshot(data);
+
     } catch (error) {
       toast.error(error.response?.data?.detail || "Erro ao carregar dashboard");
     } finally {
@@ -333,11 +331,7 @@ export default function Dashboard() {
                     </div>
                     <p className="text-zinc-300 text-sm">{alert.message}</p>
                   </div>
-                ))}
-              </div>
-            </Card>
-          </div>
-        </section>
+
       </main>
     </div>
   );

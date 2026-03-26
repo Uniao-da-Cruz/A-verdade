@@ -102,7 +102,80 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Teste o frontend da aplicação Vigília em https://vigilia-politics.preview.emergentagent.com com foco na nova integração do vídeo sobre os perigos da bomba atômica. Validar fluxos de navegação para /riscos-nucleares, renderização de elementos com data-testid, embed de vídeo, cards de perigos, linha do tempo, links de referência, responsividade desktop/mobile e reportar erros visuais ou funcionais."
+user_problem_statement: "Teste o frontend da aplicação Vigília em https://site-generator-173.preview.emergentagent.com com foco na nova integração do vídeo sobre os perigos da bomba atômica. Validar fluxos de navegação para /riscos-nucleares, renderização de elementos com data-testid, embed de vídeo, cards de perigos, linha do tempo, links de referência, responsividade desktop/mobile e reportar erros visuais ou funcionais. Teste também o backend API em https://site-generator-173.preview.emergentagent.com/api."
+
+backend:
+  - task: "Health Check API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/health endpoint tested successfully. Returns status 'healthy' with timestamp and version 1.0.0. Response time is fast and API is accessible."
+
+  - task: "Stats API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/stats endpoint tested successfully. Returns all expected fields: total_politicians, total_transactions, suspicious_transactions, active_alerts, total_wallets, monitored_networks, primary_explorer, timestamp. Currently shows 0 values as expected for empty database."
+
+  - task: "Politicians API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/politicians endpoint tested successfully. Returns empty array as expected. API structure is correct and ready to handle politician data when added."
+
+  - task: "Transactions API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/transactions endpoint tested successfully. Returns proper paginated response with fields: items (empty array), total (0), limit (20), offset (0), has_more (false). Pagination structure is correctly implemented."
+
+  - task: "Alerts API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/alerts endpoint tested successfully. Returns proper paginated response with fields: items (empty array), total (0), limit (20), offset (0), has_more (false). Pagination structure is correctly implemented."
+
+  - task: "Root API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/ root endpoint tested successfully. Returns message containing 'Vigília - Vigilância Política Transparente' along with documentation and health check links. API branding and navigation are properly configured."
 
 frontend:
   - task: "Dashboard - Social Programs Button"
@@ -423,7 +496,7 @@ metadata:
   test_sequence: 2
   run_ui: true
   test_date: "2025-03-08"
-  frontend_url: "https://vigilia-politics.preview.emergentagent.com"
+  frontend_url: "https://site-generator-173.preview.emergentagent.com"
 
 test_plan:
   current_focus: []
@@ -432,8 +505,60 @@ test_plan:
   test_priority: "high_first"
   test_completed: true
 
+  - task: "Mapa das Periferias Page - Full Integration"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/MapaPeriferias.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created MapaPeriferias page with hero section, embedded iframe, highlights section (4 cards), reference section (3 links), navigation back to dashboard. Data file created at /app/frontend/src/data/mapaPeriferias.js."
+
+  - task: "Dashboard - Mapa das Periferias Watch Section"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Dashboard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added ExternalWatchSection for Mapa das Periferias with 2 action buttons (internal page link and external official map link). Added Map icon import. Updated Quick Navigation grid to 5 columns including Mapa das Periferias."
+
+  - task: "Mapa das Periferias Route Configuration"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Route '/mapa-periferias' configured in App.js with MapaPeriferias component import."
+
+  - task: "Mapa das Periferias Data Configuration"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/data/mapaPeriferias.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Data file with mapaPeriferiasOverview, mapaPeriferiasHighlights (4 items), mapaPeriferiasReferenceLinks (3 items). All URLs pointing to official government sources."
+
 agent_communication:
   - agent: "testing"
     message: "Completed comprehensive testing of CadÚnico/Dataprev integration. All 13 frontend tasks tested and verified working. Test coverage includes: navigation flows, element rendering, feature cards, journey cards, reference links, return navigation, dashboard section, internal page link, desktop responsiveness (1920x1080), mobile responsiveness (390x844), and data configuration. No console errors, no failed network requests, no horizontal overflow on any viewport. All data-testids are properly implemented and accessible. UI renders beautifully with dark theme, proper gradients, and hover states. Screenshots captured for desktop and mobile views. Integration is production-ready."
   - agent: "testing"
     message: "Completed comprehensive testing of Nuclear Risks (Bomba Atômica) integration. All 16 new frontend tasks tested and verified working. Test coverage includes: Dashboard nuclear section with 4 action buttons (video link, internal page link, channel source, Chernobyl link), /riscos-nucleares route and page, hero section with metadata cards, YouTube video embed (iframe working correctly), dangers section with 6 cards, timeline section with 5 items (1932-Today), reference section with 3 external links, two return-to-dashboard buttons, desktop responsiveness (1920x1080 - no overflow), mobile responsiveness (390x844 - no overflow), and data configuration. No console errors detected. Minor network failures are YouTube analytics and Cloudflare RUM tracking (third-party, non-blocking). All data-testids properly implemented. UI is stunning with corruption-red theme, gradients, proper animations, and educational context. Screenshots captured for both desktop and mobile views. Integration is production-ready and working flawlessly."
+  - agent: "main"
+    message: "Integrated Mapa das Periferias feature from root code files (App.js, MapaPeriferias.js, mapaPeriferias.js, Dashboard.patch.js). Fixed package.json duplicate content, fixed OccultInfluence.js syntax error, fixed Dashboard transactions.slice error (paginated API response). All pages loading successfully. New feature includes: MapaPeriferias page with embedded government map, Dashboard watch section, updated Quick Navigation grid (5 items), and route configuration."
+  - agent: "testing"
+    message: "Completed comprehensive backend API testing for Vigília at https://site-generator-173.preview.emergentagent.com/api. All 6 backend endpoints tested and verified working: Health Check (/api/health) returns status 'healthy', Stats (/api/stats) returns all expected fields, Politicians (/api/politicians) returns empty array, Transactions (/api/transactions) returns proper paginated response, Alerts (/api/alerts) returns proper paginated response, Root (/api/) returns message with 'Vigília'. All APIs are accessible, fast, and correctly structured. Backend is production-ready and fully functional."

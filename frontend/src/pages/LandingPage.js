@@ -127,15 +127,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 py-20">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="font-chivo font-bold text-4xl mb-4">Pronto para operar e publicar</h2>
-          <p className="text-zinc-400 text-lg mb-8">
-            Crie sua conta, veja o seed automático e conecte um banco real para levar o monitoramento à produção.
-          </p>
-          <Button asChild className="bg-neon-green hover:bg-green-500 text-black font-bold px-8 py-6 rounded-none uppercase tracking-wider">
-            <Link to="/auth">Começar agora</Link>
-          </Button>
+
         </div>
       </section>
     </div>
