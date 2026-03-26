@@ -142,6 +142,34 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Opinião do Povo */}
+      <section className="py-20 px-6 md:px-12 bg-black/60 border-t border-white/10">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="font-chivo font-bold text-3xl md:text-4xl mb-5">
+              Opinião do <span className="text-neon-green">Povo</span>
+            </h2>
+            <p className="text-zinc-400 text-base md:text-lg mb-8">
+              Veja discussões públicas sobre política e transparência no Reddit para acompanhar o que a população está comentando em tempo real.
+            </p>
+            <a
+              href="https://www.reddit.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center border-2 border-neon-green text-neon-green px-8 py-3 font-bold uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all"
+              data-testid="opiniao-povo-reddit-link"
+            >
+              Acessar Reddit
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-white/10 bg-black">
         <div className="container mx-auto">
