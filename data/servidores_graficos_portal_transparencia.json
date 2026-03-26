@@ -1,0 +1,5314 @@
+{
+  "fonte": "https://portaldatransparencia.gov.br/servidores",
+  "coletado_em_utc": "2026-03-26T10:39:11.324025+00:00",
+  "total_endpoints": 10,
+  "endpoints": [
+    "servidores/distribuicao-por-faixa-etaria",
+    "servidores/distribuicao-por-orgao",
+    "servidores/distribuicao-por-orgao-aposentados-pensionistas",
+    "servidores/evolucao-historica-quantidade",
+    "servidores/evolucao-historica-valores",
+    "servidores/ocupacao-cargos-confianca-orgaos-superiores",
+    "servidores/situacao-vinculos",
+    "servidores/vinculos-cargos-funcoes-comissionados-civis",
+    "servidores/vinculos-civil-x-militar",
+    "servidores/vinculos-em-exercicio-x-afastados"
+  ],
+  "datasets": {
+    "servidores/distribuicao-por-faixa-etaria": [
+      {
+        "params": {
+          "idSituacaoServidor": 1
+        },
+        "data": [
+          {
+            "valores": [
+              "Não informado",
+              20
+            ]
+          },
+          {
+            "valores": [
+              "Até 20 anos",
+              83205
+            ]
+          },
+          {
+            "valores": [
+              "De 21 a 25 anos",
+              95948
+            ]
+          },
+          {
+            "valores": [
+              "De 26 a 30 anos",
+              65447
+            ]
+          },
+          {
+            "valores": [
+              "De 31 a 35 anos",
+              92178
+            ]
+          },
+          {
+            "valores": [
+              "De 36 a 40 anos",
+              136569
+            ]
+          },
+          {
+            "valores": [
+              "De 41 a 45 anos",
+              148101
+            ]
+          },
+          {
+            "valores": [
+              "De 46 a 50 anos",
+              110034
+            ]
+          },
+          {
+            "valores": [
+              "De 51 a 55 anos",
+              80511
+            ]
+          },
+          {
+            "valores": [
+              "De 56 a 60 anos",
+              67342
+            ]
+          },
+          {
+            "valores": [
+              "De 61 a 65 anos",
+              58044
+            ]
+          },
+          {
+            "valores": [
+              "De 66 a 70 anos",
+              34250
+            ]
+          },
+          {
+            "valores": [
+              "Acima de 70 anos",
+              15871
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "idSituacaoServidor": 2
+        },
+        "data": [
+          {
+            "valores": [
+              "Não informado",
+              2
+            ]
+          },
+          {
+            "valores": [
+              "De 26 a 30 anos",
+              4
+            ]
+          },
+          {
+            "valores": [
+              "De 31 a 35 anos",
+              62
+            ]
+          },
+          {
+            "valores": [
+              "De 36 a 40 anos",
+              234
+            ]
+          },
+          {
+            "valores": [
+              "De 41 a 45 anos",
+              602
+            ]
+          },
+          {
+            "valores": [
+              "De 46 a 50 anos",
+              916
+            ]
+          },
+          {
+            "valores": [
+              "De 51 a 55 anos",
+              2658
+            ]
+          },
+          {
+            "valores": [
+              "De 56 a 60 anos",
+              13655
+            ]
+          },
+          {
+            "valores": [
+              "De 61 a 65 anos",
+              53206
+            ]
+          },
+          {
+            "valores": [
+              "De 66 a 70 anos",
+              84040
+            ]
+          },
+          {
+            "valores": [
+              "Acima de 70 anos",
+              251481
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "idSituacaoServidor": 3
+        },
+        "data": [
+          {
+            "valores": [
+              "Não informado",
+              6
+            ]
+          },
+          {
+            "valores": [
+              "Até 20 anos",
+              8672
+            ]
+          },
+          {
+            "valores": [
+              "De 21 a 25 anos",
+              1313
+            ]
+          },
+          {
+            "valores": [
+              "De 26 a 30 anos",
+              1956
+            ]
+          },
+          {
+            "valores": [
+              "De 31 a 35 anos",
+              3198
+            ]
+          },
+          {
+            "valores": [
+              "De 36 a 40 anos",
+              5575
+            ]
+          },
+          {
+            "valores": [
+              "De 41 a 45 anos",
+              10639
+            ]
+          },
+          {
+            "valores": [
+              "De 46 a 50 anos",
+              18076
+            ]
+          },
+          {
+            "valores": [
+              "De 51 a 55 anos",
+              29545
+            ]
+          },
+          {
+            "valores": [
+              "De 56 a 60 anos",
+              44569
+            ]
+          },
+          {
+            "valores": [
+              "De 61 a 65 anos",
+              63620
+            ]
+          },
+          {
+            "valores": [
+              "De 66 a 70 anos",
+              69124
+            ]
+          },
+          {
+            "valores": [
+              "Acima de 70 anos",
+              247382
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/distribuicao-por-orgao": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Ministério da Defesa",
+              349735,
+              [
+                {
+                  "valores": [
+                    "Comando do Exército",
+                    201358,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando do Exército",
+                        "Cargos efetivos do órgão:",
+                        "201.358",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "697",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "73",
+                        "Outros:",
+                        "70"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando do Exército",
+                        201358,
+                        697,
+                        73,
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Marinha",
+                    75556,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Marinha",
+                        "Cargos efetivos do órgão:",
+                        "75.556",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "682",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "30",
+                        "Outros:",
+                        "50"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Marinha",
+                        75556,
+                        682,
+                        30,
+                        50
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Aeronáutica",
+                    69826,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Aeronáutica",
+                        "Cargos efetivos do órgão:",
+                        "69.826",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "568",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "87",
+                        "Outros:",
+                        "75"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Aeronáutica",
+                        69826,
+                        568,
+                        87,
+                        75
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Amazônia Azul Tecnologia de Defesa S.A.",
+                    1778,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Amazônia Azul Tecnologia de Defesa S.A.",
+                        "Cargos efetivos do órgão:",
+                        "1.778",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "49",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "95",
+                        "Outros:",
+                        "5"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Amazônia Azul Tecnologia de Defesa S.A.",
+                        1778,
+                        49,
+                        95,
+                        5
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Aviação Civil",
+                    1162,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Aviação Civil",
+                        "Cargos efetivos do órgão:",
+                        "1.162",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "405",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "60",
+                        "Outros:",
+                        "79"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Aviação Civil",
+                        1162,
+                        405,
+                        60,
+                        79
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Osório",
+                    55,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Osório",
+                        "Cargos efetivos do órgão:",
+                        "55",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "19",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "14",
+                        "Outros:",
+                        "0"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Osório",
+                        55,
+                        19,
+                        14,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Defesa - Unidades com vínculo direto",
+                    0,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Defesa - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "5"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Defesa - Unidades com vínculo direto",
+                        0,
+                        0,
+                        0,
+                        5
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Caixa de Financiamento Imobiliário da Aeronáutica",
+                    0,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Caixa de Financiamento Imobiliário da Aeronáutica",
+                        "Cargos efetivos do órgão:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "8",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "10",
+                        "Outros:",
+                        "1"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Caixa de Financiamento Imobiliário da Aeronáutica",
+                        0,
+                        8,
+                        10,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Defesa",
+                  349735,
+                  2428,
+                  369,
+                  285
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Defesa",
+                  "Cargos efetivos do órgão:",
+                  "349.735",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "2.428",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "369",
+                  "Outros:",
+                  "285"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Educação",
+              321560,
+              [
+                {
+                  "valores": [
+                    "Empresa Brasileira de Serviços Hospitalares",
+                    53068,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Empresa Brasileira de Serviços Hospitalares",
+                        "Cargos efetivos do órgão:",
+                        "53.068",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "2.898",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "50",
+                        "Outros:",
+                        "25"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Empresa Brasileira de Serviços Hospitalares",
+                        53068,
+                        2898,
+                        50,
+                        25
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Rio de Janeiro",
+                    11930,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio de Janeiro",
+                        "Cargos efetivos do órgão:",
+                        "11.930",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1.345",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "113",
+                        "Outros:",
+                        "72"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio de Janeiro",
+                        11930,
+                        1345,
+                        113,
+                        72
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Hospital de Clínicas de Porto Alegre",
+                    7587,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Hospital de Clínicas de Porto Alegre",
+                        "Cargos efetivos do órgão:",
+                        "7.587",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "24"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Hospital de Clínicas de Porto Alegre",
+                        7587,
+                        1,
+                        0,
+                        24
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Minas Gerais",
+                    6937,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Minas Gerais",
+                        "Cargos efetivos do órgão:",
+                        "6.937",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "998",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "40"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Minas Gerais",
+                        6937,
+                        998,
+                        0,
+                        40
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal Fluminense",
+                    6603,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal Fluminense",
+                        "Cargos efetivos do órgão:",
+                        "6.603",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "688",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "8",
+                        "Outros:",
+                        "61"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal Fluminense",
+                        6603,
+                        688,
+                        8,
+                        61
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Pernambuco",
+                    6329,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Pernambuco",
+                        "Cargos efetivos do órgão:",
+                        "6.329",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "695",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "5",
+                        "Outros:",
+                        "52"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Pernambuco",
+                        6329,
+                        695,
+                        5,
+                        52
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Paraná",
+                    5749,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Paraná",
+                        "Cargos efetivos do órgão:",
+                        "5.749",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "673",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "1",
+                        "Outros:",
+                        "36"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Paraná",
+                        5749,
+                        673,
+                        1,
+                        36
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Paraíba",
+                    5637,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Paraíba",
+                        "Cargos efetivos do órgão:",
+                        "5.637",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "609",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "2",
+                        "Outros:",
+                        "79"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Paraíba",
+                        5637,
+                        609,
+                        2,
+                        79
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Bahia",
+                    5441,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Bahia",
+                        "Cargos efetivos do órgão:",
+                        "5.441",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "699",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "15",
+                        "Outros:",
+                        "36"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Bahia",
+                        5441,
+                        699,
+                        15,
+                        36
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Ceará",
+                    5253,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Ceará",
+                        "Cargos efetivos do órgão:",
+                        "5.253",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "627",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "1",
+                        "Outros:",
+                        "33"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Ceará",
+                        5253,
+                        627,
+                        1,
+                        33
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    207026,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Cargos efetivos do órgão:",
+                        "207.026",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "41.961",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "274",
+                        "Outros:",
+                        "3.128"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        207026,
+                        41961,
+                        274,
+                        3128
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Educação",
+                  321560,
+                  51194,
+                  469,
+                  3586
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Educação",
+                  "Cargos efetivos do órgão:",
+                  "321.560",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "51.194",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "469",
+                  "Outros:",
+                  "3.586"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Saúde",
+              62480,
+              [
+                {
+                  "valores": [
+                    "Ministério da Saúde - Unidades com vínculo direto",
+                    41843,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "41.843",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1.587",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "161",
+                        "Outros:",
+                        "1.710"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        41843,
+                        1587,
+                        161,
+                        1710
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Hospital Nossa Senhora da Conceição S.A.",
+                    13469,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Hospital Nossa Senhora da Conceição S.A.",
+                        "Cargos efetivos do órgão:",
+                        "13.469",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "346",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "0"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Hospital Nossa Senhora da Conceição S.A.",
+                        13469,
+                        346,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Oswaldo Cruz",
+                    4408,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Oswaldo Cruz",
+                        "Cargos efetivos do órgão:",
+                        "4.408",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "715",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "102"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Oswaldo Cruz",
+                        4408,
+                        715,
+                        0,
+                        102
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Vigilância Sanitária",
+                    1319,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Vigilância Sanitária",
+                        "Cargos efetivos do órgão:",
+                        "1.319",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "441",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "14",
+                        "Outros:",
+                        "61"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Vigilância Sanitária",
+                        1319,
+                        441,
+                        14,
+                        61
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional de Saúde",
+                    856,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional de Saúde",
+                        "Cargos efetivos do órgão:",
+                        "856",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "317",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "34",
+                        "Outros:",
+                        "87"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional de Saúde",
+                        856,
+                        317,
+                        34,
+                        87
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Saúde Suplementar",
+                    585,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Saúde Suplementar",
+                        "Cargos efetivos do órgão:",
+                        "585",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "230",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "16",
+                        "Outros:",
+                        "93"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Saúde Suplementar",
+                        585,
+                        230,
+                        16,
+                        93
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Saúde",
+                  62480,
+                  3636,
+                  225,
+                  2053
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Saúde",
+                  "Cargos efetivos do órgão:",
+                  "62.480",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "3.636",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "225",
+                  "Outros:",
+                  "2.053"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Sem informação",
+              49733,
+              [
+                {
+                  "valores": [
+                    "Sem informação",
+                    49733,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Sem informação",
+                        "Cargos efetivos do órgão:",
+                        "49.733",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "15.839",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "2.910",
+                        "Outros:",
+                        "10.328"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Sem informação",
+                        49733,
+                        15839,
+                        2910,
+                        10328
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Sem informação",
+                  49733,
+                  15839,
+                  2910,
+                  10328
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Sem informação",
+                  "Cargos efetivos do órgão:",
+                  "49.733",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "15.839",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "2.910",
+                  "Outros:",
+                  "10.328"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Justiça e Segurança Pública",
+              28033,
+              [
+                {
+                  "valores": [
+                    "Polícia Federal",
+                    13649,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Federal",
+                        "Cargos efetivos do órgão:",
+                        "13.649",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "2.185",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "386"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Federal",
+                        13649,
+                        2185,
+                        0,
+                        386
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Polícia Rodoviária Federal",
+                    12741,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Rodoviária Federal",
+                        "Cargos efetivos do órgão:",
+                        "12.741",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1.020",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "23"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Rodoviária Federal",
+                        12741,
+                        1020,
+                        0,
+                        23
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                    1632,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "1.632",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "621",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "216",
+                        "Outros:",
+                        "1.017"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        1632,
+                        621,
+                        216,
+                        1017
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Conselho Administrativo de Defesa Econômica",
+                    11,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Conselho Administrativo de Defesa Econômica",
+                        "Cargos efetivos do órgão:",
+                        "11",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "86",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "37",
+                        "Outros:",
+                        "280"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Conselho Administrativo de Defesa Econômica",
+                        11,
+                        86,
+                        37,
+                        280
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Justiça e Segurança Pública",
+                  28033,
+                  3912,
+                  253,
+                  1706
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Justiça e Segurança Pública",
+                  "Cargos efetivos do órgão:",
+                  "28.033",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "3.912",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "253",
+                  "Outros:",
+                  "1.706"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Fazenda",
+              19623,
+              [
+                {
+                  "valores": [
+                    "Ministério da Fazenda - Unidades com vínculo direto",
+                    18599,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "18.599",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "45",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "18"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        18599,
+                        45,
+                        0,
+                        18
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comissão de Valores Mobiliários",
+                    467,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comissão de Valores Mobiliários",
+                        "Cargos efetivos do órgão:",
+                        "467",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "141",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "22",
+                        "Outros:",
+                        "96"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comissão de Valores Mobiliários",
+                        467,
+                        141,
+                        22,
+                        96
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência de Seguros Privados",
+                    363,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência de Seguros Privados",
+                        "Cargos efetivos do órgão:",
+                        "363",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "76",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "10",
+                        "Outros:",
+                        "36"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência de Seguros Privados",
+                        363,
+                        76,
+                        10,
+                        36
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Serviço Federal de Processamento de Dados",
+                    194,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Serviço Federal de Processamento de Dados",
+                        "Cargos efetivos do órgão:",
+                        "194",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "2",
+                        "Outros:",
+                        "0"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Serviço Federal de Processamento de Dados",
+                        194,
+                        1,
+                        2,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Casa da Moeda do Brasil",
+                    0,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Casa da Moeda do Brasil",
+                        "Cargos efetivos do órgão:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "1"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Casa da Moeda do Brasil",
+                        0,
+                        0,
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Fazenda",
+                  19623,
+                  263,
+                  34,
+                  151
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Fazenda",
+                  "Cargos efetivos do órgão:",
+                  "19.623",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "263",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "34",
+                  "Outros:",
+                  "151"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Previdência Social",
+              17540,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional do Seguro Social",
+                    17442,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional do Seguro Social",
+                        "Cargos efetivos do órgão:",
+                        "17.442",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "4.006",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "30",
+                        "Outros:",
+                        "547"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional do Seguro Social",
+                        17442,
+                        4006,
+                        30,
+                        547
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência Nacional de Previdência Complementar",
+                    98,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência Nacional de Previdência Complementar",
+                        "Cargos efetivos do órgão:",
+                        "98",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "93",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "21",
+                        "Outros:",
+                        "75"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência Nacional de Previdência Complementar",
+                        98,
+                        93,
+                        21,
+                        75
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Previdência Social - Unidades com vínculo direto",
+                    0,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Previdência Social - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "1"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Previdência Social - Unidades com vínculo direto",
+                        0,
+                        0,
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Previdência Social",
+                  17540,
+                  4099,
+                  51,
+                  623
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Previdência Social",
+                  "Cargos efetivos do órgão:",
+                  "17.540",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "4.099",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "51",
+                  "Outros:",
+                  "623"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Planejamento e Orçamento",
+              10833,
+              [
+                {
+                  "valores": [
+                    "Fundação Instituto Brasileiro de Geografia e Estatística",
+                    10833,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        "Cargos efetivos do órgão:",
+                        "10.833",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1.925",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "14",
+                        "Outros:",
+                        "61"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        10833,
+                        1925,
+                        14,
+                        61
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Planejamento e Orçamento",
+                  10833,
+                  1925,
+                  14,
+                  61
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Planejamento e Orçamento",
+                  "Cargos efetivos do órgão:",
+                  "10.833",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "1.925",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "14",
+                  "Outros:",
+                  "61"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Agricultura e Pecuária",
+              7408,
+              [
+                {
+                  "valores": [
+                    "Empresa Brasileira de Pesquisa Agropecuária",
+                    7408,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Empresa Brasileira de Pesquisa Agropecuária",
+                        "Cargos efetivos do órgão:",
+                        "7.408",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "13",
+                        "Outros:",
+                        "4"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Empresa Brasileira de Pesquisa Agropecuária",
+                        7408,
+                        0,
+                        13,
+                        4
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Agricultura e Pecuária - Unidades com vínculo direto",
+                    0,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Agricultura e Pecuária - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "0",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "0",
+                        "Outros:",
+                        "18"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Agricultura e Pecuária - Unidades com vínculo direto",
+                        0,
+                        0,
+                        0,
+                        18
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Agricultura e Pecuária",
+                  7408,
+                  0,
+                  13,
+                  22
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Agricultura e Pecuária",
+                  "Cargos efetivos do órgão:",
+                  "7.408",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "0",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "13",
+                  "Outros:",
+                  "22"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+              5499,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional de Colonização e Reforma Agrária",
+                    2867,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        "Cargos efetivos do órgão:",
+                        "2.867",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "637",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "91",
+                        "Outros:",
+                        "131"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        2867,
+                        637,
+                        91,
+                        131
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Companhia Nacional de Abastecimento",
+                    2632,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Companhia Nacional de Abastecimento",
+                        "Cargos efetivos do órgão:",
+                        "2.632",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "675",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "49",
+                        "Outros:",
+                        "18"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Companhia Nacional de Abastecimento",
+                        2632,
+                        675,
+                        49,
+                        18
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  5499,
+                  1312,
+                  140,
+                  149
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  "Cargos efetivos do órgão:",
+                  "5.499",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "1.312",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "140",
+                  "Outros:",
+                  "149"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Outros",
+              39531,
+              [
+                {
+                  "valores": [
+                    "Banco Central do Brasil",
+                    3208,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Banco Central do Brasil",
+                        "Cargos efetivos do órgão:",
+                        "3.208",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "1.250",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "3",
+                        "Outros:",
+                        "0"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Banco Central do Brasil",
+                        3208,
+                        1250,
+                        3,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                    3060,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        "Cargos efetivos do órgão:",
+                        "3.060",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "455",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "12",
+                        "Outros:",
+                        "641"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        3060,
+                        455,
+                        12,
+                        641
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                    2908,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "2.908",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "598",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "69",
+                        "Outros:",
+                        "146"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        2908,
+                        598,
+                        69,
+                        146
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Companhia Brasileira de Trens Urbanos",
+                    2490,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Companhia Brasileira de Trens Urbanos",
+                        "Cargos efetivos do órgão:",
+                        "2.490",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "394",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "95",
+                        "Outros:",
+                        "22"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Companhia Brasileira de Trens Urbanos",
+                        2490,
+                        394,
+                        95,
+                        22
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Departamento Nacional de Infraestrutura de Transportes",
+                    1838,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        "Cargos efetivos do órgão:",
+                        "1.838",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "688",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "13",
+                        "Outros:",
+                        "391"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        1838,
+                        688,
+                        13,
+                        391
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba",
+                    1825,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba",
+                        "Cargos efetivos do órgão:",
+                        "1.825",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "719",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "136",
+                        "Outros:",
+                        "1"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba",
+                        1825,
+                        719,
+                        136,
+                        1
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto Chico Mendes de Conservação da Biodiversidade",
+                    1804,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Chico Mendes de Conservação da Biodiversidade",
+                        "Cargos efetivos do órgão:",
+                        "1.804",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "493",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "56",
+                        "Outros:",
+                        "4.201"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Chico Mendes de Conservação da Biodiversidade",
+                        1804,
+                        493,
+                        56,
+                        4201
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Controladoria-Geral da União - Unidades com vínculo direto",
+                    1761,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Controladoria-Geral da União - Unidades com vínculo direto",
+                        "Cargos efetivos do órgão:",
+                        "1.761",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "555",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "8",
+                        "Outros:",
+                        "327"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Controladoria-Geral da União - Unidades com vínculo direto",
+                        1761,
+                        555,
+                        8,
+                        327
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional dos Povos Indígenas",
+                    1541,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional dos Povos Indígenas",
+                        "Cargos efetivos do órgão:",
+                        "1.541",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "655",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "257",
+                        "Outros:",
+                        "174"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional dos Povos Indígenas",
+                        1541,
+                        655,
+                        257,
+                        174
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Empresa Brasil de Comunicação",
+                    1423,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Empresa Brasil de Comunicação",
+                        "Cargos efetivos do órgão:",
+                        "1.423",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "242",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "193",
+                        "Outros:",
+                        "36"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Empresa Brasil de Comunicação",
+                        1423,
+                        242,
+                        193,
+                        36
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    17673,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Cargos efetivos do órgão:",
+                        "17.673",
+                        "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                        "8.876",
+                        "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                        "1.762",
+                        "Outros:",
+                        "4.133"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        17673,
+                        8876,
+                        1762,
+                        4133
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Outros",
+                  39531,
+                  14925,
+                  2604,
+                  10072
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Outros",
+                  "Cargos efetivos do órgão:",
+                  "39.531",
+                  "Cargos/funções comissionadas ocupadas por servidores públicos:",
+                  "14.925",
+                  "Cargos/funções comissionadas ocupadas por pessoas sem vínculo com a Administração Pública:",
+                  "2.604",
+                  "Outros:",
+                  "10.072"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/distribuicao-por-orgao-aposentados-pensionistas": [
+      {
+        "params": {
+          "idSituacaoServidor": 2
+        },
+        "data": [
+          {
+            "valores": [
+              "Ministério da Educação",
+              119192,
+              [
+                {
+                  "valores": [
+                    "Universidade Federal do Rio de Janeiro",
+                    7750,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio de Janeiro",
+                        "Quantidade:",
+                        "7.750"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio de Janeiro",
+                        7750
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Minas Gerais",
+                    6201,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Minas Gerais",
+                        "Quantidade:",
+                        "6.201"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Minas Gerais",
+                        6201
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal Fluminense",
+                    4854,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal Fluminense",
+                        "Quantidade:",
+                        "4.854"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal Fluminense",
+                        4854
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Paraíba",
+                    4422,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Paraíba",
+                        "Quantidade:",
+                        "4.422"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Paraíba",
+                        4422
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Paraná",
+                    4350,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Paraná",
+                        "Quantidade:",
+                        "4.350"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Paraná",
+                        4350
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Bahia",
+                    4346,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Bahia",
+                        "Quantidade:",
+                        "4.346"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Bahia",
+                        4346
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Rio Grande do Norte",
+                    4321,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio Grande do Norte",
+                        "Quantidade:",
+                        "4.321"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio Grande do Norte",
+                        4321
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Santa Catarina",
+                    4161,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Santa Catarina",
+                        "Quantidade:",
+                        "4.161"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Santa Catarina",
+                        4161
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Rio Grande do Sul",
+                    4058,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio Grande do Sul",
+                        "Quantidade:",
+                        "4.058"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio Grande do Sul",
+                        4058
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Pernambuco",
+                    3610,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Pernambuco",
+                        "Quantidade:",
+                        "3.610"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Pernambuco",
+                        3610
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    71119,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Quantidade:",
+                        "71.119"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        71119
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Educação",
+                  119192
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Educação",
+                  "Quantidade:",
+                  "119.192"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Saúde",
+              93854,
+              [
+                {
+                  "valores": [
+                    "Ministério da Saúde - Unidades com vínculo direto",
+                    80868,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "80.868"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        80868
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional de Saúde",
+                    9711,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional de Saúde",
+                        "Quantidade:",
+                        "9.711"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional de Saúde",
+                        9711
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Oswaldo Cruz",
+                    2166,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Oswaldo Cruz",
+                        "Quantidade:",
+                        "2.166"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Oswaldo Cruz",
+                        2166
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Vigilância Sanitária",
+                    1059,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Vigilância Sanitária",
+                        "Quantidade:",
+                        "1.059"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Vigilância Sanitária",
+                        1059
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Saúde Suplementar",
+                    50,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Saúde Suplementar",
+                        "Quantidade:",
+                        "50"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Saúde Suplementar",
+                        50
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Saúde",
+                  93854
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Saúde",
+                  "Quantidade:",
+                  "93.854"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Sem informação",
+              78763,
+              [
+                {
+                  "valores": [
+                    "Sem informação",
+                    78763,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Sem informação",
+                        "Quantidade:",
+                        "78.763"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Sem informação",
+                        78763
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Sem informação",
+                  78763
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Sem informação",
+                  "Quantidade:",
+                  "78.763"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Previdência Social",
+              36888,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional do Seguro Social",
+                    36865,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional do Seguro Social",
+                        "Quantidade:",
+                        "36.865"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional do Seguro Social",
+                        36865
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência Nacional de Previdência Complementar",
+                    23,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência Nacional de Previdência Complementar",
+                        "Quantidade:",
+                        "23"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência Nacional de Previdência Complementar",
+                        23
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Previdência Social",
+                  36888
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Previdência Social",
+                  "Quantidade:",
+                  "36.888"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Defesa",
+              23869,
+              [
+                {
+                  "valores": [
+                    "Comando do Exército",
+                    9538,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando do Exército",
+                        "Quantidade:",
+                        "9.538"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando do Exército",
+                        9538
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Marinha",
+                    7409,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Marinha",
+                        "Quantidade:",
+                        "7.409"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Marinha",
+                        7409
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Aeronáutica",
+                    6678,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Aeronáutica",
+                        "Quantidade:",
+                        "6.678"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Aeronáutica",
+                        6678
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Aviação Civil",
+                    186,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Aviação Civil",
+                        "Quantidade:",
+                        "186"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Aviação Civil",
+                        186
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Osório",
+                    58,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Osório",
+                        "Quantidade:",
+                        "58"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Osório",
+                        58
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Defesa",
+                  23869
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Defesa",
+                  "Quantidade:",
+                  "23.869"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Justiça e Segurança Pública",
+              15811,
+              [
+                {
+                  "valores": [
+                    "Polícia Federal",
+                    8075,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Federal",
+                        "Quantidade:",
+                        "8.075"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Federal",
+                        8075
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Polícia Rodoviária Federal",
+                    6888,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Rodoviária Federal",
+                        "Quantidade:",
+                        "6.888"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Rodoviária Federal",
+                        6888
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                    842,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "842"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        842
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Conselho Administrativo de Defesa Econômica",
+                    6,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Conselho Administrativo de Defesa Econômica",
+                        "Quantidade:",
+                        "6"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Conselho Administrativo de Defesa Econômica",
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Justiça e Segurança Pública",
+                  15811
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Justiça e Segurança Pública",
+                  "Quantidade:",
+                  "15.811"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Planejamento e Orçamento",
+              7290,
+              [
+                {
+                  "valores": [
+                    "Fundação Instituto Brasileiro de Geografia e Estatística",
+                    7290,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        "Quantidade:",
+                        "7.290"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        7290
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Planejamento e Orçamento",
+                  7290
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Planejamento e Orçamento",
+                  "Quantidade:",
+                  "7.290"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Banco Central do Brasil - Orçamento Fiscal e Seguridade Social",
+              5405,
+              [
+                {
+                  "valores": [
+                    "Banco Central do Brasil",
+                    5405,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Banco Central do Brasil",
+                        "Quantidade:",
+                        "5.405"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Banco Central do Brasil",
+                        5405
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Banco Central do Brasil - Orçamento Fiscal e Seguridade Social",
+                  5405
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Banco Central do Brasil - Orçamento Fiscal e Seguridade Social",
+                  "Quantidade:",
+                  "5.405"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Ciência, Tecnologia e Inovação",
+              5310,
+              [
+                {
+                  "valores": [
+                    "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                    2752,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "2.752"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        2752
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comissão Nacional de Energia Nuclear",
+                    1885,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comissão Nacional de Energia Nuclear",
+                        "Quantidade:",
+                        "1.885"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comissão Nacional de Energia Nuclear",
+                        1885
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+                    667,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+                        "Quantidade:",
+                        "667"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+                        667
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Espacial Brasileira",
+                    6,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Espacial Brasileira",
+                        "Quantidade:",
+                        "6"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Espacial Brasileira",
+                        6
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Ciência, Tecnologia e Inovação",
+                  5310
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Ciência, Tecnologia e Inovação",
+                  "Quantidade:",
+                  "5.310"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+              4891,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional de Colonização e Reforma Agrária",
+                    4891,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        "Quantidade:",
+                        "4.891"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        4891
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  4891
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  "Quantidade:",
+                  "4.891"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Outros",
+              23805,
+              [
+                {
+                  "valores": [
+                    "Ministério da Fazenda - Unidades com vínculo direto",
+                    4162,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "4.162"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        4162
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                    3361,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        "Quantidade:",
+                        "3.361"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        3361
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Departamento Nacional de Obras Contra as Secas",
+                    2763,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Departamento Nacional de Obras Contra as Secas",
+                        "Quantidade:",
+                        "2.763"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Departamento Nacional de Obras Contra as Secas",
+                        2763
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional dos Povos Indígenas",
+                    1653,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional dos Povos Indígenas",
+                        "Quantidade:",
+                        "1.653"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional dos Povos Indígenas",
+                        1653
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                    1636,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "1.636"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                        1636
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Departamento Nacional de Infraestrutura de Transportes",
+                    1367,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        "Quantidade:",
+                        "1.367"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        1367
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Controladoria-Geral da União - Unidades com vínculo direto",
+                    1038,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Controladoria-Geral da União - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "1.038"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Controladoria-Geral da União - Unidades com vínculo direto",
+                        1038
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto Chico Mendes de Conservação da Biodiversidade",
+                    789,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Chico Mendes de Conservação da Biodiversidade",
+                        "Quantidade:",
+                        "789"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Chico Mendes de Conservação da Biodiversidade",
+                        789
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Poder Executivo Federal",
+                    786,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Poder Executivo Federal",
+                        "Quantidade:",
+                        "786"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Poder Executivo Federal",
+                        786
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto do Patrimônio Histórico e Artístico Nacional",
+                    743,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto do Patrimônio Histórico e Artístico Nacional",
+                        "Quantidade:",
+                        "743"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto do Patrimônio Histórico e Artístico Nacional",
+                        743
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    5507,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Quantidade:",
+                        "5.507"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        5507
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Outros",
+                  23805
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Outros",
+                  "Quantidade:",
+                  "23.805"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "idSituacaoServidor": 3
+        },
+        "data": [
+          {
+            "valores": [
+              "Ministério da Defesa",
+              266776,
+              [
+                {
+                  "valores": [
+                    "Comando do Exército",
+                    137928,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando do Exército",
+                        "Quantidade:",
+                        "137.928"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando do Exército",
+                        137928
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Marinha",
+                    75398,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Marinha",
+                        "Quantidade:",
+                        "75.398"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Marinha",
+                        75398
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comando da Aeronáutica",
+                    53386,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comando da Aeronáutica",
+                        "Quantidade:",
+                        "53.386"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comando da Aeronáutica",
+                        53386
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Aviação Civil",
+                    49,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Aviação Civil",
+                        "Quantidade:",
+                        "49"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Aviação Civil",
+                        49
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Osório",
+                    14,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Osório",
+                        "Quantidade:",
+                        "14"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Osório",
+                        14
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Caixa de Financiamento Imobiliário da Aeronáutica",
+                    1,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Caixa de Financiamento Imobiliário da Aeronáutica",
+                        "Quantidade:",
+                        "1"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Caixa de Financiamento Imobiliário da Aeronáutica",
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Defesa",
+                  266776
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Defesa",
+                  "Quantidade:",
+                  "266.776"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Sem informação",
+              98792,
+              [
+                {
+                  "valores": [
+                    "Sem informação",
+                    98792,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Sem informação",
+                        "Quantidade:",
+                        "98.792"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Sem informação",
+                        98792
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Sem informação",
+                  98792
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Sem informação",
+                  "Quantidade:",
+                  "98.792"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Saúde",
+              48496,
+              [
+                {
+                  "valores": [
+                    "Ministério da Saúde - Unidades com vínculo direto",
+                    35189,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "35.189"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Saúde - Unidades com vínculo direto",
+                        35189
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional de Saúde",
+                    12471,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional de Saúde",
+                        "Quantidade:",
+                        "12.471"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional de Saúde",
+                        12471
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Oswaldo Cruz",
+                    637,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Oswaldo Cruz",
+                        "Quantidade:",
+                        "637"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Oswaldo Cruz",
+                        637
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Vigilância Sanitária",
+                    188,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Vigilância Sanitária",
+                        "Quantidade:",
+                        "188"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Vigilância Sanitária",
+                        188
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Saúde Suplementar",
+                    11,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Saúde Suplementar",
+                        "Quantidade:",
+                        "11"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Saúde Suplementar",
+                        11
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Saúde",
+                  48496
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Saúde",
+                  "Quantidade:",
+                  "48.496"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Educação",
+              43091,
+              [
+                {
+                  "valores": [
+                    "Universidade Federal do Rio de Janeiro",
+                    3336,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio de Janeiro",
+                        "Quantidade:",
+                        "3.336"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio de Janeiro",
+                        3336
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Pernambuco",
+                    1969,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Pernambuco",
+                        "Quantidade:",
+                        "1.969"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Pernambuco",
+                        1969
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal de Minas Gerais",
+                    1844,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal de Minas Gerais",
+                        "Quantidade:",
+                        "1.844"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal de Minas Gerais",
+                        1844
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal Fluminense",
+                    1784,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal Fluminense",
+                        "Quantidade:",
+                        "1.784"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal Fluminense",
+                        1784
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Paraíba",
+                    1759,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Paraíba",
+                        "Quantidade:",
+                        "1.759"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Paraíba",
+                        1759
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal da Bahia",
+                    1666,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal da Bahia",
+                        "Quantidade:",
+                        "1.666"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal da Bahia",
+                        1666
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Rio Grande do Sul",
+                    1656,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio Grande do Sul",
+                        "Quantidade:",
+                        "1.656"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio Grande do Sul",
+                        1656
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Ceará",
+                    1554,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Ceará",
+                        "Quantidade:",
+                        "1.554"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Ceará",
+                        1554
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Universidade Federal do Rio Grande do Norte",
+                    1376,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Universidade Federal do Rio Grande do Norte",
+                        "Quantidade:",
+                        "1.376"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Universidade Federal do Rio Grande do Norte",
+                        1376
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Educação - Unidades com vínculo direto",
+                    1359,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Educação - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "1.359"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Educação - Unidades com vínculo direto",
+                        1359
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    24788,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Quantidade:",
+                        "24.788"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        24788
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Educação",
+                  43091
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Educação",
+                  "Quantidade:",
+                  "43.091"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Fazenda",
+              16079,
+              [
+                {
+                  "valores": [
+                    "Ministério da Fazenda - Unidades com vínculo direto",
+                    15956,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "15.956"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Fazenda - Unidades com vínculo direto",
+                        15956
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência de Seguros Privados",
+                    123,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência de Seguros Privados",
+                        "Quantidade:",
+                        "123"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência de Seguros Privados",
+                        123
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Fazenda",
+                  16079
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Fazenda",
+                  "Quantidade:",
+                  "16.079"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Previdência Social",
+              11498,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional do Seguro Social",
+                    11496,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional do Seguro Social",
+                        "Quantidade:",
+                        "11.496"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional do Seguro Social",
+                        11496
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência Nacional de Previdência Complementar",
+                    2,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência Nacional de Previdência Complementar",
+                        "Quantidade:",
+                        "2"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência Nacional de Previdência Complementar",
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Previdência Social",
+                  11498
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Previdência Social",
+                  "Quantidade:",
+                  "11.498"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Justiça e Segurança Pública",
+              8469,
+              [
+                {
+                  "valores": [
+                    "Polícia Federal",
+                    4052,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Federal",
+                        "Quantidade:",
+                        "4.052"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Federal",
+                        4052
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Polícia Rodoviária Federal",
+                    3680,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Polícia Rodoviária Federal",
+                        "Quantidade:",
+                        "3.680"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Polícia Rodoviária Federal",
+                        3680
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                    737,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "737"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Justiça e Segurança Pública - Unidades com vínculo direto",
+                        737
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Justiça e Segurança Pública",
+                  8469
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Justiça e Segurança Pública",
+                  "Quantidade:",
+                  "8.469"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Integração e do Desenvolvimento Regional",
+              6176,
+              [
+                {
+                  "valores": [
+                    "Departamento Nacional de Obras Contra as Secas",
+                    6131,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Departamento Nacional de Obras Contra as Secas",
+                        "Quantidade:",
+                        "6.131"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Departamento Nacional de Obras Contra as Secas",
+                        6131
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência do Desenvolvimento do Nordeste",
+                    22,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência do Desenvolvimento do Nordeste",
+                        "Quantidade:",
+                        "22"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência do Desenvolvimento do Nordeste",
+                        22
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Agência Nacional de Águas e Saneamento Básico",
+                    14,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Agência Nacional de Águas e Saneamento Básico",
+                        "Quantidade:",
+                        "14"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Agência Nacional de Águas e Saneamento Básico",
+                        14
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Superintendência do Desenvolvimento da Amazônia",
+                    9,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Superintendência do Desenvolvimento da Amazônia",
+                        "Quantidade:",
+                        "9"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Superintendência do Desenvolvimento da Amazônia",
+                        9
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério da Integração e do Desenvolvimento Regional",
+                  6176
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério da Integração e do Desenvolvimento Regional",
+                  "Quantidade:",
+                  "6.176"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Planejamento e Orçamento",
+              2888,
+              [
+                {
+                  "valores": [
+                    "Fundação Instituto Brasileiro de Geografia e Estatística",
+                    2888,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        "Quantidade:",
+                        "2.888"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Instituto Brasileiro de Geografia e Estatística",
+                        2888
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Planejamento e Orçamento",
+                  2888
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Planejamento e Orçamento",
+                  "Quantidade:",
+                  "2.888"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+              2521,
+              [
+                {
+                  "valores": [
+                    "Instituto Nacional de Colonização e Reforma Agrária",
+                    2521,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        "Quantidade:",
+                        "2.521"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional de Colonização e Reforma Agrária",
+                        2521
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  2521
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+                  "Quantidade:",
+                  "2.521"
+                ]
+              }
+            ]
+          },
+          {
+            "valores": [
+              "Outros",
+              10649,
+              [
+                {
+                  "valores": [
+                    "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                    2109,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        "Quantidade:",
+                        "2.109"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+                        2109
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Departamento Nacional de Infraestrutura de Transportes",
+                    1417,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        "Quantidade:",
+                        "1.417"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Departamento Nacional de Infraestrutura de Transportes",
+                        1417
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Banco Central do Brasil",
+                    1082,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Banco Central do Brasil",
+                        "Quantidade:",
+                        "1.082"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Banco Central do Brasil",
+                        1082
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                    984,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "984"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério das Relações Exteriores - Unidades com vínculo direto",
+                        984
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Fundação Nacional dos Povos Indígenas",
+                    851,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Fundação Nacional dos Povos Indígenas",
+                        "Quantidade:",
+                        "851"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Fundação Nacional dos Povos Indígenas",
+                        851
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                    843,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "843"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério da Ciência, Tecnologia e Inovação - Unidades com vínculo direto",
+                        843
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Comissão Nacional de Energia Nuclear",
+                    603,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Comissão Nacional de Energia Nuclear",
+                        "Quantidade:",
+                        "603"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Comissão Nacional de Energia Nuclear",
+                        603
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Ministério de Minas e Energia - Unidades com vínculo direto",
+                    572,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Ministério de Minas e Energia - Unidades com vínculo direto",
+                        "Quantidade:",
+                        "572"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Ministério de Minas e Energia - Unidades com vínculo direto",
+                        572
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto do Patrimônio Histórico e Artístico Nacional",
+                    259,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto do Patrimônio Histórico e Artístico Nacional",
+                        "Quantidade:",
+                        "259"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto do Patrimônio Histórico e Artístico Nacional",
+                        259
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+                    258,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+                        "Quantidade:",
+                        "258"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+                        258
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valores": [
+                    "Outros",
+                    1671,
+                    {
+                      "valores": [
+                        "Órgao Vinculado:",
+                        "Outros",
+                        "Quantidade:",
+                        "1.671"
+                      ]
+                    },
+                    {
+                      "valores": [
+                        "Outros",
+                        1671
+                      ]
+                    }
+                  ]
+                }
+              ],
+              {
+                "valores": [
+                  "Outros",
+                  10649
+                ]
+              },
+              {
+                "valores": [
+                  "Órgao Superior:",
+                  "Outros",
+                  "Quantidade:",
+                  "10.649"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/evolucao-historica-quantidade": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "2014",
+              1044883,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2015",
+              1072638,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2016",
+              1097148,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2017",
+              1089250,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2018",
+              1090139,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              1075326,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              5466,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              774,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              1051801,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              589844,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              507908,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              1046780,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              581105,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              498956,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              1027531,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              580170,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              510524,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              1015475,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              583764,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              510102,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              1026228,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              583324,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              499476,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              984850,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              580033,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              502160,
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              856334,
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              489108,
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              386143,
+              "Pensionistas"
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/evolucao-historica-valores": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "2014",
+              "109.458.791.539,56",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2015",
+              "115.938.488.131,54",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2016",
+              "126.709.826.854,06",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2017",
+              "137.885.033.631,53",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2018",
+              "134.810.426.877,73",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              "146.238.979.518,82",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              "80.840.017.107,93",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2019",
+              "44.206.816.437,33",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              "149.604.534.095,54",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              "85.984.142.676,74",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2020",
+              "45.191.450.812,08",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              "152.611.881.605,05",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              "85.920.732.250,85",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2021",
+              "46.404.181.318,48",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              "152.650.739.518,97",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              "88.635.819.817,14",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2022",
+              "48.099.226.619,06",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              "160.259.695.871,31",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              "94.082.243.337,17",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2023",
+              "50.020.110.059,70",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              "168.166.060.306,17",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              "98.325.450.646,15",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2024",
+              "51.336.471.513,61",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              "184.783.134.906,42",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              "105.095.378.173,64",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2025",
+              "53.325.986.887,59",
+              "Pensionistas"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              "32.448.684.339,86",
+              "Servidores Ativos"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              "15.940.391.609,30",
+              "Servidores Inativos"
+            ]
+          },
+          {
+            "valores": [
+              "2026",
+              "8.218.973.157,84",
+              "Pensionistas"
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/ocupacao-cargos-confianca-orgaos-superiores": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Ministério da Defesa",
+              349735,
+              2796,
+              86.19456366237482,
+              2410
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Educação",
+              321659,
+              51661,
+              98.96246685120303,
+              51125
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Saúde",
+              62480,
+              3861,
+              90.7018907018907,
+              3502
+            ]
+          },
+          {
+            "valores": [
+              "Sem informação",
+              49746,
+              18725,
+              79.18825100133512,
+              14828
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Fazenda",
+              19624,
+              297,
+              87.20538720538721,
+              259
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Previdência Social",
+              17540,
+              4150,
+              98.6987951807229,
+              4096
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Planejamento e Orçamento",
+              10833,
+              1939,
+              99.22640536358948,
+              1924
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Agricultura e Pecuária",
+              7408,
+              13,
+              0.0,
+              0
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Desenvolvimento Agrário e Agricultura Familiar",
+              5499,
+              1452,
+              89.94490358126721,
+              1306
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Meio Ambiente e Mudança do Clima",
+              4980,
+              1083,
+              91.96675900277009,
+              996
+            ]
+          },
+          {
+            "valores": [
+              "Ministério de Minas e Energia",
+              4670,
+              1528,
+              82.91884816753927,
+              1267
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Ciência, Tecnologia e Inovação",
+              4640,
+              1103,
+              88.03263825929284,
+              971
+            ]
+          },
+          {
+            "valores": [
+              "Ministério das Cidades",
+              3539,
+              520,
+              76.53846153846153,
+              398
+            ]
+          },
+          {
+            "valores": [
+              "Ministério dos Transportes",
+              3275,
+              1438,
+              85.67454798331015,
+              1232
+            ]
+          },
+          {
+            "valores": [
+              "Banco Central do Brasil - Orçamento Fiscal e Seguridade Social",
+              3215,
+              1253,
+              99.76057462090982,
+              1250
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Integração e do Desenvolvimento Regional",
+              2667,
+              1403,
+              83.25017818959373,
+              1168
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Desenvolvimento, Indústria, Comércio e Serviços",
+              2081,
+              480,
+              93.54166666666667,
+              449
+            ]
+          },
+          {
+            "valores": [
+              "Controladoria-Geral da União",
+              1761,
+              563,
+              97.15808170515098,
+              547
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Cultura",
+              1711,
+              980,
+              80.10204081632654,
+              785
+            ]
+          },
+          {
+            "valores": [
+              "Ministério dos Povos Indígenas",
+              1541,
+              912,
+              70.17543859649123,
+              640
+            ]
+          },
+          {
+            "valores": [
+              "Presidência da República",
+              1477,
+              3809,
+              62.299816224730904,
+              2373
+            ]
+          },
+          {
+            "valores": [
+              "Ministério das Comunicações",
+              1173,
+              513,
+              98.24561403508773,
+              504
+            ]
+          },
+          {
+            "valores": [
+              "Ministério das Relações Exteriores",
+              1020,
+              691,
+              97.10564399421129,
+              671
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Planejamento e Orçamento",
+              311,
+              145,
+              88.27586206896552,
+              128
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Gestão e da Inovação em Serviços Públicos",
+              135,
+              165,
+              93.93939393939394,
+              155
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Trabalho e Emprego",
+              134,
+              71,
+              83.09859154929578,
+              59
+            ]
+          },
+          {
+            "valores": [
+              "Ministério da Justiça e Segurança Pública",
+              124,
+              702,
+              56.55270655270655,
+              397
+            ]
+          },
+          {
+            "valores": [
+              "Ministério do Turismo",
+              106,
+              145,
+              59.310344827586206,
+              86
+            ]
+          },
+          {
+            "valores": [
+              "Poder Executivo Federal",
+              2,
+              55,
+              60.0,
+              33
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/situacao-vinculos": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Pensionista",
+              515435
+            ]
+          },
+          {
+            "valores": [
+              "Aposentado",
+              415078
+            ]
+          },
+          {
+            "valores": [
+              "Reformado",
+              90774
+            ]
+          },
+          {
+            "valores": [
+              "Reservista",
+              80383
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/vinculos-cargos-funcoes-comissionados-civis": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Ocupados por servidores/empregados efetivos da Adm. Pública",
+              99533
+            ]
+          },
+          {
+            "valores": [
+              "Ocupados por pessoas sem outro vínculo com a Adm. Pública",
+              7082
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/vinculos-civil-x-militar": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Civil",
+              765699
+            ]
+          },
+          {
+            "valores": [
+              "Militar",
+              339104
+            ]
+          }
+        ]
+      }
+    ],
+    "servidores/vinculos-em-exercicio-x-afastados": [
+      {
+        "params": {},
+        "data": [
+          {
+            "valores": [
+              "Em exercício",
+              1046808
+            ]
+          },
+          {
+            "valores": [
+              "Afastados (cedidos, em licença, etc)",
+              57995
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
