@@ -16,11 +16,13 @@ import argparse
 import csv
 import json
 import os
+import re
 import time
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Set, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -30,6 +32,20 @@ DEFAULT_PAGE_SIZE = 100
 DEFAULT_TIMEOUT_SECONDS = 30
 DEFAULT_RETRIES = 3
 DEFAULT_SLEEP_SECONDS = 0.25
+DEFAULT_POLITICIAN_KEYWORDS = [
+    "deputado",
+    "deputada",
+    "senador",
+    "senadora",
+    "prefeito",
+    "prefeita",
+    "governador",
+    "governadora",
+    "vereador",
+    "vereadora",
+    "ministro",
+    "ministra",
+]
 
 
 @dataclass
@@ -68,6 +84,22 @@ def parse_args() -> argparse.Namespace:
                         help="Pausa entre páginas para evitar bloqueio/rate-limit.")
     parser.add_argument("--output-dir", type=Path, default=Path("output"),
                         help="Diretório de saída para CSVs.")
+    parser.add_argument(
+        "--monitor-state-file",
+        type=Path,
+        default=Path("output/monitor_state.json"),
+        help="Arquivo JSON para guardar estado da última varredura de nomes monitorados.",
+    )
+    parser.add_argument(
+        "--politician-keywords",
+        default=",".join(DEFAULT_POLITICIAN_KEYWORDS),
+        help="Lista de palavras-chave (separadas por vírgula) para detectar nomes/pessoas políticas.",
+    )
+    parser.add_argument(
+        "--monitor-only",
+        action="store_true",
+        help="Não gera CSVs de transações completas; gera apenas artefatos de monitoramento de nomes.",
+    )
     return parser.parse_args()
 
 
@@ -177,6 +209,66 @@ def write_csv(path: Path, rows: Iterable[dict], fieldnames: List[str]) -> int:
     return total
 
 
+def parse_keywords(raw_keywords: str) -> List[str]:
+    return [term.strip().lower() for term in raw_keywords.split(",") if term.strip()]
+
+
+def is_politician_entry(name: str, keywords: List[str]) -> bool:
+    normalized = name.lower()
+    return any(re.search(rf"\b{re.escape(keyword)}\b", normalized) for keyword in keywords)
+
+
+def aggregate_politician_rows(transactions: List[dict], keywords: List[str]) -> List[dict]:
+    grouped: Dict[Tuple[str, str], dict] = defaultdict(lambda: {
+        "documento_favorecido": "",
+        "nome_favorecido": "",
+        "total_transacoes": 0,
+        "valor_total": 0.0,
+        "ultima_data": "",
+    })
+
+    for tx in transactions:
+        name = tx.get("nome_favorecido", "").strip()
+        if not name or not is_politician_entry(name, keywords):
+            continue
+
+        doc = tx.get("documento_favorecido", "").strip()
+        key = (doc, name)
+        row = grouped[key]
+        row["documento_favorecido"] = doc
+        row["nome_favorecido"] = name
+        row["total_transacoes"] += 1
+        row["ultima_data"] = max(row["ultima_data"], str(tx.get("data") or ""))
+        try:
+            row["valor_total"] += float(tx.get("valor"))
+        except (TypeError, ValueError):
+            pass
+
+    return sorted(grouped.values(), key=lambda row: row["total_transacoes"], reverse=True)
+
+
+def load_previous_state(path: Path) -> Set[str]:
+    if not path.exists():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return set()
+    monitored = data.get("monitored_keys", [])
+    if not isinstance(monitored, list):
+        return set()
+    return {str(item) for item in monitored}
+
+
+def save_monitor_state(path: Path, monitored_keys: Set[str]) -> None:
+    payload = {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "monitored_keys": sorted(monitored_keys),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main() -> None:
     args = parse_args()
     if not args.api_key:
@@ -202,9 +294,13 @@ def main() -> None:
         print("[WARN] Nenhuma transação encontrada com os filtros informados.")
         return
 
-    transactions_file = args.output_dir / "transactions_with_names.csv"
-    transaction_fields = list(transactions[0].keys())
-    total_tx = write_csv(transactions_file, transactions, transaction_fields)
+    if not args.monitor_only:
+        transactions_file = args.output_dir / "transactions_with_names.csv"
+        transaction_fields = list(transactions[0].keys())
+        total_tx = write_csv(transactions_file, transactions, transaction_fields)
+    else:
+        transactions_file = None
+        total_tx = len(transactions)
 
     summary_map: Dict[tuple, dict] = defaultdict(lambda: {
         "documento_favorecido": "",
@@ -229,11 +325,40 @@ def main() -> None:
     summary_fields = ["documento_favorecido", "nome_favorecido", "total_transacoes", "valor_total"]
     total_summary = write_csv(summary_file, summary_rows, summary_fields)
 
+    keywords = parse_keywords(args.politician_keywords)
+    politicians_rows = aggregate_politician_rows(transactions, keywords)
+    politicians_file = args.output_dir / "politicians_monitor.csv"
+    politicians_fields = ["documento_favorecido", "nome_favorecido", "total_transacoes", "valor_total", "ultima_data"]
+    total_politicians = write_csv(politicians_file, politicians_rows, politicians_fields)
+
+    previous_state = load_previous_state(args.monitor_state_file)
+    current_state = {f"{row['documento_favorecido']}::{row['nome_favorecido']}" for row in politicians_rows}
+    new_names = sorted(current_state - previous_state)
+    removed_names = sorted(previous_state - current_state)
+    save_monitor_state(args.monitor_state_file, current_state)
+
+    report_file = args.output_dir / "politicians_monitor_report.json"
+    report_payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "keywords": keywords,
+        "total_detected": total_politicians,
+        "new_names_count": len(new_names),
+        "removed_names_count": len(removed_names),
+        "new_names": new_names,
+        "removed_names": removed_names,
+    }
+    report_file.write_text(json.dumps(report_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
     print("\n[OK] Processamento concluído.")
     print(f"[OK] Transações exportadas: {total_tx}")
     print(f"[OK] Favorecidos associados: {total_summary}")
-    print(f"[OK] Arquivo detalhado: {transactions_file}")
+    if transactions_file:
+        print(f"[OK] Arquivo detalhado: {transactions_file}")
     print(f"[OK] Arquivo resumido: {summary_file}")
+    print(f"[OK] Nomes políticos monitorados: {total_politicians}")
+    print(f"[OK] CSV de monitoramento: {politicians_file}")
+    print(f"[OK] Relatório de monitoramento: {report_file}")
+    print(f"[OK] Estado atualizado em: {args.monitor_state_file}")
 
 
 if __name__ == "__main__":
