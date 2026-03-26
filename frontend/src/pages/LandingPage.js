@@ -1,257 +1,135 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ShieldCheck, Activity, Search, AlertTriangle, Users, Wallet } from "lucide-react";
+import { ArrowRight, BadgeCheck, Database, LockKeyhole, Rocket, ShieldCheck, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const features = [
+  {
+    icon: <LockKeyhole className="w-6 h-6 text-neon-green" />,
+    title: "Autenticação pronta",
+    description: "Cadastro, login, sessão persistente e isolamento por workspace para cada cliente.",
+  },
+  {
+    icon: <Database className="w-6 h-6 text-republic-blue" />,
+    title: "Banco persistente",
+    description: "Seu monitoramento agora roda em SQLite local ou PostgreSQL em produção via DATABASE_URL.",
+  },
+  {
+    icon: <Users className="w-6 h-6 text-alert-yellow" />,
+    title: "SaaS por workspace",
+    description: "Cada conta recebe ambiente próprio com dados seed, métricas e CRUD protegido por token.",
+  },
+  {
+    icon: <Rocket className="w-6 h-6 text-corruption-red" />,
+    title: "Deploy simplificado",
+    description: "Dockerfiles, compose e variáveis de ambiente para publicar frontend e API rapidamente.",
+  },
+];
 
-const LandingPage = () => {
-  const navigate = useNavigate();
+const plans = [
+  ["Starter", "1 workspace", "Autenticação JWT", "Dashboard com métricas"],
+  ["Growth", "Mais automações", "Alertas refinados", "Configuração de plano"],
+  ["Enterprise", "PostgreSQL dedicado", "Escalável em containers", "Base para RBAC futuro"],
+];
 
-  const features = [
-    {
-      icon: <ShieldCheck className="w-8 h-8 text-neon-green" />,
-      title: "Blockchain Verification",
-      description: "Every transaction verified on-chain for complete transparency"
-    },
-    {
-      icon: <Activity className="w-8 h-8 text-alert-yellow" />,
-      title: "Real-Time Monitoring",
-      description: "Track political wallet activities as they happen"
-    },
-    {
-      icon: <Search className="w-8 h-8 text-republic-blue" />,
-      title: "Advanced Search",
-      description: "Find any politician or transaction instantly"
-    },
-    {
-      icon: <AlertTriangle className="w-8 h-8 text-corruption-red" />,
-      title: "Suspicious Activity Detection",
-      description: "AI-powered alerts for unusual transaction patterns"
-    },
-    {
-      icon: <Users className="w-8 h-8 text-neon-green" />,
-      title: "Comprehensive Profiles",
-      description: "Detailed politician profiles with full transaction history"
-    },
-    {
-      icon: <Wallet className="w-8 h-8 text-republic-blue" />,
-      title: "Multi-Wallet Tracking",
-      description: "Track multiple wallets per politician across blockchains"
-    }
-  ];
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-zinc-950">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1640655367482-fa9797fe1258?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwyfHxicmF6aWwlMjBjb25ncmVzcyUyMGJ1aWxkaW5nJTIwbW9kZXJuJTIwYXJjaGl0ZWN0dXJlfGVufDB8fHx8MTc3Mjc0MzA1OXww&ixlib=rb-4.1.0&q=85"
-            alt="Brazilian Congress"
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-zinc-950/60 to-zinc-950"></div>
-        </div>
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 overflow-hidden">
+      <div className="absolute inset-0 hero-gradient pointer-events-none" />
+      <section className="relative px-6 py-24 md:px-12 border-b border-white/10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+          <div>
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-neon-green/30 bg-neon-green/10 text-neon-green text-xs uppercase tracking-[0.3em] font-mono mb-6">
+                <BadgeCheck className="w-4 h-4" />
+                SaaS Ready
+              </div>
+              <h1 className="font-chivo font-black text-5xl md:text-7xl leading-[0.95] mb-6">
+                Transformei a <span className="text-neon-green">Vigília</span> em uma operação SaaS.
+              </h1>
+              <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+                O projeto agora tem backend com persistência, login, multi-workspace, dashboard protegido e base pronta para deploy em Docker.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild className="bg-neon-green hover:bg-green-500 text-black font-bold px-8 py-6 rounded-none text-base uppercase tracking-wider">
+                  <Link to="/auth">
+                    Criar conta
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="border-white/15 bg-transparent text-zinc-100 hover:bg-white/5 rounded-none px-8 py-6 uppercase tracking-wider">
+                  <Link to="/dashboard">Entrar no dashboard</Link>
+                </Button>
+              </div>
+            </motion.div>
+          </div>
 
-        {/* Scanlines Effect */}
-        <div className="absolute inset-0 scanlines pointer-events-none"></div>
-
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-6 md:px-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="font-chivo font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight mb-6">
-              VIG<span className="text-neon-green">Í</span>LIA
-            </h1>
-            <p className="text-xl md:text-2xl text-zinc-400 mb-4 max-w-3xl mx-auto">
-              Transparency is the new currency.
-            </p>
-            <p className="text-base md:text-lg text-zinc-500 mb-12 max-w-2xl mx-auto">
-              Empowering Brazilian citizens with blockchain-verified political accountability.
-            </p>
-            <Button 
-              data-testid="enter-dashboard-btn"
-              onClick={() => navigate('/dashboard')} 
-              className="bg-neon-green hover:bg-green-500 text-black font-bold uppercase tracking-wider px-12 py-6 text-lg rounded-none transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
-            >
-              Enter Dashboard
-            </Button>
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.1 }}>
+            <div className="bg-zinc-900/70 border border-white/10 p-6 shadow-2xl shadow-black/20">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.25em] text-zinc-500 font-mono">Stack</p>
+                  <h2 className="font-chivo font-bold text-2xl mt-2">FastAPI + React + SQLAlchemy</h2>
+                </div>
+                <ShieldCheck className="w-12 h-12 text-neon-green" />
+              </div>
+              <div className="space-y-4 text-sm">
+                {[
+                  "JWT para autenticação",
+                  "Banco relacional com isolamento por workspace",
+                  "Seed inicial automático para onboarding",
+                  "Deploy via Docker e variáveis de ambiente",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3 border border-white/5 bg-black/30 p-3">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-neon-green" />
+                    <span className="text-zinc-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-24 px-6 md:px-12 bg-zinc-950">
-        <div className="container mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="font-chivo font-bold text-4xl md:text-5xl text-center mb-16"
-          >
-            Built for <span className="text-neon-green">Transparency</span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-zinc-900/50 border border-white/10 p-8 card-hover group"
-                data-testid={`feature-card-${idx}`}
-              >
+      <section className="px-6 md:px-12 py-20 border-b border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-chivo font-bold text-3xl md:text-4xl mb-10">O que mudou</h2>
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+            {features.map((feature) => (
+              <div key={feature.title} className="bg-zinc-900/60 border border-white/10 p-6 card-hover">
                 <div className="mb-4">{feature.icon}</div>
-                <h3 className="font-chivo font-bold text-xl mb-3 text-zinc-100">{feature.title}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">{feature.description}</p>
-              </motion.div>
+                <h3 className="font-chivo font-bold text-xl mb-2">{feature.title}</h3>
+                <p className="text-zinc-400 leading-relaxed text-sm">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 px-6 md:px-12 bg-zinc-950 border-t border-white/10">
-        <div className="container mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-chivo font-bold text-4xl md:text-5xl mb-6">
-              Start Monitoring Today
-            </h2>
-            <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of citizens tracking political transparency on the blockchain.
-            </p>
-            <Button 
-              data-testid="cta-dashboard-btn"
-              onClick={() => navigate('/dashboard')} 
-              className="bg-transparent border-2 border-neon-green text-neon-green hover:bg-neon-green hover:text-black font-bold uppercase tracking-wider px-12 py-6 text-lg rounded-none transition-all"
-            >
-              Access Dashboard
-            </Button>
-          </motion.div>
+      <section className="px-6 md:px-12 py-20 border-b border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-chivo font-bold text-3xl md:text-4xl mb-10">Estrutura comercial sugerida</h2>
+          <div className="grid lg:grid-cols-3 gap-5">
+            {plans.map(([title, ...items]) => (
+              <div key={title} className="border border-white/10 bg-black/40 p-6">
+                <p className="text-neon-green font-mono text-xs uppercase tracking-[0.3em] mb-4">{title}</p>
+                <ul className="space-y-3 text-zinc-300 text-sm">
+                  {items.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="text-neon-green">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-white/10 bg-black">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
-            <div>
-              <h3 className="font-chivo font-bold text-lg mb-3 text-neon-green">Vigília</h3>
-              <p className="text-zinc-500 text-sm">Blockchain Politics Vigilance para transparência política no Brasil</p>
-            </div>
-            <div>
-              <h4 className="font-chivo font-bold text-sm mb-3 text-zinc-400 uppercase">Fontes Oficiais</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a 
-                    href="https://www.camara.leg.br/tv" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                    data-testid="link-camara-tv"
-                  >
-                    TV Câmara dos Deputados
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://www.youtube.com/channel/UC-ZkSRh-7UEuwXJQ9UMCFJA" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-corruption-red transition-colors"
-                    data-testid="link-youtube"
-                  >
-                    YouTube Câmara
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://www.camara.leg.br/deputados/quem-sao" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                    data-testid="link-deputados"
-                  >
-                    Portal dos Deputados
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://dadosabertos.camara.leg.br/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                    data-testid="link-dados-abertos"
-                  >
-                    Dados Abertos
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-chivo font-bold text-sm mb-3 text-zinc-400 uppercase">Transparência</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a 
-                    href="https://www.gov.br/pt-br" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                  >
-                    Portal Gov.br
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://www.portaltransparencia.gov.br/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                  >
-                    Portal da Transparência
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://falabr.cgu.gov.br/web/home" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-alert-yellow transition-colors"
-                  >
-                    Fala.BR (Ouvidoria)
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://www.gov.br/acessoainformacao/pt-br" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-neon-green transition-colors"
-                  >
-                    Acesso à Informação
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-white/10 pt-6 text-center">
-            <p className="text-zinc-600 text-sm font-mono">Vigília © 2026 | Blockchain Politics Vigilance</p>
-          </div>
+
         </div>
-      </footer>
+      </section>
     </div>
   );
-};
-
-export default LandingPage;
+}

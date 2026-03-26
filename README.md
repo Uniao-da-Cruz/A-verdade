@@ -418,3 +418,21 @@
  
 EOF
 )
+
+## Coleta real do Portal da Transparência
+
+Para escanear dados públicos de despesas federais e associar nomes aos registros de transação, use o script:
+
+```bash
+python scripts/associate_portal_transparencia.py --ano 2025 --mes 1 --max-paginas 50 --output-dir output/transparencia
+```
+
+Pré-requisito: definir a chave da API oficial do Portal da Transparência.
+
+```bash
+export PORTAL_TRANSPARENCIA_API_KEY="sua-chave"
+```
+
+Saídas geradas:
+- `transactions_with_names.csv`: uma linha por transação com nome e documento do favorecido.
+- `association_summary.csv`: consolidação por documento + nome do favorecido.
