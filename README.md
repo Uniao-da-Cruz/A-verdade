@@ -183,6 +183,30 @@ Você obtém a chave gratuitamente em [portaldatransparencia.gov.br/api-de-dados
 | `transactions_with_names.csv` | Uma linha por transação com nome e documento do favorecido |
 | `association_summary.csv` | Consolidação por documento e nome do favorecido |
 
+### Pesquisa de nomes (casoaberto)
+
+Para consultar nomes específicos na base de servidores do Portal da Transparência:
+
+```bash
+export PORTAL_TRANSPARENCIA_API_KEY="sua-chave"
+
+python scripts/casoaberto_pesquisar_nomes.py \
+  --nome "NOME 1" \
+  --nome "NOME 2" \
+  --max-paginas 3
+```
+
+Também é possível informar um arquivo com um nome por linha:
+
+```bash
+python scripts/casoaberto_pesquisar_nomes.py --nomes-arquivo input/nomes.txt
+```
+
+Arquivos gerados por padrão:
+
+- `output/casoaberto_pesquisa_nomes.json`
+- `output/casoaberto_pesquisa_nomes.csv`
+
 ---
 
 ## Integração com o IBGE
