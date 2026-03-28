@@ -42,6 +42,7 @@ O objetivo é simples: tornar mais fácil para jornalistas, pesquisadores e cida
 - **Dashboard React** — métricas, alertas, transações e cadastro de políticos.
 - **API documentada** — Swagger disponível em `/docs` durante o desenvolvimento.
 - **Coleta do Portal da Transparência** — script para ingestão de despesas federais reais.
+- **Integração IBGE** — endpoint para consumir estados brasileiros em tempo real via API oficial do IBGE.
 - **Stack containerizada** — sobe tudo com um único `docker compose up`.
 
 ---
@@ -181,6 +182,24 @@ Você obtém a chave gratuitamente em [portaldatransparencia.gov.br/api-de-dados
 |---|---|
 | `transactions_with_names.csv` | Uma linha por transação com nome e documento do favorecido |
 | `association_summary.csv` | Consolidação por documento e nome do favorecido |
+
+---
+
+## Integração com o IBGE
+
+Para consultar os estados brasileiros direto da API oficial do IBGE:
+
+```bash
+curl "http://localhost:8000/api/ibge/states"
+```
+
+Filtrar por uma sigla específica (ex.: SP):
+
+```bash
+curl "http://localhost:8000/api/ibge/states?sigla=SP"
+```
+
+O backend consulta `https://servicodados.ibge.gov.br/api/v1/localidades/estados` e retorna um snapshot com horário da coleta e lista normalizada por estado.
 
 ---
 
