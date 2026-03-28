@@ -109,6 +109,31 @@ export default function Dashboard() {
     return <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-400">Carregando...</div>;
   }
 
+  if (!snapshot?.stats) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-50 flex items-center justify-center px-6">
+        <Card className="w-full max-w-lg bg-zinc-900/70 border-white/10 rounded-none p-6 space-y-4">
+          <h1 className="font-chivo font-bold text-2xl">Não foi possível carregar o dashboard</h1>
+          <p className="text-zinc-400 text-sm">
+            Tente atualizar novamente. Se o erro persistir, faça login de novo para renovar sua sessão.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="outline" className="rounded-none border-white/10 bg-transparent" onClick={loadDashboard}>
+              <RefreshCcw className="w-4 h-4 mr-2" /> Tentar novamente
+            </Button>
+            <Button variant="outline" className="rounded-none border-white/10 bg-transparent" onClick={logout}>
+              <LogOut className="w-4 h-4 mr-2" /> Sair
+            </Button>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  const lastUpdated = snapshot?.stats?.timestamp
+    ? new Date(snapshot.stats.timestamp).toLocaleString("pt-BR")
+    : "Não disponível";
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
       <header className="border-b border-white/10 sticky top-0 bg-zinc-950/90 backdrop-blur-xl z-30">
@@ -163,7 +188,7 @@ export default function Dashboard() {
             ))}
           </div>
           <p className="text-zinc-400 text-sm mt-4">
-            Última atualização: {new Date(snapshot?.stats.timestamp).toLocaleString("pt-BR")}
+            Última atualização: {lastUpdated}
           </p>
         </Card>
 
