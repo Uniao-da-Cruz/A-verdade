@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import gzip
 import os
 import secrets
 import uuid
+from urllib import error, request
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
+import json
 from typing import Generator, List, Optional
 from urllib.parse import quote_plus
 
@@ -361,6 +364,20 @@ class UpdateWorkspacePlan(BaseModel):
     plan: str
 
 
+class IBGEStateResponse(BaseModel):
+    id: int
+    sigla: str
+    nome: str
+    regiao: str
+
+
+class IBGEStatesSnapshot(BaseModel):
+    total: int
+    fetched_at: datetime
+    source: str
+    states: List[IBGEStateResponse]
+
+
 def slugify(value: str) -> str:
     allowed = [c.lower() if c.isalnum() else "-" for c in value.strip()]
     slug = "".join(allowed)
@@ -591,6 +608,47 @@ def recalculate_politician_counters(db: Session, politician: PoliticianORM) -> N
     politician.suspicious_count = suspicious_count
 
 
+def fetch_ibge_json(url: str) -> list[dict]:
+    req = request.Request(url, headers={"User-Agent": "vigilia-api/2.0"})
+    try:
+        with request.urlopen(req, timeout=10) as response:
+            payload_bytes = response.read()
+    except error.URLError as exc:
+        raise HTTPException(status_code=502, detail=f"IBGE unavailable: {exc.reason}") from exc
+
+    if payload_bytes[:2] == b"\x1f\x8b":
+        payload_bytes = gzip.decompress(payload_bytes)
+
+    try:
+        data = json.loads(payload_bytes.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=502, detail="Invalid response from IBGE") from exc
+
+    if not isinstance(data, list):
+        raise HTTPException(status_code=502, detail="Unexpected IBGE response format")
+    return data
+
+
+def load_ibge_states(sigla: Optional[str] = None) -> List[IBGEStateResponse]:
+    endpoint = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+    raw_states = fetch_ibge_json(endpoint)
+    states: List[IBGEStateResponse] = []
+    for item in raw_states:
+        states.append(
+            IBGEStateResponse(
+                id=item["id"],
+                sigla=item["sigla"],
+                nome=item["nome"],
+                regiao=item["regiao"]["nome"],
+            )
+        )
+    states = sorted(states, key=lambda state: state.sigla)
+    if sigla:
+        normalized = sigla.strip().upper()
+        states = [state for state in states if state.sigla == normalized]
+    return states
+
+
 def seed_workspace(db: Session, workspace: WorkspaceORM) -> None:
     existing = db.scalar(select(func.count(PoliticianORM.id)).where(PoliticianORM.workspace_id == workspace.id))
     if existing:
@@ -800,8 +858,19 @@ def api_root():
         "message": "Vigília SaaS API",
         "docs": "/docs",
         "health": "/api/health",
-        "features": ["auth", "workspace isolation", "persistent database", "deploy-ready docker"],
+        "features": ["auth", "workspace isolation", "persistent database", "deploy-ready docker", "ibge integration"],
     }
+
+
+@app.get("/api/ibge/states", response_model=IBGEStatesSnapshot)
+def ibge_states(sigla: Optional[str] = Query(default=None, min_length=2, max_length=2)) -> IBGEStatesSnapshot:
+    states = load_ibge_states(sigla=sigla)
+    return IBGEStatesSnapshot(
+        total=len(states),
+        fetched_at=now_utc(),
+        source="https://servicodados.ibge.gov.br/api/v1/localidades/estados",
+        states=states,
+    )
 
 
 @app.post("/api/auth/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
