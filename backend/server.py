@@ -154,6 +154,21 @@ class AlertORM(Base):
     politician: Mapped[PoliticianORM] = relationship(back_populates="alerts")
 
 
+class ReportORM(Base):
+    __tablename__ = "reports"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    workspace_id: Mapped[str] = mapped_column(ForeignKey("workspaces.id"), index=True)
+    protocol: Mapped[str] = mapped_column(String(24), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(160))
+    description: Mapped[str] = mapped_column(Text)
+    category: Mapped[str] = mapped_column(String(80), default="geral")
+    evidence_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    anonymous: Mapped[bool] = mapped_column(Boolean, default=True)
+    status: Mapped[str] = mapped_column(String(40), default="recebida")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+
+
 def normalize_database_url(raw_url: str) -> str:
     if raw_url.startswith("postgres://"):
         return raw_url.replace("postgres://", "postgresql+psycopg://", 1)
@@ -291,6 +306,36 @@ class PaginatedTransactions(BaseModel):
 
 class PaginatedAlerts(BaseModel):
     items: List[AlertResponse]
+    total: int
+    limit: int
+    offset: int
+    has_more: bool
+
+
+class ReportCreate(BaseModel):
+    title: str = Field(min_length=5, max_length=160)
+    description: str = Field(min_length=20, max_length=3000)
+    category: str = Field(default="geral", max_length=80)
+    evidence_url: Optional[str] = Field(default=None, max_length=500)
+    anonymous: bool = True
+
+
+class ReportResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    protocol: str
+    title: str
+    description: str
+    category: str
+    evidence_url: Optional[str] = None
+    anonymous: bool
+    status: str
+    created_at: datetime
+
+
+class PaginatedReports(BaseModel):
+    items: List[ReportResponse]
     total: int
     limit: int
     offset: int
@@ -510,6 +555,14 @@ def serialize_transaction(transaction: TransactionORM) -> TransactionResponse:
 
 def serialize_alert(alert: AlertORM) -> AlertResponse:
     return AlertResponse.model_validate(alert)
+
+
+def serialize_report(report: ReportORM) -> ReportResponse:
+    return ReportResponse.model_validate(report)
+
+
+def generate_report_protocol() -> str:
+    return f"DEN-{now_utc().strftime('%Y%m%d')}-{secrets.token_hex(3).upper()}"
 
 
 def normalize_wallet_detail(raw_wallet: WalletDetail | str, index: int = 0) -> WalletDetail:
@@ -1196,6 +1249,55 @@ def get_alerts(
     items = db.scalars(stmt.order_by(AlertORM.timestamp.desc()).offset(offset).limit(limit)).all()
     return PaginatedAlerts(
         items=[serialize_alert(item) for item in items],
+        total=total,
+        limit=limit,
+        offset=offset,
+        has_more=offset + limit < total,
+    )
+
+
+@app.post("/api/reports", response_model=ReportResponse, status_code=status.HTTP_201_CREATED)
+def create_report(
+    payload: ReportCreate,
+    current_user: UserORM = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> ReportResponse:
+    protocol = generate_report_protocol()
+    while db.scalar(select(ReportORM.id).where(ReportORM.protocol == protocol)):
+        protocol = generate_report_protocol()
+
+    report = ReportORM(
+        workspace_id=current_user.workspace_id,
+        protocol=protocol,
+        title=payload.title.strip(),
+        description=payload.description.strip(),
+        category=payload.category.strip().lower() or "geral",
+        evidence_url=payload.evidence_url.strip() if payload.evidence_url else None,
+        anonymous=payload.anonymous,
+    )
+    db.add(report)
+    db.commit()
+    db.refresh(report)
+    return serialize_report(report)
+
+
+@app.get("/api/reports", response_model=PaginatedReports)
+def get_reports(
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+    current_user: UserORM = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> PaginatedReports:
+    total = db.scalar(select(func.count(ReportORM.id)).where(ReportORM.workspace_id == current_user.workspace_id)) or 0
+    items = db.scalars(
+        select(ReportORM)
+        .where(ReportORM.workspace_id == current_user.workspace_id)
+        .order_by(ReportORM.created_at.desc())
+        .offset(offset)
+        .limit(limit)
+    ).all()
+    return PaginatedReports(
+        items=[serialize_report(item) for item in items],
         total=total,
         limit=limit,
         offset=offset,
