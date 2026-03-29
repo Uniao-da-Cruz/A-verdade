@@ -207,6 +207,18 @@ Arquivos gerados por padrão:
 - `output/casoaberto_pesquisa_nomes.json`
 - `output/casoaberto_pesquisa_nomes.csv`
 
+### Linkar nomes no banco (Dataprev)
+
+Para inserir/atualizar os nomes coletados diretamente na tabela `politicians` do backend:
+
+```bash
+python scripts/link_dataprev_names_db.py \
+  --nomes-arquivo output/casoaberto_pesquisa_nomes.csv \
+  --workspace-slug demo-workspace
+```
+
+O script evita duplicidade por nome (case-insensitive) no workspace informado e preenche `data_source_url` com `https://www.dataprev.gov.br/transparencia`.
+
 ---
 
 ## Integração com o IBGE
