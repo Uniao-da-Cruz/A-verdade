@@ -93,6 +93,31 @@ class PoliticianORM(Base):
     wallet_details: Mapped[List["WalletORM"]] = relationship(back_populates="politician", cascade="all, delete-orphan")
     transactions: Mapped[List["TransactionORM"]] = relationship(back_populates="politician", cascade="all, delete-orphan")
     alerts: Mapped[List["AlertORM"]] = relationship(back_populates="politician", cascade="all, delete-orphan")
+    history_entries: Mapped[List["PoliticianHistoryORM"]] = relationship(
+        back_populates="politician", cascade="all, delete-orphan"
+    )
+
+
+class PoliticianHistoryORM(Base):
+    __tablename__ = "politician_history"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    workspace_id: Mapped[str] = mapped_column(ForeignKey("workspaces.id"), index=True)
+    politician_id: Mapped[str] = mapped_column(ForeignKey("politicians.id"), index=True)
+    event_type: Mapped[str] = mapped_column(String(40), default="snapshot")
+    name: Mapped[str] = mapped_column(String(140))
+    party: Mapped[str] = mapped_column(String(80))
+    position: Mapped[str] = mapped_column(String(120))
+    state: Mapped[Optional[str]] = mapped_column(String(8), nullable=True)
+    verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    blockchain_focus: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
+    declared_assets_brl: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    declaration_year: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    data_source_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    wallets: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+
+    politician: Mapped[PoliticianORM] = relationship(back_populates="history_entries")
 
 
 class WalletORM(Base):
@@ -232,6 +257,25 @@ class PoliticianResponse(PoliticianBase):
     total_transactions: int = 0
     suspicious_count: int = 0
     created_at: datetime
+
+
+class PoliticianHistoryResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    politician_id: str
+    event_type: str
+    name: str
+    party: str
+    position: str
+    state: Optional[str] = None
+    verified: bool = False
+    blockchain_focus: Optional[str] = None
+    declared_assets_brl: Optional[float] = None
+    declaration_year: Optional[int] = None
+    data_source_url: Optional[str] = None
+    wallets: List[str] = Field(default_factory=list)
+    recorded_at: datetime
 
 
 class TransactionCreate(BaseModel):
@@ -529,6 +573,28 @@ def serialize_politician(politician: PoliticianORM) -> PoliticianResponse:
     )
 
 
+def serialize_politician_history(entry: PoliticianHistoryORM) -> PoliticianHistoryResponse:
+    wallets = []
+    if entry.wallets:
+        wallets = [item for item in entry.wallets.split("|") if item]
+    return PoliticianHistoryResponse(
+        id=entry.id,
+        politician_id=entry.politician_id,
+        event_type=entry.event_type,
+        name=entry.name,
+        party=entry.party,
+        position=entry.position,
+        state=entry.state,
+        verified=entry.verified,
+        blockchain_focus=entry.blockchain_focus,
+        declared_assets_brl=entry.declared_assets_brl,
+        declaration_year=entry.declaration_year,
+        data_source_url=entry.data_source_url,
+        wallets=wallets,
+        recorded_at=entry.recorded_at,
+    )
+
+
 def serialize_transaction(transaction: TransactionORM) -> TransactionResponse:
     flags = [flag for flag in (transaction.risk_flags or "").split("|") if flag]
     return TransactionResponse(
@@ -661,6 +727,27 @@ def recalculate_politician_counters(db: Session, politician: PoliticianORM) -> N
     politician.suspicious_count = suspicious_count
 
 
+def create_politician_history_entry(db: Session, politician: PoliticianORM, event_type: str = "snapshot") -> None:
+    wallets_joined = "|".join(wallet.address for wallet in politician.wallet_details)
+    db.add(
+        PoliticianHistoryORM(
+            workspace_id=politician.workspace_id,
+            politician_id=politician.id,
+            event_type=event_type,
+            name=politician.name,
+            party=politician.party,
+            position=politician.position,
+            state=politician.state,
+            verified=politician.verified,
+            blockchain_focus=politician.blockchain_focus,
+            declared_assets_brl=politician.declared_assets_brl,
+            declaration_year=politician.declaration_year,
+            data_source_url=politician.data_source_url,
+            wallets=wallets_joined,
+        )
+    )
+
+
 def fetch_ibge_json(url: str) -> list[dict]:
     req = request.Request(url, headers={"User-Agent": "vigilia-api/2.0"})
     try:
@@ -764,6 +851,8 @@ def seed_workspace(db: Session, workspace: WorkspaceORM) -> None:
         created_politicians.append(politician)
 
     db.flush()
+    for politician in created_politicians:
+        create_politician_history_entry(db, politician, event_type="seeded")
 
     tx_templates = [
         {
@@ -1072,6 +1161,8 @@ def create_politician(
     wallet_inputs: List[WalletDetail | str] = payload.wallet_details if payload.wallet_details else payload.wallets
     create_wallets_for_politician(politician, wallet_inputs)
     db.add(politician)
+    db.flush()
+    create_politician_history_entry(db, politician, event_type="created")
     db.commit()
     db.refresh(politician)
     politician = get_politician_or_404(db, current_user.workspace_id, politician.id)
@@ -1105,6 +1196,24 @@ def get_politician(
 ) -> PoliticianResponse:
     politician = get_politician_or_404(db, current_user.workspace_id, politician_id)
     return serialize_politician(politician)
+
+
+@app.get("/api/politicians/{politician_id}/history", response_model=List[PoliticianHistoryResponse])
+def get_politician_history(
+    politician_id: str,
+    current_user: UserORM = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> List[PoliticianHistoryResponse]:
+    get_politician_or_404(db, current_user.workspace_id, politician_id)
+    entries = db.scalars(
+        select(PoliticianHistoryORM)
+        .where(
+            PoliticianHistoryORM.workspace_id == current_user.workspace_id,
+            PoliticianHistoryORM.politician_id == politician_id,
+        )
+        .order_by(PoliticianHistoryORM.recorded_at.desc())
+    ).all()
+    return [serialize_politician_history(entry) for entry in entries]
 
 
 @app.post("/api/transactions", response_model=TransactionResponse, status_code=status.HTTP_201_CREATED)
