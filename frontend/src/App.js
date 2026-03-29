@@ -5,6 +5,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AuthPage from "@/pages/AuthPage";
 import Dashboard from "@/pages/Dashboard";
+import MapaPeriferias from "@/pages/MapaPeriferias";
 import PoliticianRegistryPage from "@/pages/PoliticianRegistryPage";
 
 function HomeRedirect() {
@@ -32,6 +33,14 @@ function App() {
               element={(
                 <ProtectedRoute>
                   <PoliticianRegistryPage />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/mapa-periferias"
+              element={(
+                <ProtectedRoute>
+                  <MapaPeriferias />
                 </ProtectedRoute>
               )}
             />
