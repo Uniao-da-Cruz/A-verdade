@@ -147,6 +147,9 @@ export default function Dashboard() {
             <Button asChild className="rounded-none bg-neon-green text-black hover:bg-green-500">
               <Link to="/registro-politicos">Registrar políticos e bens</Link>
             </Button>
+            <Button asChild variant="outline" className="rounded-none border-white/10 bg-transparent">
+              <Link to="/mapa-periferias">Mapa das periferias</Link>
+            </Button>
             <Button variant="outline" className="rounded-none border-white/10 bg-transparent" onClick={loadDashboard}>
               <RefreshCcw className="w-4 h-4 mr-2" /> Atualizar
             </Button>
