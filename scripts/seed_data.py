@@ -43,7 +43,7 @@ def main() -> int:
     print(f"✅ Demo account {mode} successfully")
     print(f"Workspace: {data['workspace']['name']} ({data['workspace']['slug']})")
     print(f"Email: {DEMO_EMAIL}")
-    print(f"Password: {DEMO_PASSWORD}")
+    print("Password: (hidden)")
     print(f"Access token: {data['access_token'][:40]}...")
     return 0
 
