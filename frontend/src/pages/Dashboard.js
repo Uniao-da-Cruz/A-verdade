@@ -8,6 +8,26 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
 const planOptions = ["starter", "growth", "enterprise"];
+const philosophicalQuotes = [
+  {
+    quote: "A ambição é uma paixão tão imperiosa no coração humano, que mesmo alcançando as mais elevadas posições, nunca nos sentimos satisfeitos.",
+    author: "Nicolau Maquiavel",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/640px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg",
+  },
+  {
+    quote: "Os homens ofendem mais aos que amam do que aos que temem.",
+    author: "Nicolau Maquiavel",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Niccol%C3%B2_Machiavelli%2C_by_Lorenzo_Bartolini%2C_1830-1845%2C_02.JPG/640px-Niccol%C3%B2_Machiavelli%2C_by_Lorenzo_Bartolini%2C_1830-1845%2C_02.JPG",
+  },
+  {
+    quote: "O homem é mau por natureza, a menos que precise ser bom.",
+    author: "Nicolau Maquiavel",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/640px-Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg",
+  },
+];
 
 export default function Dashboard() {
   const { user, workspace, logout } = useAuth();
@@ -275,6 +295,29 @@ export default function Dashboard() {
             </div>
           </form>
         </Card>
+
+        <section className="space-y-4">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500">Reflexões</p>
+            <h2 className="font-chivo font-bold text-2xl mt-2">Citações filosóficas</h2>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-4">
+            {philosophicalQuotes.map((item) => (
+              <Card key={item.quote} className="bg-zinc-900/70 border-white/10 rounded-none overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.author}
+                  className="w-full h-56 object-cover object-top border-b border-white/10"
+                  loading="lazy"
+                />
+                <div className="p-4">
+                  <p className="text-zinc-100 leading-relaxed">“{item.quote}”</p>
+                  <p className="text-zinc-400 text-sm mt-3">— {item.author}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );
