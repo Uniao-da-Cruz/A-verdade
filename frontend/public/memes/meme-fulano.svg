@@ -1,0 +1,16 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='720' height='1100' viewBox='0 0 720 1100'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0%' stop-color='#3c3a37'/>
+      <stop offset='100%' stop-color='#111827'/>
+    </linearGradient>
+  </defs>
+  <rect width='720' height='1100' fill='url(#bg)'/>
+  <rect x='40' y='220' width='640' height='700' rx='24' fill='rgba(0,0,0,0.35)' stroke='rgba(255,255,255,0.18)'/>
+  <text x='80' y='420' fill='#f8fafc' font-size='56' font-family='Georgia, serif'>“Ah mas fulano torce</text>
+  <text x='80' y='486' fill='#f8fafc' font-size='56' font-family='Georgia, serif'>por mim” TORCE NADA!</text>
+  <text x='80' y='570' fill='#f8fafc' font-size='56' font-family='Georgia, serif'>Aprenda a fechar sua</text>
+  <text x='80' y='636' fill='#f8fafc' font-size='56' font-family='Georgia, serif'>boca, fulano não quer</text>
+  <text x='80' y='702' fill='#f8fafc' font-size='56' font-family='Georgia, serif'>você melhor do que ele.</text>
+  <text x='80' y='1000' fill='#e2e8f0' font-size='36' font-family='Arial, sans-serif'>@sigoafelicidade</text>
+</svg>

@@ -40,6 +40,23 @@ const VIDEOS = [
   }
 ];
 
+const COMMUNITY_POSTS = [
+  {
+    id: 1,
+    title: "Post motivacional",
+    image: "/memes/meme-fulano.svg",
+    alt: "Arte com duas máscaras e a frase sobre não depender de apoio de fulano",
+    quote: "“Ah mas fulano torce por mim” TORCE NADA! Aprenda a fechar sua boca, fulano não quer você melhor do que ele."
+  },
+  {
+    id: 2,
+    title: "Post sobre polarização",
+    image: "/memes/meme-gado-politico.svg",
+    alt: "Meme sobre direita e esquerda em confronto e impacto no pagador de impostos",
+    quote: "Ninguém mais aguenta gado de político."
+  }
+];
+
 const PoliticalSpectrum = () => {
   const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -211,6 +228,35 @@ const PoliticalSpectrum = () => {
                 <li>• Fascismo</li>
               </ul>
             </Card>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="mt-12"
+        >
+          <h2 className="font-chivo font-bold text-2xl mb-6">Posts da Comunidade</h2>
+          <p className="text-zinc-400 text-sm mb-6">
+            Espaço para os conteúdos visuais compartilhados pela comunidade.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {COMMUNITY_POSTS.map((post) => (
+              <Card key={post.id} className="bg-zinc-900/50 border-white/10 p-4">
+                <div className="bg-black/50 p-3 border border-white/10">
+                  <img
+                    src={post.image}
+                    alt={post.alt}
+                    className="w-full h-auto rounded-none"
+                    loading="lazy"
+                    data-testid={`community-post-${post.id}`}
+                  />
+                </div>
+                <h3 className="font-chivo font-bold text-lg mt-4">{post.title}</h3>
+                <p className="text-zinc-400 text-sm mt-2">{post.quote}</p>
+              </Card>
+            ))}
           </div>
         </motion.div>
       </main>
