@@ -1,0 +1,23 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='720' height='1100' viewBox='0 0 720 1100'>
+  <rect width='720' height='1100' fill='#090f1b'/>
+  <rect x='40' y='120' width='640' height='860' rx='24' fill='#101827' stroke='rgba(255,255,255,0.15)'/>
+  <text x='70' y='210' fill='#f8fafc' font-size='58' font-family='Arial Black, Arial, sans-serif'>Ninguém mais aguenta</text>
+  <text x='70' y='275' fill='#f8fafc' font-size='58' font-family='Arial Black, Arial, sans-serif'>gado de político</text>
+
+  <rect x='90' y='340' width='540' height='250' rx='16' fill='#1f2937'/>
+  <text x='110' y='395' fill='#dbeafe' font-size='48' font-family='Georgia, serif'>Na mídia</text>
+  <rect x='110' y='435' width='180' height='60' fill='#1e3a8a'/>
+  <text x='125' y='478' fill='white' font-size='46' font-family='Georgia, serif'>Direita</text>
+  <rect x='410' y='435' width='180' height='60' fill='#b91c1c'/>
+  <text x='425' y='478' fill='white' font-size='46' font-family='Georgia, serif'>Esquerda</text>
+
+  <rect x='90' y='620' width='540' height='250' rx='16' fill='#111827'/>
+  <text x='110' y='675' fill='#f3f4f6' font-size='48' font-family='Georgia, serif'>Na realidade</text>
+  <rect x='110' y='740' width='220' height='110' fill='#1e3a8a'/>
+  <text x='132' y='790' fill='white' font-size='46' font-family='Georgia, serif'>Direita</text>
+  <text x='200' y='835' fill='#fbbf24' font-size='46' font-family='Georgia, serif'>E</text>
+  <text x='160' y='872' fill='#ef4444' font-size='46' font-family='Georgia, serif'>Esquerda</text>
+  <rect x='390' y='740' width='220' height='110' fill='#166534'/>
+  <text x='410' y='790' fill='white' font-size='44' font-family='Georgia, serif'>pagador de</text>
+  <text x='430' y='835' fill='white' font-size='44' font-family='Georgia, serif'>impostos</text>
+</svg>
