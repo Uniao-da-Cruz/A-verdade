@@ -490,21 +490,6 @@ frontend:
         agent: "testing"
         comment: "Data file properly exports nuclearRiskOverview (video metadata and overview), nuclearDangerCards (6 danger cards with IDs), nuclearTimeline (5 timeline items), and nuclearReferenceLinks (3 reference links). All data structures are correctly formatted with proper IDs for data-testids. Video URL points to YouTube video 'REAÇÃO em CADEIA: a HISTÓRIA da BOMBA ATÔMICA' (6fsuiVHtEfc) from Ciência Todo Dia channel."
 
-metadata:
-  created_by: "testing_agent"
-  version: "1.0"
-  test_sequence: 2
-  run_ui: true
-  test_date: "2025-03-08"
-  frontend_url: "https://site-generator-173.preview.emergentagent.com"
-
-test_plan:
-  current_focus: []
-  stuck_tasks: []
-  test_all: true
-  test_priority: "high_first"
-  test_completed: true
-
   - task: "Mapa das Periferias Page - Full Integration"
     implemented: true
     working: true
@@ -552,6 +537,21 @@ test_plan:
       - working: true
         agent: "main"
         comment: "Data file with mapaPeriferiasOverview, mapaPeriferiasHighlights (4 items), mapaPeriferiasReferenceLinks (3 items). All URLs pointing to official government sources."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 2
+  run_ui: true
+  test_date: "2025-03-08"
+  frontend_url: "https://site-generator-173.preview.emergentagent.com"
+
+test_plan:
+  current_focus: []
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+  test_completed: true
 
 agent_communication:
   - agent: "testing"
