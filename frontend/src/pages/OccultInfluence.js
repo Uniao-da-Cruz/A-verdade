@@ -9,6 +9,24 @@ import { Badge } from "@/components/ui/badge";
 const OccultInfluence = () => {
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState(null);
+  const colorStyles = {
+    "corruption-red": {
+      cardBorder: "border-corruption-red/20",
+      badge: "bg-corruption-red/10 text-corruption-red border-corruption-red/20",
+    },
+    "alert-yellow": {
+      cardBorder: "border-alert-yellow/20",
+      badge: "bg-alert-yellow/10 text-alert-yellow border-alert-yellow/20",
+    },
+    "neon-green": {
+      cardBorder: "border-neon-green/20",
+      badge: "bg-neon-green/10 text-neon-green border-neon-green/20",
+    },
+    "republic-blue": {
+      cardBorder: "border-republic-blue/20",
+      badge: "bg-republic-blue/10 text-republic-blue border-republic-blue/20",
+    }
+  };
 
   const connections = [
     {
@@ -149,7 +167,7 @@ const OccultInfluence = () => {
               data-testid={`connection-card-${idx}`}
             >
               <Card 
-                className={`bg-zinc-900/50 border-${connection.color}/20 p-6 card-hover cursor-pointer`}
+                className={`bg-zinc-900/50 p-6 card-hover cursor-pointer ${colorStyles[connection.color]?.cardBorder ?? "border-white/20"}`}
                 onClick={() => setSelectedTopic(connection)}
               >
                 <div className="mb-4">{connection.icon}</div>
@@ -157,7 +175,7 @@ const OccultInfluence = () => {
                 <p className="text-zinc-400 text-sm mb-4">{connection.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {connection.details.slice(0, 2).map((detail, i) => (
-                    <Badge key={i} className={`bg-${connection.color}/10 text-${connection.color} border-${connection.color}/20 text-xs`}>
+                    <Badge key={i} className={`${colorStyles[connection.color]?.badge ?? "bg-white/10 text-zinc-300 border-white/20"} text-xs`}>
                       {detail.length > 30 ? detail.substring(0, 30) + '...' : detail}
                     </Badge>
                   ))}
