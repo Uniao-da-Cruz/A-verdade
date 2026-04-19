@@ -11,7 +11,6 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 import json
 from typing import Generator, List, Optional
-from urllib.parse import quote_plus
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Query, status
@@ -203,7 +202,7 @@ def normalize_database_url(raw_url: str) -> str:
 
 
 DEFAULT_DATABASE_PATH = os.path.join(os.path.dirname(__file__), "vigilia.db")
-DATABASE_URL = normalize_database_url(os.getenv("DATABASE_URL", f"sqlite:///{quote_plus(DEFAULT_DATABASE_PATH)}"))
+DATABASE_URL = normalize_database_url(os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DATABASE_PATH}"))
 if DATABASE_URL.startswith("sqlite:///") and "%2F" in DATABASE_URL:
     DATABASE_URL = DATABASE_URL.replace("%2F", "/")
 
