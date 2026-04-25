@@ -207,6 +207,24 @@ Arquivos gerados por padrão:
 - `output/casoaberto_pesquisa_nomes.json`
 - `output/casoaberto_pesquisa_nomes.csv`
 
+### Monitorar nomes do Caso Aberto e gravar no banco
+
+Para automatizar o fluxo completo (coletar manchetes do [casoaberto.com.br](https://casoaberto.com.br/), validar nomes no Portal da Transparência e inserir/atualizar no banco do monitoramento):
+
+```bash
+export PORTAL_TRANSPARENCIA_API_KEY="sua-chave"
+
+python scripts/monitorar_politicos_casoaberto.py \
+  --workspace-slug demo-workspace \
+  --max-links 80 \
+  --max-names 120
+```
+
+Saída padrão:
+
+- `output/casoaberto_monitoramento.json` (resumo da execução)
+- inserções/atualizações na tabela `politicians` do `backend/vigilia.db`
+
 ### Linkar nomes no banco (Dataprev)
 
 Para inserir/atualizar os nomes coletados diretamente na tabela `politicians` do backend:
