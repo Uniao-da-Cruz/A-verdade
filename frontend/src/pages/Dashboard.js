@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { Building2, CreditCard, LogOut, RefreshCcw, ScrollText, ShieldAlert, ShieldCheck, Wallet } from "lucide-react";
+import { Building2, CreditCard, Landmark, LogOut, Map, MapPin, Network, RefreshCcw, ScrollText, ShieldAlert, ShieldCheck, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ExternalWatchSection } from "@/components/dashboard/ExternalWatchSection";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
@@ -193,6 +194,114 @@ export default function Dashboard() {
           ))}
         </section>
 
+        <ExternalWatchSection
+          icon={Landmark}
+          title="Monitoramento CadÚnico"
+          description="Acompanhe em tempo real os dados do Cadastro Único para Programas Sociais do Governo Federal. Monitore inconsistências, cruzamento de dados e alertas de fraude."
+          iconClassName="text-republic-blue"
+          wrapperClassName="bg-zinc-900/70 border border-white/10 rounded-none p-6"
+          sectionTestId="cadunico-watch"
+          actions={[
+            {
+              testId: "cadunico-watch-consulta",
+              icon: Network,
+              label: "Consultar base CadÚnico",
+              description: "Acesse dados consolidados e relatórios de inconsistências",
+              href: "/programas-social",
+              className: "border-white/10 bg-zinc-950/50 hover:bg-zinc-800/60",
+              iconClassName: "text-republic-blue",
+              labelClassName: "text-zinc-300",
+            },
+            {
+              testId: "cadunico-watch-alertas",
+              icon: ShieldAlert,
+              label: "Alertas de fraude",
+              description: "Visualize alertas automáticos de irregularidades detectadas",
+              href: "/programas-social",
+              className: "border-white/10 bg-zinc-950/50 hover:bg-zinc-800/60",
+              iconClassName: "text-alert-yellow",
+              labelClassName: "text-zinc-300",
+            },
+          ]}
+          footer="Dados integrados com a base federal do CadÚnico \u2014 atualização periódica automática."
+        />
+
+        <ExternalWatchSection
+          icon={Map}
+          title="Mapa das Periferias"
+          description="Visualize a distribuição geográfica de comunidades periféricas, indicadores sociais e áreas de vulnerabilidade em todo o território nacional."
+          iconClassName="text-neon-green"
+          wrapperClassName="bg-zinc-900/70 border border-white/10 rounded-none p-6"
+          sectionTestId="mapa-periferias-watch"
+          actions={[
+            {
+              testId: "mapa-periferias-watch-visualizar",
+              icon: MapPin,
+              label: "Visualizar mapa interativo",
+              description: "Explore o mapa com dados georreferenciados das periferias",
+              href: "/mapa-periferias",
+              className: "border-white/10 bg-zinc-950/50 hover:bg-zinc-800/60",
+              iconClassName: "text-neon-green",
+              labelClassName: "text-zinc-300",
+            },
+            {
+              testId: "mapa-periferias-watch-indicadores",
+              icon: Network,
+              label: "Indicadores sociais",
+              description: "Acesse indicadores de vulnerabilidade por região",
+              href: "/mapa-periferias",
+              className: "border-white/10 bg-zinc-950/50 hover:bg-zinc-800/60",
+              iconClassName: "text-republic-blue",
+              labelClassName: "text-zinc-300",
+            },
+          ]}
+          footer="Mapeamento colaborativo \u2014 dados atualizados com fontes públicas e contribuições verificadas."
+        />
+
+        <section data-testid="acesso-rapido">
+          <div className="mb-4">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500">Navegação</p>
+            <h2 className="font-chivo font-bold text-2xl mt-2">Acesso Rápido</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <Link to="/espectro-politico" data-testid="quick-nav-espectro-politico">
+              <Card className="bg-zinc-900/70 border-white/10 rounded-none p-4 hover:bg-zinc-800/60 transition-colors h-full">
+                <ShieldCheck className="w-5 h-5 text-neon-green mb-2" />
+                <p className="text-sm font-bold text-zinc-100">Espectro Político</p>
+                <p className="text-xs text-zinc-500 mt-1">Análise do espectro ideológico</p>
+              </Card>
+            </Link>
+            <Link to="/recursos-educacionais" data-testid="quick-nav-recursos-educacionais">
+              <Card className="bg-zinc-900/70 border-white/10 rounded-none p-4 hover:bg-zinc-800/60 transition-colors h-full">
+                <ScrollText className="w-5 h-5 text-republic-blue mb-2" />
+                <p className="text-sm font-bold text-zinc-100">Recursos Educacionais</p>
+                <p className="text-xs text-zinc-500 mt-1">Material de formação política</p>
+              </Card>
+            </Link>
+            <Link to="/programas-social" data-testid="quick-nav-programas-sociais">
+              <Card className="bg-zinc-900/70 border-white/10 rounded-none p-4 hover:bg-zinc-800/60 transition-colors h-full">
+                <Landmark className="w-5 h-5 text-alert-yellow mb-2" />
+                <p className="text-sm font-bold text-zinc-100">Programas Sociais</p>
+                <p className="text-xs text-zinc-500 mt-1">CadÚnico e benefícios federais</p>
+              </Card>
+            </Link>
+            <Link to="/riscos-nucleares" data-testid="quick-nav-riscos-nucleares">
+              <Card className="bg-zinc-900/70 border-white/10 rounded-none p-4 hover:bg-zinc-800/60 transition-colors h-full">
+                <ShieldAlert className="w-5 h-5 text-corruption-red mb-2" />
+                <p className="text-sm font-bold text-zinc-100">Riscos Nucleares</p>
+                <p className="text-xs text-zinc-500 mt-1">Monitoramento de riscos nucleares</p>
+              </Card>
+            </Link>
+            <Link to="/mapa-periferias" data-testid="quick-nav-mapa-periferias">
+              <Card className="bg-zinc-900/70 border-white/10 rounded-none p-4 hover:bg-zinc-800/60 transition-colors h-full">
+                <Map className="w-5 h-5 text-neon-green mb-2" />
+                <p className="text-sm font-bold text-zinc-100">Mapa das Periferias</p>
+                <p className="text-xs text-zinc-500 mt-1">Mapeamento de comunidades</p>
+              </Card>
+            </Link>
+          </div>
+        </section>
+
         <Card className="bg-zinc-900/70 border-white/10 rounded-none p-6">
           <h2 className="font-chivo font-bold text-2xl mb-4">Plano do workspace</h2>
           <div className="flex flex-wrap gap-3">
@@ -311,8 +420,8 @@ export default function Dashboard() {
                   loading="lazy"
                 />
                 <div className="p-4">
-                  <p className="text-zinc-100 leading-relaxed">“{item.quote}”</p>
-                  <p className="text-zinc-400 text-sm mt-3">— {item.author}</p>
+                  <p className="text-zinc-100 leading-relaxed">\u201c{item.quote}\u201d</p>
+                  <p className="text-zinc-400 text-sm mt-3">\u2014 {item.author}</p>
                 </div>
               </Card>
             ))}
