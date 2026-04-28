@@ -1,2 +1,9 @@
 fastapi==0.110.1
-
+uvicorn
+load_dotenv
+SQLAlchemy
+python-jose[srolling]
+pydantic[email]
+psycopg2-binary
+pymysql
+cryptography
