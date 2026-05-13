@@ -7,8 +7,24 @@ const STORAGE_KEY = "vigilia_session";
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(() => {
+    const fallbackSession = { token: null, user: null, workspace: null };
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : { token: null, user: null, workspace: null };
+
+    if (!raw) {
+      return fallbackSession;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      return {
+        token: parsed?.token ?? null,
+        user: parsed?.user ?? null,
+        workspace: parsed?.workspace ?? null,
+      };
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+      return fallbackSession;
+    }
   });
   const [isLoading, setIsLoading] = useState(Boolean(session.token));
 
